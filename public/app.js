@@ -2,7 +2,7 @@
 'use strict';
 
 const CHECKOUT_URL = '/finalizar-pagamento/'; // mantido só como fallback legado (bloco "Redirect")
-const ASSET_VERSION = '28.0';
+const ASSET_VERSION = '29.0';
 const FUNNEL_URL = '/funnel.json?v=' + ASSET_VERSION;
 const TYPING_PER_CHAR = 30;
 const TYPING_MIN = 820;
@@ -27,10 +27,6 @@ const $ = (s) => document.querySelector(s);
 const thread = $('#thread');
 const inputZone = $('#input-zone');
 const networkStatus = $('#network-status');
-const journeyStep = $('#journey-step');
-const journeyTitle = $('#journey-title');
-const journeyBar = $('#journey-bar');
-const journeyFill = $('#journey-fill');
 const jumpLatest = $('#jump-latest');
 let trackingSequence = 0;
 
@@ -421,24 +417,6 @@ function scrollBottom() {
   });
 }
 
-function updateJourneyProgress(groupId) {
-  let step = 1;
-  let title = 'Entendendo sua intenção';
-  if (/oferta|preco|duvida|entrega|autoridade|garantia|simplicidade/.test(groupId)) {
-    step = 2; title = 'Conhecendo sua oração';
-  }
-  if (/checkout|bump|resumo/.test(groupId)) {
-    step = 3; title = 'Conferindo seu pedido';
-  }
-  if (/pagamento|obrigado|encerramento/.test(groupId)) {
-    step = 4; title = groupId === 'grp-obrigado' ? 'Pedido confirmado' : 'Finalizando com segurança';
-  }
-  if (journeyStep) journeyStep.textContent = 'Etapa ' + step + ' de 4';
-  if (journeyTitle) journeyTitle.textContent = title;
-  if (journeyBar) journeyBar.setAttribute('aria-valuenow', String(step));
-  if (journeyFill) journeyFill.style.width = (step * 25) + '%';
-}
-
 thread.addEventListener('scroll', () => {
   if (!jumpLatest) return;
   const distance = thread.scrollHeight - thread.scrollTop - thread.clientHeight;
@@ -460,11 +438,9 @@ function clearInputZone() {
 
 function showChoices(items, onPick) {
   inputZone.innerHTML = '';
-  const guidance = document.createElement('div');
-  guidance.className = 'choice-guidance';
-  guidance.textContent = 'Toque em uma opção para continuar:';
   const wrap = document.createElement('div');
   wrap.className = 'choices';
+  wrap.setAttribute('aria-label', 'Escolha uma resposta para continuar');
   items.filter(it => !(it.meta && it.meta.showIfBump) || !!state.bumps[it.meta.showIfBump]).forEach((it, i, visibleItems) => {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -477,7 +453,6 @@ function showChoices(items, onPick) {
     }, { once: true });
     wrap.appendChild(btn);
   });
-  inputZone.appendChild(guidance);
   inputZone.appendChild(wrap);
   inputZone.setAttribute('aria-hidden', 'false');
   scrollBottom();
@@ -506,9 +481,6 @@ function showTextInput(opts, onSubmit) {
   btn.className = 'send-btn';
   btn.textContent = opts.button || 'Enviar';
   btn.setAttribute('aria-label', opts.button || 'Enviar resposta');
-  const guidance = document.createElement('div');
-  guidance.className = 'input-guidance';
-  guidance.textContent = 'Digite sua resposta abaixo e toque em “' + (opts.button || 'Enviar') + '”:';
   let skipBtn = null;
 
   if (kind === 'phone') input.addEventListener('input', () => { input.value = formatPhoneBR(input.value); });
@@ -531,7 +503,6 @@ function showTextInput(opts, onSubmit) {
 
   row.appendChild(input);
   row.appendChild(btn);
-  wrap.appendChild(guidance);
   wrap.appendChild(row);
   const help = document.createElement('span');
   help.id = 'input-help';
@@ -1318,7 +1289,6 @@ async function renderBlock(block) {
 
 async function runGroup(groupId, startBlockIndex = 0) {
   state.currentGroupId = groupId;
-  updateJourneyProgress(groupId);
   state.currentBlockIndex = Math.max(0, Number(startBlockIndex) || 0);
   if (groupId === 'grp-obrigado') {
     clearProgress();
