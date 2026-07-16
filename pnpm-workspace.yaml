@@ -1,0 +1,14 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+overrides:
+  postcss: 8.5.10
+minimumReleaseAgeExclude:
+  - '@supabase/auth-js@2.110.7'
+  - '@supabase/functions-js@2.110.7'
+  - '@supabase/phoenix@0.4.5'
+  - '@supabase/postgrest-js@2.110.7'
+  - '@supabase/realtime-js@2.110.7'
+  - '@supabase/storage-js@2.110.7'
+  - '@supabase/supabase-js@2.110.7'

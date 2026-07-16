@@ -1,0 +1,1228 @@
+{
+  "version": "26.5",
+  "id": "saobento-funil-v26-4-pix-enxuto",
+  "name": "Oração São Bento — V26.5 PIX Enxuto",
+  "events": [
+    {
+      "id": "evt-start",
+      "graphCoordinates": {
+        "x": 0,
+        "y": 200
+      },
+      "type": "start"
+    }
+  ],
+  "groups": [
+    {
+      "id": "grp-acolhimento",
+      "title": "Acolhimento",
+      "blocks": [
+        {
+          "id": "blk-paz",
+          "type": "text",
+          "content": {
+            "text": "A bênção pra você. 🙏\n\nGravei uma mensagem curta antes de começarmos. Ouça se puder — e, se não puder agora, pode seguir pelo texto."
+          }
+        },
+        {
+          "id": "aud-01-saudacao",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-01-saudacao.mp3",
+            "duration": 18,
+            "fallback": "Se o áudio não tocar, siga por aqui: respire com calma. A conversa vai te conduzir passo a passo."
+          }
+        },
+        {
+          "id": "blk-apresentacao",
+          "type": "text",
+          "content": {
+            "text": "Quero entender só uma coisa para te orientar melhor."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-triagem",
+      "title": "Triagem Emocional",
+      "blocks": [
+        {
+          "id": "blk-pergunta",
+          "type": "text",
+          "content": {
+            "text": "O que mais tem tirado sua paz neste momento?"
+          }
+        },
+        {
+          "id": "blk-choice-tria",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-inv",
+              "content": "😔 Sinto inveja e olho gordo na minha família",
+              "outgoingEdgeId": "edg-tria-inv"
+            },
+            {
+              "id": "itm-bri",
+              "content": "🏠 Há brigas e desunião em casa",
+              "outgoingEdgeId": "edg-tria-bri"
+            },
+            {
+              "id": "itm-sau",
+              "content": "💔 Estou preocupado com a saúde de alguém",
+              "outgoingEdgeId": "edg-tria-sau"
+            },
+            {
+              "id": "itm-pro",
+              "content": "🛡️ Quero proteger minha casa e minha família",
+              "outgoingEdgeId": "edg-tria-pro"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-inveja",
+      "title": "Caminho A - Inveja",
+      "blocks": [
+        {
+          "id": "aud-04-acolhimento-dor-inveja",
+          "type": "audio",
+          "content": {
+            "title": "Frei Gilson acolhe sua resposta",
+            "url": "audio-04-acolhimento-dor.mp3",
+            "duration": 20,
+            "fallback": "Se o áudio não tocar, pode seguir: sua dor foi acolhida e agora vamos conduzir essa intenção com calma."
+          }
+        },
+        {
+          "id": "blk-inv1",
+          "type": "text",
+          "content": {
+            "text": "Entendi. Quando existe essa sensação de inveja ou peso sobre a família, é difícil descansar de verdade."
+          }
+        },
+        {
+          "id": "blk-inv4",
+          "type": "text",
+          "content": {
+            "text": "Não existe promessa de mágica. Existe um caminho simples de oração, fé e constância para você começar."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-brigas",
+      "title": "Caminho B - Brigas",
+      "blocks": [
+        {
+          "id": "aud-04-acolhimento-dor-brigas",
+          "type": "audio",
+          "content": {
+            "title": "Frei Gilson acolhe sua resposta",
+            "url": "audio-04-acolhimento-dor.mp3",
+            "duration": 20,
+            "fallback": "Se o áudio não tocar, pode seguir: sua dor foi acolhida e agora vamos conduzir essa intenção com calma."
+          }
+        },
+        {
+          "id": "blk-bri1",
+          "type": "text",
+          "content": {
+            "text": "Entendi. Quando as discussões se repetem, todo mundo em casa acaba ficando mais cansado e na defensiva."
+          }
+        },
+        {
+          "id": "blk-bri4",
+          "type": "text",
+          "content": {
+            "text": "Antes de tentar vencer outra discussão, vale criar um momento de silêncio e oração pela paz da casa."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-saude",
+      "title": "Caminho C - Saúde",
+      "blocks": [
+        {
+          "id": "aud-04-acolhimento-dor-saude",
+          "type": "audio",
+          "content": {
+            "title": "Frei Gilson acolhe sua resposta",
+            "url": "audio-04-acolhimento-dor.mp3",
+            "duration": 20,
+            "fallback": "Se o áudio não tocar, pode seguir: sua dor foi acolhida e agora vamos conduzir essa intenção com calma."
+          }
+        },
+        {
+          "id": "blk-sau1",
+          "type": "text",
+          "content": {
+            "text": "Entendi. A preocupação com a saúde de alguém que a gente ama ocupa a cabeça o dia inteiro."
+          }
+        },
+        {
+          "id": "blk-sau4",
+          "type": "text",
+          "content": {
+            "text": "A oração não substitui cuidados médicos. Ela pode trazer força, direção e serenidade para atravessar esse momento."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-protecao",
+      "title": "Caminho D - Proteção",
+      "blocks": [
+        {
+          "id": "aud-04-acolhimento-dor-protecao",
+          "type": "audio",
+          "content": {
+            "title": "Frei Gilson acolhe sua resposta",
+            "url": "audio-04-acolhimento-dor.mp3",
+            "duration": 20,
+            "fallback": "Se o áudio não tocar, pode seguir: sua dor foi acolhida e agora vamos conduzir essa intenção com calma."
+          }
+        },
+        {
+          "id": "blk-pro1",
+          "type": "text",
+          "content": {
+            "text": "Entendi. Você quer colocar sua casa e sua família em oração antes que os problemas cresçam."
+          }
+        },
+        {
+          "id": "blk-pro4",
+          "type": "text",
+          "content": {
+            "text": "Vamos organizar essa intenção de forma simples e respeitosa."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-segunda-tria",
+      "title": "2ª Triagem — Por quem",
+      "blocks": [
+        {
+          "id": "blk-2tria-q",
+          "type": "text",
+          "content": {
+            "text": "Essa intenção é principalmente por quem?"
+          }
+        },
+        {
+          "id": "blk-2tria-choice",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-mim",
+              "content": "🙏 Para mim mesmo(a)",
+              "outgoingEdgeId": "edg-2tria-mim"
+            },
+            {
+              "id": "itm-filho",
+              "content": "👶 Para meu filho ou filha",
+              "outgoingEdgeId": "edg-2tria-filho"
+            },
+            {
+              "id": "itm-conj",
+              "content": "💑 Para meu marido ou esposa",
+              "outgoingEdgeId": "edg-2tria-conj"
+            },
+            {
+              "id": "itm-fam",
+              "content": "🏠 Para toda minha família",
+              "outgoingEdgeId": "edg-2tria-fam"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-para-mim",
+      "title": "Para mim mesmo",
+      "blocks": [
+        {
+          "id": "blk-mim",
+          "type": "text",
+          "content": {
+            "text": "Certo. Essa intenção é por você. Vou considerar isso com cuidado."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-para-filho",
+      "title": "Para filho/filha",
+      "blocks": [
+        {
+          "id": "blk-filho",
+          "type": "text",
+          "content": {
+            "text": "Certo. É por seu filho ou sua filha. Vou considerar essa intenção com cuidado."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-para-conjuge",
+      "title": "Para marido/esposa",
+      "blocks": [
+        {
+          "id": "blk-conj",
+          "type": "text",
+          "content": {
+            "text": "Certo. É por seu marido ou sua esposa. Vou considerar essa intenção com cuidado."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-para-familia",
+      "title": "Para toda a família",
+      "blocks": [
+        {
+          "id": "blk-fam",
+          "type": "text",
+          "content": {
+            "text": "Certo. É por toda a sua família. Vou considerar a casa inteira nessa intenção."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-captura",
+      "title": "Identificação e intenção",
+      "blocks": [
+        {
+          "id": "blk-cap-pnome",
+          "type": "text",
+          "content": {
+            "text": "Antes de continuar, como posso te chamar?"
+          }
+        },
+        {
+          "id": "blk-inp-primeiro-nome",
+          "type": "text input",
+          "options": {
+            "placeholder": "Digite seu primeiro nome…",
+            "button": "Continuar",
+            "variable": "primeiro_nome",
+            "kind": "first_name"
+          }
+        },
+        {
+          "id": "blk-nome-ack",
+          "type": "text",
+          "content": {
+            "text": "Obrigado, {{apelido}}."
+          }
+        },
+        {
+          "id": "blk-intencao-pergunta",
+          "type": "text",
+          "content": {
+            "text": "Em uma frase, o que você mais gostaria de pedir nessa oração?"
+          }
+        },
+        {
+          "id": "blk-inp-intencao",
+          "type": "text input",
+          "options": {
+            "placeholder": "Ex.: Quero paz dentro da minha casa",
+            "button": "Enviar intenção",
+            "variable": "intencao",
+            "kind": "text",
+            "optional": true,
+            "skipButton": "Prefiro não escrever agora",
+            "maxLength": 180
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-oferta",
+      "title": "Oferta + CTA",
+      "blocks": [
+        {
+          "id": "blk-ofe1",
+          "type": "text",
+          "content": {
+            "text": "{{apelido}}, eu acolhi o que você compartilhou. Esta oração será direcionada a {{paraQuemOferta}}.{{intencaoResumo}}"
+          }
+        },
+        {
+          "id": "blk-ofe-transicao",
+          "type": "text",
+          "content": {
+            "text": "Você não precisa enfrentar esse momento sem direção. O primeiro passo pode ser simples: reservar alguns minutos por dia para rezar com intenção e constância."
+          }
+        },
+        {
+          "id": "blk-ofe2",
+          "type": "text",
+          "content": {
+            "text": "Você recebe agora:\n\n✝️ a Oração Sagrada de São Bento completa\n📿 um caminho guiado de 7 dias\n📱 acesso imediato para salvar no celular\n🙏 um espaço para registrar sua intenção\n\nSem mensalidade e sem cobrança escondida."
+          }
+        },
+        {
+          "id": "aud-05-antes-do-valor",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem curta antes de decidir — áudio opcional",
+            "url": "audio-05-antes-do-valor.mp3",
+            "duration": 23,
+            "fallback": "Se não puder ouvir agora, siga pelo texto: a proposta é começar um caminho simples de oração, fé e constância."
+          }
+        },
+        {
+          "id": "blk-ofe3",
+          "type": "text",
+          "content": {
+            "text": "Pense no que custa continuar carregando essa angústia sem um caminho para começar. Aqui você recebe 7 dias de direção por cerca de R$ 3,27 por dia. O acesso completo fica por R$ 22,90, uma única vez. Assim que o PIX for confirmado, o material é liberado nesta conversa."
+          }
+        },
+        {
+          "id": "blk-ofe-garantia",
+          "type": "text",
+          "content": {
+            "text": "Antes de decidir, confira com calma: este é um acesso digital, com pagamento único por PIX e sem mensalidade. A oração principal é liberada nesta conversa após a confirmação do pagamento."
+          }
+        },
+        {
+          "id": "blk-cta",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-cta",
+              "content": "🙏 Quero iniciar meus 7 dias — R$ 22,90",
+              "outgoingEdgeId": "edg-ofe-red",
+              "meta": { "primary": true }
+            },
+            {
+              "id": "itm-duvida",
+              "content": "❓ Quero entender melhor antes",
+              "outgoingEdgeId": "edg-ofe-duvida"
+            },
+            {
+              "id": "itm-preco",
+              "content": "Agora não cabe no meu orçamento",
+              "outgoingEdgeId": "edg-ofe-preco"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-preco",
+      "title": "Objeção: Preço",
+      "blocks": [
+        {
+          "id": "blk-preco1",
+          "type": "text",
+          "content": {
+            "text": "Eu entendo, {{apelido}}. Sua decisão precisa trazer paz, não aperto."
+          }
+        },
+        {
+          "id": "blk-preco2",
+          "type": "text",
+          "content": {
+            "text": "São 7 dias de direção por cerca de R$ 3,27 ao dia. O acesso completo custa R$ 22,90, uma única vez e sem mensalidade. A liberação acontece logo após a confirmação do PIX."
+          }
+        },
+        {
+          "id": "blk-preco3",
+          "type": "text",
+          "content": {
+            "text": "Confira com calma se esse valor cabe no seu momento. Se fizer sentido para você hoje, posso continuar. Se não fizer, tudo bem."
+          }
+        },
+        {
+          "id": "blk-btn-preco",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-preco-btn",
+              "content": "✝️ Quero começar por R$ 22,90",
+              "outgoingEdgeId": "edg-preco-red",
+              "meta": { "primary": true }
+            },
+            {
+              "id": "itm-preco-sair",
+              "content": "Agora não",
+              "outgoingEdgeId": "edg-preco-sair"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-duvida",
+      "title": "Menu de Dúvidas",
+      "blocks": [
+        {
+          "id": "blk-duvida1",
+          "type": "text",
+          "content": {
+            "text": "Claro, {{apelido}}. Qual ponto você quer entender melhor?"
+          }
+        },
+        {
+          "id": "blk-duvida-choice",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-ent",
+              "content": "📱 Como vou receber a oração?",
+              "outgoingEdgeId": "edg-duvida-ent"
+            },
+            {
+              "id": "itm-aut",
+              "content": "✝️ Essa oração é de tradição católica?",
+              "outgoingEdgeId": "edg-duvida-aut"
+            },
+            {
+              "id": "itm-gar",
+              "content": "🛡️ E se não me ajudar?",
+              "outgoingEdgeId": "edg-duvida-gar"
+            },
+            {
+              "id": "itm-sim",
+              "content": "💻 Nunca comprei nada online",
+              "outgoingEdgeId": "edg-duvida-sim"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-entrega",
+      "title": "Dúvida: Como recebo",
+      "blocks": [
+        {
+          "id": "blk-ent1",
+          "type": "text",
+          "content": {
+            "text": "Você recebe o acesso aqui mesmo nesta conversa."
+          }
+        },
+        {
+          "id": "blk-ent2",
+          "type": "text",
+          "content": {
+            "text": "Assim que o PIX for confirmado, o botão para baixar aparece automaticamente."
+          }
+        },
+        {
+          "id": "blk-ent3",
+          "type": "text",
+          "content": {
+            "text": "Depois é só salvar no celular."
+          }
+        },
+        {
+          "id": "blk-btn-ent",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-ent-btn",
+              "content": "✝️ Entendi. Pode gerar meu acesso",
+              "outgoingEdgeId": "edg-ent-red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-autoridade",
+      "title": "Dúvida: Igreja",
+      "blocks": [
+        {
+          "id": "blk-aut1",
+          "type": "text",
+          "content": {
+            "text": "Sim. São Bento é reconhecido pela tradição católica há séculos."
+          }
+        },
+        {
+          "id": "blk-aut2",
+          "type": "text",
+          "content": {
+            "text": "A oração e a medalha são associadas à fé, à proteção e ao combate espiritual."
+          }
+        },
+        {
+          "id": "blk-btn-aut",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-aut-btn",
+              "content": "✝️ Quero essa proteção sagrada agora",
+              "outgoingEdgeId": "edg-aut-red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-garantia",
+      "title": "Dúvida: Garantia",
+      "blocks": [
+        {
+          "id": "blk-gar1",
+          "type": "text",
+          "content": {
+            "text": "Esse receio é justo."
+          }
+        },
+        {
+          "id": "blk-gar2",
+          "type": "text",
+          "content": {
+            "text": "Você terá 7 dias para acessar o material com calma. Depois da confirmação do PIX, baixe a oração principal e salve o arquivo no seu celular."
+          }
+        },
+        {
+          "id": "blk-gar3",
+          "type": "text",
+          "content": {
+            "text": "Antes de pagar, você poderá conferir o conteúdo do pedido e o valor total. Nada será acrescentado sem sua escolha."
+          }
+        },
+        {
+          "id": "blk-btn-gar",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-gar-btn",
+              "content": "Entendi. Quero continuar",
+              "outgoingEdgeId": "edg-gar-red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-simplicidade",
+      "title": "Dúvida: Nunca comprei online",
+      "blocks": [
+        {
+          "id": "blk-sim1",
+          "type": "text",
+          "content": {
+            "text": "Sem problema. O pagamento é feito por PIX, de forma simples."
+          }
+        },
+        {
+          "id": "blk-sim2",
+          "type": "text",
+          "content": {
+            "text": "Você copia o código, abre o aplicativo do banco, escolhe Pix Copia e Cola e confirma."
+          }
+        },
+        {
+          "id": "blk-sim3",
+          "type": "text",
+          "content": {
+            "text": "Depois volta para esta conversa. A confirmação acontece automaticamente."
+          }
+        },
+        {
+          "id": "blk-btn-sim",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-sim-btn",
+              "content": "✝️ Vou tentar, Frei. Quero começar",
+              "outgoingEdgeId": "edg-sim-red"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-checkout-cpf",
+      "title": "Checkout - Cadastro e CPF",
+      "blocks": [
+        {
+          "id": "blk-cadastro-intro",
+          "type": "text",
+          "content": {
+            "text": "Perfeito, {{apelido}}. Para gerar seu acesso com segurança e conseguir ajudar caso o pagamento trave, preciso agora dos dados de cadastro."
+          }
+        },
+        {
+          "id": "blk-nome-completo-ask",
+          "type": "text",
+          "content": {
+            "text": "Qual é o seu nome completo?"
+          }
+        },
+        {
+          "id": "blk-inp-nome",
+          "type": "text input",
+          "options": {
+            "placeholder": "Digite seu nome completo…",
+            "button": "Continuar",
+            "variable": "nome",
+            "kind": "name"
+          }
+        },
+        {
+          "id": "blk-whatsapp-ask",
+          "type": "text",
+          "content": {
+            "text": "Agora informe seu WhatsApp com DDD. Ele será usado para localizar seu pedido e ajudar você caso o pagamento ou o acesso trave."
+          }
+        },
+        {
+          "id": "blk-inp-wpp",
+          "type": "text input",
+          "options": {
+            "placeholder": "(11) 99999-9999",
+            "button": "Continuar",
+            "variable": "whatsapp",
+            "kind": "phone"
+          }
+        },
+        {
+          "id": "blk-cpf-intro",
+          "type": "text",
+          "content": {
+            "text": "Por último, informe seu CPF. Ele é exigido pela operadora para identificar e proteger o pagamento. Não exibimos esse dado na conversa nem o guardamos no histórico do navegador."
+          }
+        },
+        {
+          "id": "blk-inp-cpf",
+          "type": "text input",
+          "options": {
+            "placeholder": "Digite seu CPF…",
+            "button": "Continuar",
+            "variable": "cpf",
+            "kind": "cpf"
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-bump-audio",
+      "title": "Oferta - Áudio da oração",
+      "blocks": [
+        {
+          "id": "blk-bump5-txt",
+          "type": "text",
+          "content": {
+            "text": "Antes de fechar, existe uma forma de não depender da leitura quando a mente estiver cansada.\n\nPor apenas R$ 9,90 a mais, você pode incluir o áudio completo da Oração Sagrada de São Bento e ouvir no celular sempre que precisar se recolher, respirar e acompanhar cada palavra.\n\nÉ um adicional digital, opcional e sem mensalidade. Após a confirmação do PIX, a equipe fará o envio manual para o WhatsApp informado no cadastro."
+          }
+        },
+        {
+          "id": "blk-btn-bump5",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-bump5-yes",
+              "content": "🎧 Sim, incluir o áudio — R$ 9,90",
+              "outgoingEdgeId": "edg-bump5-yes-resumo",
+              "meta": { "bump": 5, "value": true, "primary": true }
+            },
+            {
+              "id": "itm-bump5-no",
+              "content": "Não, quero somente o acesso principal",
+              "outgoingEdgeId": "edg-bump5-no-resumo",
+              "meta": { "bump": 5, "value": false }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-checkout-resumo",
+      "title": "Checkout - Resumo",
+      "blocks": [
+        {
+          "id": "blk-compute-resumo",
+          "type": "compute",
+          "options": {
+            "action": "buildResumo"
+          }
+        },
+        {
+          "id": "blk-pedido-preparado-card",
+          "type": "text",
+          "content": {
+            "text": "Pedido preparado para {{apelido}}. Confira cada item antes de gerar o PIX."
+          }
+        },
+        {
+          "id": "blk-resumo-txt",
+          "type": "text",
+          "content": {
+            "text": "Confira com calma:\n\n{{resumo}}\n\nPagamento único por PIX, sem mensalidade e sem cobrança escondida."
+          }
+        },
+        {
+          "id": "blk-btn-resumo",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "itm-resumo-ok",
+              "content": "✅ Está certo. Gerar meu PIX",
+              "outgoingEdgeId": "edg-resumo-pagamento",
+              "meta": { "primary": true }
+            },
+            {
+              "id": "itm-resumo-remove-audio",
+              "content": "Remover o áudio adicional",
+              "outgoingEdgeId": "edg-resumo-remove-audio",
+              "meta": { "bump": 5, "value": false, "showIfBump": 5 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grp-checkout-pagamento",
+      "title": "Checkout - Pagamento",
+      "blocks": [
+        {
+          "id": "blk-pre-pix-progress",
+          "type": "text",
+          "content": {
+            "text": "{{apelido}}, vou gerar o PIX agora. Depois da confirmação, a oração será liberada nesta conversa."
+          }
+        },
+        {
+          "id": "blk-payment",
+          "type": "payment",
+          "outgoingEdgeId": "edg-pagamento-obrigado"
+        }
+      ]
+    },
+    {
+      "id": "grp-obrigado",
+      "title": "Obrigado",
+      "blocks": [
+        {
+          "id": "blk-obg1",
+          "type": "text",
+          "content": {
+            "text": "Confirmou, {{apelido}}. Respira.\n\nSua oração foi liberada e você deu hoje um passo concreto de proteção."
+          }
+        },
+        {
+          "id": "aud-03-pos-pagamento",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem de confirmação",
+            "url": "audio-03-pos-pagamento.mp3",
+            "duration": 21,
+            "fallback": "Se o áudio não tocar, siga a orientação abaixo: baixe a oração, salve no celular e comece com calma."
+          }
+        },
+        {
+          "id": "blk-obg2",
+          "type": "text",
+          "content": {
+            "text": "Baixe sua oração abaixo, salve no celular e comece o guia de 7 dias hoje à noite, em silêncio."
+          }
+        },
+        {
+          "id": "blk-download-oracao",
+          "type": "download",
+          "content": {
+            "title": "📄 Sua oração está liberada",
+            "description": "Toque no botão abaixo para baixar sua oração e o guia de 7 dias. Salve no celular para rezar quando precisar.",
+            "url": "SECURE_DOWNLOAD_ORACAO",
+            "button": "BAIXAR ORAÇÃO"
+          }
+        },
+        {
+          "id": "blk-audio-whatsapp",
+          "type": "text",
+          "options": { "showIfBump": 5 },
+          "content": {
+            "text": "🎧 Seu áudio adicional também está confirmado.\n\nA equipe fará o envio manual para o WhatsApp com {{whatsappMasked}} que você informou no cadastro. Mantenha esse número ativo para receber o material."
+          }
+        },
+        {
+          "id": "blk-obg3",
+          "type": "text",
+          "content": {
+            "text": "Que São Bento interceda por {{paraQuemOferta}} e traga paz para sua casa. 🙏"
+          }
+        }
+      ]
+    },
+    {
+      "id": "grp-encerramento",
+      "title": "Encerramento respeitoso",
+      "blocks": [
+        {
+          "id": "blk-encerramento",
+          "type": "text",
+          "content": {
+            "text": "Tudo bem, {{apelido}}. Não precisa decidir agora. Que sua intenção seja acolhida e que você encontre paz para seguir."
+          }
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "edg-start-aco",
+      "from": {
+        "eventId": "evt-start"
+      },
+      "to": {
+        "groupId": "grp-acolhimento"
+      }
+    },
+    {
+      "id": "edg-aco-tria",
+      "from": {
+        "blockId": "blk-apresentacao"
+      },
+      "to": {
+        "groupId": "grp-triagem"
+      }
+    },
+    {
+      "id": "edg-tria-inv",
+      "from": {
+        "blockId": "blk-choice-tria",
+        "itemId": "itm-inv"
+      },
+      "to": {
+        "groupId": "grp-inveja"
+      }
+    },
+    {
+      "id": "edg-tria-bri",
+      "from": {
+        "blockId": "blk-choice-tria",
+        "itemId": "itm-bri"
+      },
+      "to": {
+        "groupId": "grp-brigas"
+      }
+    },
+    {
+      "id": "edg-tria-sau",
+      "from": {
+        "blockId": "blk-choice-tria",
+        "itemId": "itm-sau"
+      },
+      "to": {
+        "groupId": "grp-saude"
+      }
+    },
+    {
+      "id": "edg-tria-pro",
+      "from": {
+        "blockId": "blk-choice-tria",
+        "itemId": "itm-pro"
+      },
+      "to": {
+        "groupId": "grp-protecao"
+      }
+    },
+    {
+      "id": "edg-inv-2tria",
+      "from": {
+        "blockId": "blk-inv4"
+      },
+      "to": {
+        "groupId": "grp-segunda-tria"
+      }
+    },
+    {
+      "id": "edg-bri-2tria",
+      "from": {
+        "blockId": "blk-bri4"
+      },
+      "to": {
+        "groupId": "grp-segunda-tria"
+      }
+    },
+    {
+      "id": "edg-sau-2tria",
+      "from": {
+        "blockId": "blk-sau4"
+      },
+      "to": {
+        "groupId": "grp-segunda-tria"
+      }
+    },
+    {
+      "id": "edg-pro-2tria",
+      "from": {
+        "blockId": "blk-pro4"
+      },
+      "to": {
+        "groupId": "grp-segunda-tria"
+      }
+    },
+    {
+      "id": "edg-2tria-mim",
+      "from": {
+        "blockId": "blk-2tria-choice",
+        "itemId": "itm-mim"
+      },
+      "to": {
+        "groupId": "grp-para-mim"
+      }
+    },
+    {
+      "id": "edg-2tria-filho",
+      "from": {
+        "blockId": "blk-2tria-choice",
+        "itemId": "itm-filho"
+      },
+      "to": {
+        "groupId": "grp-para-filho"
+      }
+    },
+    {
+      "id": "edg-2tria-conj",
+      "from": {
+        "blockId": "blk-2tria-choice",
+        "itemId": "itm-conj"
+      },
+      "to": {
+        "groupId": "grp-para-conjuge"
+      }
+    },
+    {
+      "id": "edg-2tria-fam",
+      "from": {
+        "blockId": "blk-2tria-choice",
+        "itemId": "itm-fam"
+      },
+      "to": {
+        "groupId": "grp-para-familia"
+      }
+    },
+    {
+      "id": "edg-mim-cap",
+      "from": {
+        "blockId": "blk-mim"
+      },
+      "to": {
+        "groupId": "grp-captura"
+      }
+    },
+    {
+      "id": "edg-filho-cap",
+      "from": {
+        "blockId": "blk-filho"
+      },
+      "to": {
+        "groupId": "grp-captura"
+      }
+    },
+    {
+      "id": "edg-conj-cap",
+      "from": {
+        "blockId": "blk-conj"
+      },
+      "to": {
+        "groupId": "grp-captura"
+      }
+    },
+    {
+      "id": "edg-fam-cap",
+      "from": {
+        "blockId": "blk-fam"
+      },
+      "to": {
+        "groupId": "grp-captura"
+      }
+    },
+    {
+      "id": "edg-cap-ofe",
+      "from": {
+        "blockId": "blk-inp-intencao"
+      },
+      "to": {
+        "groupId": "grp-oferta"
+      }
+    },
+    {
+      "id": "edg-ofe-red",
+      "from": {
+        "blockId": "blk-cta",
+        "itemId": "itm-cta"
+      },
+      "to": {
+        "groupId": "grp-checkout-cpf"
+      }
+    },
+    {
+      "id": "edg-ofe-duvida",
+      "from": {
+        "blockId": "blk-cta",
+        "itemId": "itm-duvida"
+      },
+      "to": {
+        "groupId": "grp-duvida"
+      }
+    },
+    {
+      "id": "edg-ofe-preco",
+      "from": {
+        "blockId": "blk-cta",
+        "itemId": "itm-preco"
+      },
+      "to": {
+        "groupId": "grp-preco"
+      }
+    },
+    {
+      "id": "edg-preco-red",
+      "from": {
+        "blockId": "blk-btn-preco",
+        "itemId": "itm-preco-btn"
+      },
+      "to": {
+        "groupId": "grp-checkout-cpf"
+      }
+    },
+    {
+      "id": "edg-preco-sair",
+      "from": {
+        "blockId": "blk-btn-preco",
+        "itemId": "itm-preco-sair"
+      },
+      "to": {
+        "groupId": "grp-encerramento"
+      }
+    },
+    {
+      "id": "edg-duvida-ent",
+      "from": {
+        "blockId": "blk-duvida-choice",
+        "itemId": "itm-ent"
+      },
+      "to": {
+        "groupId": "grp-entrega"
+      }
+    },
+    {
+      "id": "edg-duvida-aut",
+      "from": {
+        "blockId": "blk-duvida-choice",
+        "itemId": "itm-aut"
+      },
+      "to": {
+        "groupId": "grp-autoridade"
+      }
+    },
+    {
+      "id": "edg-duvida-gar",
+      "from": {
+        "blockId": "blk-duvida-choice",
+        "itemId": "itm-gar"
+      },
+      "to": {
+        "groupId": "grp-garantia"
+      }
+    },
+    {
+      "id": "edg-duvida-sim",
+      "from": {
+        "blockId": "blk-duvida-choice",
+        "itemId": "itm-sim"
+      },
+      "to": {
+        "groupId": "grp-simplicidade"
+      }
+    },
+    {
+      "id": "edg-ent-red",
+      "from": {
+        "blockId": "blk-btn-ent",
+        "itemId": "itm-ent-btn"
+      },
+      "to": {
+        "groupId": "grp-checkout-cpf"
+      }
+    },
+    {
+      "id": "edg-aut-red",
+      "from": {
+        "blockId": "blk-btn-aut",
+        "itemId": "itm-aut-btn"
+      },
+      "to": {
+        "groupId": "grp-checkout-cpf"
+      }
+    },
+    {
+      "id": "edg-gar-red",
+      "from": {
+        "blockId": "blk-btn-gar",
+        "itemId": "itm-gar-btn"
+      },
+      "to": {
+        "groupId": "grp-checkout-cpf"
+      }
+    },
+    {
+      "id": "edg-sim-red",
+      "from": {
+        "blockId": "blk-btn-sim",
+        "itemId": "itm-sim-btn"
+      },
+      "to": {
+        "groupId": "grp-checkout-cpf"
+      }
+    },
+    {
+      "id": "edg-cpf-audio",
+      "from": {
+        "blockId": "blk-inp-cpf"
+      },
+      "to": {
+        "groupId": "grp-bump-audio"
+      }
+    },
+    {
+      "id": "edg-bump5-yes-resumo",
+      "from": { "blockId": "blk-btn-bump5", "itemId": "itm-bump5-yes" },
+      "to": { "groupId": "grp-checkout-resumo" }
+    },
+    {
+      "id": "edg-bump5-no-resumo",
+      "from": { "blockId": "blk-btn-bump5", "itemId": "itm-bump5-no" },
+      "to": { "groupId": "grp-checkout-resumo" }
+    },
+    {
+      "id": "edg-resumo-pagamento",
+      "from": {
+        "blockId": "blk-btn-resumo",
+        "itemId": "itm-resumo-ok"
+      },
+      "to": {
+        "groupId": "grp-checkout-pagamento"
+      }
+    },
+    {
+      "id": "edg-resumo-remove-audio",
+      "from": { "blockId": "blk-btn-resumo", "itemId": "itm-resumo-remove-audio" },
+      "to": { "groupId": "grp-checkout-resumo" }
+    },
+    {
+      "id": "edg-pagamento-obrigado",
+      "from": {
+        "blockId": "blk-payment"
+      },
+      "to": {
+        "groupId": "grp-obrigado"
+      }
+    }
+  ]
+}

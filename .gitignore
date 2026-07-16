@@ -1,0 +1,29 @@
+# Credenciais e configuracoes locais
+.env
+.env.*
+!.env.example
+api/config.local.php
+legacy-php/config.local.php
+.vercel/
+.next/
+node_modules/
+*.tsbuildinfo
+coverage/
+output/
+tmp/
+legacy-php/
+legacy-static-index.html
+README-INSTALACAO-V26-5.txt
+RELATORIO-ATUALIZACOES-V26-5.txt
+RELATORIO-VALIDACAO-V26-5.json
+
+# Dados gerados em producao
+leads/
+orders/
+
+# Arquivos locais do sistema e editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
