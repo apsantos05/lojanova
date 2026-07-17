@@ -1,0 +1,487 @@
+.page {
+  min-height: 100svh;
+  overflow-x: hidden;
+  background: #d9dedb;
+  color: #17201d;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.chat {
+  display: grid;
+  width: min(100%, 620px);
+  min-height: 100svh;
+  margin: 0 auto;
+  grid-template-rows: auto auto 1fr auto;
+  background: #efeae2;
+  box-shadow: 0 0 32px rgba(0, 0, 0, .15);
+}
+
+.header {
+  position: sticky;
+  z-index: 4;
+  top: 0;
+  display: flex;
+  min-height: 72px;
+  align-items: center;
+  gap: 10px;
+  background: #075e54;
+  color: white;
+  padding: max(10px, env(safe-area-inset-top)) 14px 10px;
+}
+
+.header img {
+  border-radius: 50%;
+}
+
+.header h1,
+.header p {
+  margin: 0;
+}
+
+.header h1 {
+  font-size: 1.08rem;
+}
+
+.header p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: #d8f5ec;
+  font-size: .88rem;
+}
+
+.header p span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5af0a8;
+}
+
+.back {
+  display: grid;
+  width: 42px;
+  height: 48px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: white;
+  font-size: 2.1rem;
+  text-decoration: none;
+}
+
+.progress {
+  position: sticky;
+  z-index: 3;
+  top: 72px;
+  background: #fff;
+  padding: 9px 14px 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+}
+
+.progress > span {
+  display: block;
+  margin-bottom: 6px;
+  color: #34413d;
+  font-size: .84rem;
+  font-weight: 800;
+}
+
+.progress > div {
+  overflow: hidden;
+  height: 7px;
+  border-radius: 99px;
+  background: #dce5e1;
+}
+
+.progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #128c7e;
+  transition: width .25s ease;
+}
+
+.thread {
+  overflow-wrap: anywhere;
+  padding: 16px 12px max(22px, env(safe-area-inset-bottom));
+  background-color: #efeae2;
+  background-image: radial-gradient(rgba(7, 94, 84, .05) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.safety {
+  width: fit-content;
+  max-width: 92%;
+  margin: 0 auto 16px;
+  border-radius: 8px;
+  background: #fff4c7;
+  color: #5a4a10;
+  font-size: .82rem;
+  line-height: 1.4;
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.bubble {
+  width: fit-content;
+  max-width: 86%;
+  margin: 0 0 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .14);
+  font-size: 1.04rem;
+  line-height: 1.45;
+  padding: 11px 13px;
+}
+
+.assistant {
+  border-top-left-radius: 3px;
+  background: #fff;
+}
+
+.user {
+  margin-left: auto;
+  border-top-right-radius: 3px;
+  background: #d9fdd3;
+}
+
+.choice {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 18px;
+}
+
+.choice button,
+.primary,
+.check,
+.expired button {
+  min-height: 56px;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 10px 16px;
+}
+
+.choice button {
+  display: grid;
+  gap: 4px;
+  background: #157347;
+  color: white;
+  text-align: left;
+}
+
+.choice button span {
+  font-size: .84rem;
+}
+
+.choice .secondary {
+  border: 2px solid #52605b;
+  background: white;
+  color: #26322e;
+  text-align: center;
+}
+
+.summary,
+.pix,
+.paid {
+  margin: 14px 0;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, .11);
+  padding: 18px 14px;
+}
+
+.summary h2 {
+  margin: 0 0 14px;
+  font-size: 1.25rem;
+}
+
+.summary > div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid #e3e7e5;
+  line-height: 1.4;
+  padding: 11px 0;
+}
+
+.summary span button {
+  display: block;
+  border: 0;
+  background: none;
+  color: #9b1c1c;
+  cursor: pointer;
+  font-size: .9rem;
+  padding: 5px 0 0;
+  text-decoration: underline;
+}
+
+.summary .total {
+  border-bottom: 0;
+  font-size: 1.18rem;
+}
+
+.primary {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background: #157347;
+  box-shadow: 0 5px 0 #0b4c2e;
+  color: white;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+.primary:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.summary > p {
+  margin: 15px 0 0;
+  color: #52605b;
+  font-size: .86rem;
+  text-align: center;
+}
+
+.qr {
+  display: grid;
+  min-height: 224px;
+  place-items: center;
+  margin-bottom: 8px;
+}
+
+.qr img,
+.qr svg {
+  width: min(100%, 220px);
+  height: auto;
+}
+
+.pixTotal {
+  display: block;
+  margin: 6px 0 18px;
+  color: #075e54;
+  font-size: 1.55rem;
+  text-align: center;
+}
+
+.pix label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 800;
+}
+
+.pix textarea {
+  width: 100%;
+  min-height: 78px;
+  resize: vertical;
+  border: 2px solid #9aa7a2;
+  border-radius: 10px;
+  background: #f7f9f8;
+  color: #26322e;
+  font: 14px/1.35 monospace;
+  padding: 10px;
+}
+
+.pix ol {
+  margin: 22px 0;
+  padding-left: 25px;
+}
+
+.pix li {
+  margin: 9px 0;
+  line-height: 1.45;
+}
+
+.check {
+  width: 100%;
+  border: 2px solid #075e54;
+  background: white;
+  color: #075e54;
+  font-weight: 800;
+}
+
+.expired {
+  display: grid;
+  gap: 10px;
+  border: 2px solid #b42318;
+  border-radius: 12px;
+  background: #fff4f2;
+  padding: 14px;
+}
+
+.expired button {
+  background: #7a271a;
+  color: white;
+  font-weight: 800;
+}
+
+.recording {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 9px;
+  margin: 10px 0;
+  border-radius: 10px;
+  background: white;
+  color: #52605b;
+  font-size: .92rem;
+  padding: 11px 13px;
+}
+
+.recording span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e53935;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.audioBubble {
+  display: grid;
+  width: min(86%, 360px);
+  gap: 8px;
+}
+
+.audioBubble audio {
+  width: 100%;
+  min-height: 48px;
+}
+
+.paid {
+  text-align: center;
+}
+
+.paid > div {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  place-items: center;
+  border-radius: 50%;
+  background: #157347;
+  color: white;
+  font-size: 2rem;
+}
+
+.paid h2 {
+  margin: 0 0 16px;
+}
+
+.paid p {
+  margin: 18px 0 0;
+  color: #44504c;
+  line-height: 1.45;
+}
+
+.error {
+  margin: 12px 0;
+  border: 2px solid #b42318;
+  border-radius: 10px;
+  background: #fff4f2;
+  color: #7a271a;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 12px;
+}
+
+.composer {
+  position: sticky;
+  z-index: 5;
+  bottom: 0;
+  background: #f7f8f7;
+  padding: 10px max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+  box-shadow: 0 -3px 12px rgba(0, 0, 0, .1);
+}
+
+.composer > label {
+  display: block;
+  margin: 0 0 6px 4px;
+  font-size: .88rem;
+  font-weight: 800;
+}
+
+.composer > div {
+  display: flex;
+  gap: 8px;
+}
+
+.composer input {
+  min-width: 0;
+  min-height: 54px;
+  flex: 1;
+  border: 2px solid #7b8984;
+  border-radius: 27px;
+  background: white;
+  color: #17201d;
+  font-size: 16px;
+  padding: 0 17px;
+}
+
+.composer button {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 50%;
+  background: #128c7e;
+  color: white;
+  cursor: pointer;
+  font-size: 1.45rem;
+}
+
+.composer small {
+  display: block;
+  margin: 7px 5px 0;
+  color: #52605b;
+  font-size: .78rem;
+  line-height: 1.35;
+}
+
+.choice button:focus-visible,
+.primary:focus-visible,
+.check:focus-visible,
+.expired button:focus-visible,
+.composer input:focus-visible,
+.composer button:focus-visible,
+.back:focus-visible,
+.summary span button:focus-visible {
+  outline: 3px solid #f3b61f;
+  outline-offset: 2px;
+}
+
+@keyframes pulse {
+  50% { opacity: .35; transform: scale(.75); }
+}
+
+@media (max-width: 430px) {
+  .header {
+    min-height: 68px;
+    padding-inline: 8px 12px;
+  }
+
+  .progress {
+    top: 68px;
+  }
+
+  .thread {
+    padding-inline: 9px;
+  }
+
+  .bubble {
+    max-width: 91%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress i {
+    transition: none;
+  }
+
+  .recording span {
+    animation: none;
+  }
+}
