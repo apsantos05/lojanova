@@ -12,6 +12,7 @@ export async function POST(request: Request) {
     const body = await readJson(request);
     const transactionId = text(body.transactionId, 64);
     if (!validTransaction(transactionId)) return json({ received: true, ignored: true, reason: 'Sem transactionId válido.' });
+    if (!(await consumeRateLimit(`webhook_public:${hashIdentity(clientIp(request) || 'unknown')}`, 600, 60))) return json({ received: true }, 202);
     if (!(await consumeRateLimit(`webhook:${hashIdentity(`${clientIp(request)}|${transactionId}`)}`, 60, 60))) return json({ received: true }, 202);
     const order = await findOrder(transactionId);
     if (!order) return json({ received: true });

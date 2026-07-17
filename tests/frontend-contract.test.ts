@@ -3,6 +3,11 @@ import { describe, expect, it } from 'vitest';
 
 const app = readFileSync(new URL('../public/app.js', import.meta.url), 'utf8');
 const funnel = readFileSync(new URL('../public/funnel.json', import.meta.url), 'utf8');
+const css = readFileSync(new URL('../app/globals.css', import.meta.url), 'utf8');
+const createPix = readFileSync(new URL('../app/api/create-pix/route.ts', import.meta.url), 'utf8');
+const saveLead = readFileSync(new URL('../app/api/save-lead/route.ts', import.meta.url), 'utf8');
+const track = readFileSync(new URL('../app/api/track/route.ts', import.meta.url), 'utf8');
+const webhook = readFileSync(new URL('../app/api/webhook-blackcat/route.ts', import.meta.url), 'utf8');
 
 describe('contrato do frontend migrado', () => {
   it('usa apenas as novas rotas e envia o bump selecionado', () => {
@@ -21,5 +26,36 @@ describe('contrato do frontend migrado', () => {
 
   it('não contém produtos antigos', () => {
     expect(`${app}\n${funnel}`).not.toMatch(/terço|terco|kit sacramental|40 dias|frete|shipping/i);
+  });
+
+  it('mantém a resposta digitada legível e com orientação visível', () => {
+    expect(app).toContain("label.className = 'text-input-label'");
+    expect(app).toContain("error.className = 'input-error'");
+    expect(css).toContain('-webkit-text-fill-color:var(--text)');
+    expect(css).toContain('caret-color:#075e54');
+    expect(funnel).toContain('"label": "Digite seu WhatsApp com DDD"');
+  });
+
+  it('prepara os áudios com ritmo humano antes de exibi-los', () => {
+    expect(app).toContain('function showAudioPreparing()');
+    expect(app).toContain('preparando áudio…');
+    expect(app).toContain('await skippableSleep(audioPreparationDelay(content))');
+    expect(css).toContain('.audio-preparing-wave');
+    expect(css).toContain('@keyframes audio-wave');
+    expect(app).not.toContain('gravando áudio agora');
+  });
+
+  it('não grava CPF no localStorage nem o exibe como mensagem do lead', () => {
+    expect(app).toContain("const PRIVATE_VAR_NAMES = ['nome','whatsapp','cpf'");
+    expect(app).toContain('sessionStorage.setItem(PRIVATE_STATE_KEY');
+    expect(app).not.toMatch(/localStorage\.setItem\([^)]*cpf/i);
+    expect(app).toContain("kind === 'cpf' ? 'CPF informado com segurança ✓' : value");
+  });
+
+  it('limita abuso também por conexão, sem depender só da sessão escolhida pelo navegador', () => {
+    expect(createPix).toContain('create_pix_public:');
+    expect(saveLead).toContain('save_lead_public:');
+    expect(track).toContain('track_public:');
+    expect(webhook).toContain('webhook_public:');
   });
 });

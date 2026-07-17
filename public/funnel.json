@@ -667,6 +667,8 @@
           "type": "text input",
           "options": {
             "placeholder": "Digite seu nome completo…",
+            "label": "Digite seu nome completo",
+            "help": "Use nome e sobrenome, como no cadastro do pagamento.",
             "button": "Continuar",
             "variable": "nome",
             "kind": "name"
@@ -676,7 +678,7 @@
           "id": "blk-whatsapp-ask",
           "type": "text",
           "content": {
-            "text": "Agora informe seu WhatsApp com DDD. Ele será usado para localizar seu pedido e ajudar você caso o pagamento ou o acesso trave."
+            "text": "Agora informe seu WhatsApp com DDD. É por esse número que seu pedido será localizado e, se você escolher o áudio, a equipe fará o envio manual após o pagamento."
           }
         },
         {
@@ -684,6 +686,8 @@
           "type": "text input",
           "options": {
             "placeholder": "(11) 99999-9999",
+            "label": "Digite seu WhatsApp com DDD",
+            "help": "Exemplo: (11) 99999-9999. Confira o número antes de continuar.",
             "button": "Continuar",
             "variable": "whatsapp",
             "kind": "phone"
@@ -693,7 +697,7 @@
           "id": "blk-cpf-intro",
           "type": "text",
           "content": {
-            "text": "Por último, informe seu CPF. Ele é exigido pela operadora para identificar e proteger o pagamento. Não exibimos esse dado na conversa nem o guardamos no histórico do navegador."
+            "text": "Falta apenas o CPF do pagador. A operadora BlackCat exige esse dado para criar o PIX em nome de quem fará o pagamento. Ele não aparece na conversa e não fica salvo no histórico do navegador."
           }
         },
         {
@@ -701,6 +705,8 @@
           "type": "text input",
           "options": {
             "placeholder": "Digite seu CPF…",
+            "label": "Digite o CPF do pagador",
+            "help": "Somente números. Usado pela operadora para gerar este PIX.",
             "button": "Continuar",
             "variable": "cpf",
             "kind": "cpf"
@@ -716,7 +722,7 @@
           "id": "blk-bump5-txt",
           "type": "text",
           "content": {
-            "text": "Antes de fechar, existe uma forma de não depender da leitura quando a mente estiver cansada.\n\nPor apenas R$ 9,90 a mais, você pode incluir o áudio completo da Oração Sagrada de São Bento e ouvir no celular sempre que precisar se recolher, respirar e acompanhar cada palavra.\n\nÉ um adicional digital, opcional e sem mensalidade. Após a confirmação do PIX, a equipe fará o envio manual para o WhatsApp informado no cadastro."
+            "text": "Antes de fechar: se a leitura ficar difícil ou cansativa, você pode acompanhar cada palavra pelo celular.\n\nPor R$ 9,90 a mais, inclua o Áudio Completo da Oração Sagrada de São Bento.\n\nÉ opcional, digital, sem mensalidade e não muda o acesso principal. Após a confirmação do PIX, a equipe fará o envio manual para o WhatsApp informado."
           }
         },
         {

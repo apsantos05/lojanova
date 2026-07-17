@@ -24,6 +24,8 @@ export async function POST(request: Request) {
     const sessionId = text(body.session_id, 64);
     if (!validSession(sessionId)) return json({ error: 'invalid_session' }, 422);
     if (!ALLOWED.has(event)) return json({ error: 'event_not_allowed' }, 422);
+    const ipHash = hashIdentity(clientIp(request) || 'unknown');
+    if (!(await consumeRateLimit(`track_public:${ipHash}`, 900, 60))) return json({ error: 'rate_limited' }, 429);
     if (!(await consumeRateLimit(`track:${hashIdentity(`${clientIp(request)}|${sessionId}`)}`, 180, 60))) return json({ error: 'rate_limited' }, 429);
     const properties = safeProperties(body.properties);
     const requestedId = text(body.event_id, 120);

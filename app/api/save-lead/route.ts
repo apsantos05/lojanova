@@ -13,6 +13,8 @@ export async function POST(request: Request) {
     const whatsapp = digits(body.whatsapp);
     if (!validSession(sessionId)) return json({ error: 'invalid_session' }, 422);
     if (whatsapp && (whatsapp.length < 10 || whatsapp.length > 13)) return json({ error: 'invalid_whatsapp' }, 422);
+    const ipHash = hashIdentity(clientIp(request) || 'unknown');
+    if (!(await consumeRateLimit(`save_lead_public:${ipHash}`, 600, 60))) return json({ error: 'rate_limited' }, 429);
     if (!(await consumeRateLimit(`save_lead:${hashIdentity(`${clientIp(request)}|${sessionId}`)}`, 120, 60))) return json({ error: 'rate_limited' }, 429);
 
     const status = text(body.status || 'progress', 40);

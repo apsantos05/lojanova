@@ -24,6 +24,8 @@ export async function POST(request: Request) {
     if (name.split(/\s+/).filter(Boolean).length < 2) return json({ ok: false, message: 'Informe seu nome completo.' }, 422);
     if (phone.length < 10 || phone.length > 11) return json({ ok: false, message: 'WhatsApp inválido. Informe com DDD.' }, 422);
     if (!validCpf(document)) return json({ ok: false, message: 'CPF inválido.' }, 422);
+    const ipHash = hashIdentity(clientIp(request) || 'unknown');
+    if (!(await consumeRateLimit(`create_pix_public:${ipHash}`, 60, 300))) return json({ ok: false, message: 'Muitas tentativas nesta conexão. Aguarde um minuto e tente novamente.' }, 429);
     const rateKey = `create_pix:${hashIdentity(`${clientIp(request)}|${sessionId}`)}`;
     if (!(await consumeRateLimit(rateKey, 10, 300))) return json({ ok: false, message: 'Muitas tentativas. Aguarde um minuto e tente novamente.' }, 429);
     if (!/^\S+@\S+\.\S+$/.test(email)) email = `lead+${sessionId.replace(/[^a-z0-9]/gi, '').slice(0, 20)}@oracaosaobento.online`;

@@ -2,7 +2,7 @@
 'use strict';
 
 const CHECKOUT_URL = '/finalizar-pagamento/'; // mantido só como fallback legado (bloco "Redirect")
-const ASSET_VERSION = '29.0';
+const ASSET_VERSION = '29.1';
 const FUNNEL_URL = '/funnel.json?v=' + ASSET_VERSION;
 const TYPING_PER_CHAR = 30;
 const TYPING_MIN = 820;
@@ -355,6 +355,41 @@ function showTyping() {
   return el;
 }
 
+function audioPreparationDelay(content) {
+  const durationSeconds = Number(content && content.duration) || 18;
+  const base = 1900 + Math.min(2200, durationSeconds * 85);
+  return Math.round(base * (0.88 + Math.random() * 0.24));
+}
+
+function showAudioPreparing() {
+  const previous = thread.querySelector('.audio-preparing');
+  if (previous) previous.remove();
+  const el = document.createElement('div');
+  el.className = 'audio-preparing';
+  el.setAttribute('role', 'status');
+  el.setAttribute('aria-live', 'polite');
+  el.innerHTML = [
+    '<span class="audio-preparing-icon" aria-hidden="true">🎙️</span>',
+    '<span class="audio-preparing-copy">preparando áudio…</span>',
+    '<span class="audio-preparing-wave" aria-hidden="true">',
+    '<i></i><i></i><i></i><i></i>',
+    '</span>'
+  ].join('');
+  thread.appendChild(el);
+  thread.setAttribute('aria-busy', 'true');
+  scrollBottom();
+  return el;
+}
+
+async function prepareAndAppendAudio(content, beforeMin = 760, beforeMax = 1380) {
+  await conversationalPause(beforeMin, beforeMax);
+  const preparing = showAudioPreparing();
+  await skippableSleep(audioPreparationDelay(content));
+  preparing.remove();
+  thread.setAttribute('aria-busy', 'false');
+  appendAudioBubble(content || {});
+}
+
 function nowHM() {
   return new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
 }
@@ -462,10 +497,23 @@ function showTextInput(opts, onSubmit) {
   inputZone.innerHTML = '';
   const wrap = document.createElement('div');
   wrap.className = 'text-input-wrap';
+  const kind = opts.kind || 'text';
+  const defaultLabels = {
+    first_name: 'Digite seu primeiro nome',
+    name: 'Digite seu nome completo',
+    phone: 'Digite seu WhatsApp com DDD',
+    cpf: 'Digite o CPF do pagador',
+    text: 'Digite sua resposta'
+  };
+  const label = document.createElement('label');
+  label.className = 'text-input-label';
+  label.textContent = opts.label || defaultLabels[kind] || defaultLabels.text;
   const row = document.createElement('div');
   row.className = 'text-input-row';
   const input = document.createElement('input');
-  const kind = opts.kind || 'text';
+  const inputId = 'chat-input-' + String(opts.variable || kind).replace(/[^a-z0-9_-]/gi, '');
+  input.id = inputId;
+  label.htmlFor = inputId;
   input.type = kind === 'phone' ? 'tel' : 'text';
   input.inputMode = (kind === 'phone' || kind === 'cpf') ? 'numeric' : 'text';
   input.autocomplete = kind === 'phone' ? 'tel' : ((kind === 'name' || kind === 'first_name') ? 'name' : 'off');
@@ -482,9 +530,25 @@ function showTextInput(opts, onSubmit) {
   btn.textContent = opts.button || 'Enviar';
   btn.setAttribute('aria-label', opts.button || 'Enviar resposta');
   let skipBtn = null;
+  const help = document.createElement('span');
+  help.id = inputId + '-help';
+  help.className = 'input-help';
+  help.textContent = opts.help || 'Preencha o campo e toque em continuar.';
+  const error = document.createElement('span');
+  error.id = inputId + '-error';
+  error.className = 'input-error';
+  error.setAttribute('role', 'alert');
+  error.setAttribute('aria-live', 'assertive');
+  error.hidden = true;
+  input.setAttribute('aria-describedby', `${help.id} ${error.id}`);
 
-  if (kind === 'phone') input.addEventListener('input', () => { input.value = formatPhoneBR(input.value); });
-  if (kind === 'cpf')   input.addEventListener('input', () => { input.value = formatCPF(input.value); });
+  input.addEventListener('input', () => {
+    if (kind === 'phone') input.value = formatPhoneBR(input.value);
+    if (kind === 'cpf') input.value = formatCPF(input.value);
+    error.hidden = true;
+    input.removeAttribute('aria-invalid');
+    scheduleAppHeight(true);
+  });
 
   const finish = (value, skipped = false) => {
     input.disabled = true; btn.disabled = true;
@@ -495,7 +559,15 @@ function showTextInput(opts, onSubmit) {
     const raw = input.value.trim();
     if (opts.optional && raw === '') { finish('', true); return; }
     const err = validate(raw, kind);
-    if (err) { toast(err); input.focus(); return; }
+    if (err) {
+      error.textContent = err;
+      error.hidden = false;
+      input.setAttribute('aria-invalid', 'true');
+      toast(err);
+      input.focus({ preventScroll: true });
+      scheduleAppHeight(true);
+      return;
+    }
     finish(raw, false);
   };
   btn.addEventListener('click', submit);
@@ -503,12 +575,10 @@ function showTextInput(opts, onSubmit) {
 
   row.appendChild(input);
   row.appendChild(btn);
+  wrap.appendChild(label);
   wrap.appendChild(row);
-  const help = document.createElement('span');
-  help.id = 'input-help';
-  help.className = 'sr-only';
-  help.textContent = opts.help || 'Preencha o campo e toque em continuar.';
   wrap.appendChild(help);
+  wrap.appendChild(error);
   if (opts.optional) {
     skipBtn = document.createElement('button');
     skipBtn.type = 'button';
@@ -966,16 +1036,13 @@ async function resumeExistingPayment(paymentInfo) {
 function appendPixVoiceAfterDelay() {
   window.setTimeout(() => {
     if (!document.querySelector('.payment-msg')) return;
-    const typing = showTyping();
-    window.setTimeout(() => {
-      try { typing.remove(); } catch (e) {}
-      appendAudioBubble({
+    const content = {
         title: 'Mensagem de voz de Frei Gilson',
         url: 'audio-06-como-pagar-pix.mp3',
         duration: 21,
         fallback: 'Se o áudio não tocar, fique em paz: copie o código PIX, abra seu banco, cole em Pix Copia e Cola e confirme.'
-      });
-    }, 1400 + Math.round(Math.random() * 900));
+    };
+    prepareAndAppendAudio(content, 320, 720);
   }, 900 + Math.round(Math.random() * 700));
 }
 
@@ -1177,9 +1244,8 @@ async function renderBlock(block) {
   };
   if (milestoneStatus[block.id]) saveLead({ status: milestoneStatus[block.id] });
   if (block.type === 'audio') {
-    await conversationalPause(700, 1250);
-    appendAudioBubble(block.content || {});
-    await conversationalPause(620, 1050);
+    await prepareAndAppendAudio(block.content || {});
+    await conversationalPause(760, 1320);
     return;
   }
 
