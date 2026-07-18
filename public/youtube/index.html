@@ -1055,7 +1055,7 @@ function showEndWarning(){
 /* ═══════════════════════════════════════════════
    PLAYER HLS + CONTROLES + BLOQUEIO FULLSCREEN
 ═══════════════════════════════════════════════ */
-var VSL_HLS_URL='https://video.oracaosaobento.online/vsl/master.m3u8';
+var VSL_HLS_URL='https://bms0corilnnjspwi.public.blob.vercel-storage.com/videos/oracao-sagrada-sao-bento-vsl.mp4';
 (function(){
   var video=document.getElementById('ytPlayer');
   var frame=document.getElementById('ytVslFrame');
@@ -1130,6 +1130,10 @@ var VSL_HLS_URL='https://video.oracaosaobento.online/vsl/master.m3u8';
   }
 
   function attach(){
+    if(/\.mp4(?:$|\?)/i.test(VSL_HLS_URL)){
+      video.src=VSL_HLS_URL;
+      return;
+    }
     if(video.canPlayType('application/vnd.apple.mpegurl')){
       video.src=VSL_HLS_URL;
     } else if(window.Hls&&window.Hls.isSupported()){

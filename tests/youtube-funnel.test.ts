@@ -2,7 +2,8 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 const checkout = readFileSync('app/youtube/finalizar-pagamento/checkout-assistant.tsx', 'utf8');
-const vsl = readFileSync('app/youtube/vsl-player.tsx', 'utf8');
+const vslPage = readFileSync('app/youtube/page.tsx', 'utf8');
+const vsl = readFileSync('public/youtube/index.html', 'utf8');
 
 describe('funil da VSL', () => {
   it('usa apenas a oferta principal e o bump 5', () => {
@@ -24,14 +25,12 @@ describe('funil da VSL', () => {
     expect(checkout).not.toContain('download-audio');
   });
 
-  it('apresenta a VSL como conteúdo gravado e encaminha para a rota correta', () => {
-    expect(vsl).toContain('/youtube/finalizar-pagamento');
+  it('serve o pacote estático com identificação permanente de simulação', () => {
+    expect(vslPage).toContain('/youtube/index.html');
+    expect(vslPage).toContain('SIMULAÇÃO ACADÊMICA');
+    expect(vslPage).toContain('Audiência e interações exibidas são fictícias');
     expect(vsl).toContain('public.blob.vercel-storage.com/videos/oracao-sagrada-sao-bento-vsl.mp4');
-    expect(vsl).not.toContain('video.oracaosaobento.online');
-    expect(vsl).toContain('controls');
-    expect(vsl).toContain('Equipe Contemplação Católica');
-    expect(vsl).toContain('Orientações da apresentação');
-    expect(vsl).not.toMatch(/AO VIVO|viewers|pushState|popstate|login|depoimento/i);
+    expect(vsl).not.toContain("var VSL_HLS_URL='https://video.oracaosaobento.online");
   });
 
   it('mantém o checkout legível e previsível no celular', () => {
