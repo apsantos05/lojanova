@@ -1,0 +1,1281 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PD79VWVK');</script>
+<meta charset="UTF-8">
+<link rel="preload" as="image" href="images/padre-avatar.webp" fetchpriority="high">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#f4f1eb">
+<meta name="format-detection" content="telephone=no">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta property="og:title" content="Transmissão ao vivo — Padre João Mendes">
+<meta property="og:description" content="Transmissão especial em andamento. Assista antes que seja encerrada.">
+<meta property="og:image" content="https://oracaosaobento.online/images/imagem.jpg">
+<meta property="og:url" content="https://oracaosaobento.online">
+<meta property="og:type" content="website">
+<title>Transmissão ao vivo — Padre João Mendes</title>
+<link rel="icon" href="images/favicon.png">
+<script>
+  window.pixelId="69b4a0d0ef12d902126057ba";
+  (window.requestIdleCallback||function(cb){setTimeout(cb,1500)})(function(){
+    var a=document.createElement("script");
+    a.async=true;a.defer=true;
+    a.src="https://cdn.utmify.com.br/scripts/pixel/pixel.js";
+    document.head.appendChild(a);
+  });
+</script>
+<link rel="preconnect" href="https://video.oracaosaobento.online" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://video.oracaosaobento.online">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://cdn.utmify.com.br">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-tap-highlight-color:transparent;overflow-x:hidden;overscroll-behavior-x:none}
+body{font-family:'Roboto',Arial,sans-serif;font-size:16px;background:#f4f1eb;color:#16130f;min-height:100vh;overflow-x:hidden;-webkit-text-size-adjust:100%;overscroll-behavior-x:none}
+a{text-decoration:none;color:inherit;touch-action:manipulation}
+button{cursor:pointer;border:none;background:none;font-family:inherit;color:#0f0f0f;-webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+img{display:block;max-width:100%}
+input{font-family:inherit;font-size:16px}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ═══════════════════════════════════════════
+   BACK REDIRECT — MODAL DE PAUSA
+═══════════════════════════════════════════ */
+.pause-redirect-overlay{
+  position:fixed;inset:0;z-index:9000;
+  background:rgba(0,0,0,.82);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+}
+.pause-redirect-overlay.show{opacity:1;pointer-events:all;}
+.pause-redirect-card{
+  width:100%;max-width:360px;
+  background:linear-gradient(180deg,#1a120a,#0d0906);
+  border:1px solid rgba(212,175,55,.35);
+  border-radius:22px;
+  padding:28px 22px 24px;
+  text-align:center;
+  box-shadow:0 24px 70px rgba(0,0,0,.75);
+  transform:translateY(18px) scale(.96);
+  transition:transform .3s ease;
+}
+.pause-redirect-overlay.show .pause-redirect-card{transform:translateY(0) scale(1);}
+.pause-redirect-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(212,175,55,.12);border:2px solid rgba(212,175,55,.35);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+}
+.pause-redirect-icon svg{display:block;}
+.pause-redirect-title{
+  font-size:20px;font-weight:700;color:#f2cf67;
+  margin-bottom:8px;line-height:1.25;
+}
+.pause-redirect-sub{
+  font-size:14px;color:rgba(255,255,255,.7);
+  line-height:1.55;margin-bottom:20px;
+}
+.pause-redirect-timer{
+  font-size:13px;color:rgba(255,255,255,.5);
+  margin-bottom:18px;
+}
+.pause-redirect-timer b{color:#f2cf67;}
+.pause-redirect-btn{
+  display:block;width:100%;
+  height:56px;border-radius:16px;
+  background:linear-gradient(180deg,#2ecc71,#1a9e52);
+  color:#fff;font-size:17px;font-weight:700;
+  border:none;cursor:pointer;
+  box-shadow:0 8px 24px rgba(28,158,82,.40),0 3px 0 #0e6b37;
+  transition:transform .12s,box-shadow .12s;
+  margin-bottom:12px;
+}
+.pause-redirect-btn:active{transform:translateY(2px);box-shadow:0 3px 12px rgba(28,158,82,.30),0 1px 0 #0e6b37;}
+.pause-redirect-skip{
+  font-size:13px;color:rgba(255,255,255,.4);
+  cursor:pointer;padding:8px;display:inline-block;
+  border:none;background:none;
+}
+.pause-redirect-skip:hover{color:rgba(255,255,255,.65);}
+
+/* ═══════════════════════════════════════════
+   FULLSCREEN BLOCK — bloqueia em todos os dispositivos
+═══════════════════════════════════════════ */
+/* Esconde botão nativo de fullscreen do browser via CSS */
+video::-webkit-media-controls-fullscreen-button{display:none!important;pointer-events:none!important;}
+video::-webkit-media-controls-panel{display:none!important;}
+video::-webkit-media-controls{display:none!important;}
+video::--webkit-media-controls-overlay-play-button{display:none!important;}
+/* Firefox */
+video::-moz-media-controls-fullscreen-button{display:none!important;}
+
+/* ═══════════════════════════════════════════
+   LANDSCAPE LOCK — tela deitada bloqueada
+═══════════════════════════════════════════ */
+.yt-landscape-lock{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:#000;
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;color:#fff;text-align:center;padding:24px;
+}
+.yt-landscape-lock svg{opacity:.7;flex-shrink:0}
+.yt-landscape-lock p{font-size:16px;font-weight:700;line-height:1.45;max-width:280px;opacity:.9}
+.yt-landscape-lock small{font-size:13px;opacity:.55}
+@media(orientation:landscape) and (max-width:900px){
+  .yt-landscape-lock{display:flex!important}
+  body{overflow:hidden}
+}
+
+/* OVERLAY */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1100;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.show{opacity:1;pointer-events:all}
+
+/* SIDE MENU */
+.side-menu{position:fixed;top:0;left:-280px;width:280px;height:100%;background:#fff;z-index:1200;transition:left .28s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 20px rgba(0,0,0,.15);display:flex;flex-direction:column;overflow:hidden}
+.side-menu.open{left:0}
+.side-menu-header{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #e8e8e8}
+.side-menu-logo{display:flex;align-items:center;gap:6px;font-size:18px;font-weight:700;color:#0f0f0f}
+.side-menu-close{margin-left:auto;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.side-menu-close:hover{background:#f2f2f2}
+.side-menu-body{padding:8px 0;overflow-y:auto;flex:1}
+.side-menu-item{display:flex;align-items:center;gap:20px;padding:14px 20px;font-size:16px;font-weight:500;cursor:pointer;white-space:nowrap;color:#0f0f0f;min-height:52px}
+.side-menu-item:hover,.side-menu-item:active{background:#f2f2f2}
+.side-menu-item svg{flex-shrink:0;opacity:.8}
+.side-menu-divider{height:1px;background:#e8e8e8;margin:8px 0}
+.side-menu-section{padding:8px 20px 4px;font-size:12px;font-weight:700;color:#606060;text-transform:uppercase;letter-spacing:.8px}
+
+/* MODAL LOGIN */
+.login-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.92);background:#fff;border-radius:16px;width:92%;max-width:400px;box-shadow:0 8px 40px rgba(0,0,0,.22);z-index:1300;padding:28px 24px 24px;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s}
+.login-modal.show{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1)}
+.login-modal-title{font-size:22px;font-weight:700;margin-bottom:6px;text-align:center}
+.login-modal-sub{font-size:15px;color:#606060;text-align:center;margin-bottom:22px}
+.login-google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:52px;border:1px solid #ccc;border-radius:26px;font-size:16px;font-weight:500;color:#0f0f0f;margin-bottom:14px;background:#fff;cursor:pointer;transition:background .15s}
+.login-google-btn:hover,.login-google-btn:active{background:#f5f5f5}
+.login-divider{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:14px;color:#aaa}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:#e0e0e0}
+.login-email-input{width:100%;height:52px;border:1px solid #ccc;border-radius:10px;padding:0 16px;font-size:16px;outline:none;margin-bottom:12px;transition:border-color .2s}
+.login-email-input:focus{border-color:#065fd4}
+.login-next-btn{width:100%;height:52px;border-radius:26px;background:#065fd4;color:#fff;font-size:16px;font-weight:600;border:none;cursor:pointer;transition:background .15s;margin-bottom:14px}
+.login-next-btn:hover,.login-next-btn:active{background:#0551b5}
+.login-terms{font-size:12px;color:#606060;text-align:center;line-height:1.5}
+.login-terms a{color:#065fd4}
+.login-close{position:absolute;top:14px;right:16px;font-size:26px;color:#606060;cursor:pointer;background:none;border:none;line-height:1;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.login-close:hover{background:#f2f2f2;color:#0f0f0f}
+
+/* NOTIF DROPDOWN */
+.notif-dropdown{position:absolute;top:56px;right:8px;width:340px;background:#fff;border:1px solid #e0e0e0;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.14);z-index:1200;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .2s,transform .2s}
+.notif-dropdown.show{opacity:1;pointer-events:all;transform:translateY(0)}
+.notif-header{padding:14px 16px 10px;font-size:16px;font-weight:700;border-bottom:1px solid #e8e8e8}
+.notif-item{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;cursor:pointer}
+.notif-item:hover,.notif-item:active{background:#f8f8f8}
+.notif-avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;overflow:hidden;background:#e0e0e0;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:15px}
+.notif-avatar img{width:100%;height:100%;object-fit:cover}
+.notif-body{flex:1;min-width:0}
+.notif-text{font-size:14px;line-height:1.45;color:#0f0f0f}
+.notif-time{font-size:12px;color:#606060;margin-top:3px}
+.notif-dot{width:8px;height:8px;border-radius:50%;background:#065fd4;flex-shrink:0;margin-top:6px}
+.notif-footer{padding:12px;text-align:center;border-top:1px solid #e8e8e8;font-size:14px;color:#065fd4;font-weight:500;cursor:pointer}
+
+/* SEARCH TIP */
+.search-tip{position:absolute;top:58px;left:50%;transform:translateX(-50%);background:#333;color:#fff;font-size:14px;padding:9px 18px;border-radius:8px;white-space:nowrap;z-index:1200;opacity:0;pointer-events:none;transition:opacity .2s}
+.search-tip.show{opacity:1}
+.search-tip::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top:none;border-bottom-color:#333}
+
+/* HEADER */
+.yt-header{position:sticky;top:0;z-index:999;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 12px;background:#fff;border-bottom:1px solid #e8e8e8;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.yt-header-left{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.yt-header-center{display:flex;align-items:center;gap:4px;flex:1;max-width:680px;margin:0 10px;position:relative}
+.yt-search-wrap{display:flex;align-items:center;flex:1}
+.yt-search-bar{display:flex;align-items:center;flex:1;height:44px;background:#fff;border:1px solid #ccc;border-radius:44px 0 0 44px;overflow:hidden;transition:border-color .2s}
+.yt-search-bar:focus-within{border-color:#065fd4}
+.yt-search-bar input{flex:1;height:100%;background:transparent;border:none;outline:none;padding:0 14px;font-size:16px;color:#0f0f0f}
+.yt-search-bar input::placeholder{color:#606060}
+.yt-keyboard-btn{display:flex;align-items:center;padding:0 10px;height:100%;color:#606060;border-left:1px solid #ccc;opacity:.7}
+.yt-search-btn{display:flex;align-items:center;justify-content:center;width:52px;height:44px;background:#f8f8f8;border:1px solid #ccc;border-left:none;border-radius:0 44px 44px 0;color:#0f0f0f;flex-shrink:0}
+.yt-search-btn:active{background:#e5e5e5}
+.yt-mic-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:#f8f8f8;flex-shrink:0;margin-left:4px}
+.yt-mic-btn:active{background:#e5e5e5}
+.yt-header-right{display:flex;align-items:center;gap:6px;flex-shrink:0;position:relative}
+.yt-icon-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;flex-shrink:0;position:relative}
+.yt-icon-btn:active{background:rgba(0,0,0,.08)}
+.yt-icon-btn.active{background:rgba(0,0,0,.08)}
+.notif-badge{position:absolute;top:5px;right:5px;width:16px;height:16px;border-radius:50%;background:#f00;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.yt-login-btn{display:flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid #065fd4;border-radius:20px;color:#065fd4;font-size:15px;font-weight:500;white-space:nowrap;flex-shrink:0;min-height:44px}
+.yt-login-btn:active{background:rgba(6,95,212,.1)}
+
+/* LAYOUT */
+.yt-page{max-width:900px;margin:0 auto;padding:12px 12px 40px}
+
+/* PLAYER BOX */
+.yt-player-box{position:relative;width:100%;background:#000;margin-bottom:14px;overflow:hidden;contain:layout style}
+
+/* PLAYER INTERNO */
+.yt-vsl-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:inherit;overflow:hidden;-webkit-transform:translateZ(0);transform:translateZ(0)}
+.yt-vsl-frame video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;background:#000;display:block;
+  /* bloqueia controles nativos e fullscreen */
+  pointer-events:none;
+}
+.yt-vsl-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(0,0,0,.38);border:0;cursor:pointer;z-index:10;-webkit-tap-highlight-color:transparent}
+.yt-vsl-play svg{filter:drop-shadow(0 4px 14px rgba(0,0,0,.55));transition:transform .15s}
+.yt-vsl-play:active svg{transform:scale(.93)}
+.yt-vsl-play span{color:#fff;font-weight:700;font-size:15px;text-shadow:0 1px 6px rgba(0,0,0,.65)}
+.yt-tap-zone{position:absolute;inset:0;z-index:4;cursor:pointer;display:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.yt-vsl-frame.playing .yt-tap-zone{display:block}
+.yt-ctrl-bar{position:absolute;bottom:0;left:0;right:0;z-index:6;display:none;align-items:center;gap:4px;padding:10px 12px 12px;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent)}
+.yt-vsl-frame.playing .yt-ctrl-bar{display:flex}
+.yt-ctrl-btn{background:none;border:0;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.yt-ctrl-btn:active{opacity:.65}
+.yt-ctrl-btn svg{display:block;pointer-events:none}
+.yt-vol-wrap{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.yt-vol-slider{-webkit-appearance:none;appearance:none;width:68px;height:4px;border-radius:2px;background:rgba(255,255,255,.35);outline:none;cursor:pointer;touch-action:none}
+.yt-vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.yt-vol-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:0;cursor:pointer}
+.yt-ctrl-live{margin-left:auto;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#fff;letter-spacing:.3px}
+.yt-ctrl-live-dot{width:7px;height:7px;border-radius:50%;background:#f00;flex-shrink:0}
+.yt-vsl-sound{position:absolute;left:0;right:0;bottom:44px;display:none;align-items:center;justify-content:center;gap:8px;padding:11px 14px;background:rgba(0,0,0,.68);color:#fff;font-size:13px;font-weight:700;cursor:pointer;z-index:8;-webkit-tap-highlight-color:transparent}
+.yt-vsl-frame.muted .yt-vsl-sound{display:flex}
+.yt-pause-flash{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.52);display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:7;opacity:0;transition:opacity .18s}
+.yt-pause-flash.show{opacity:1}
+
+/* TÍTULO */
+.yt-title{font-size:20px;font-weight:700;line-height:1.4;margin-bottom:14px;color:#0f0f0f}
+
+/* CANAL */
+.yt-below{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px}
+.yt-channel-info{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.yt-ch-avatar{width:48px;height:48px;border-radius:50%;background:#888;overflow:hidden;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;flex-shrink:0;color:#fff}
+.yt-ch-avatar img{width:100%;height:100%;object-fit:cover}
+.yt-ch-meta{display:flex;flex-direction:column;gap:3px}
+.yt-ch-name{display:flex;align-items:center;gap:4px;font-size:17px;font-weight:600;white-space:normal;word-break:break-word}
+.yt-ch-subs{font-size:14px;color:#606060}
+.yt-subscribe-btn{height:44px;padding:0 18px;border-radius:22px;background:#0f0f0f;color:#fff;font-size:15px;font-weight:500;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;gap:7px;transition:background .15s;min-width:130px;justify-content:center}
+.yt-subscribe-btn:active{background:#272727}
+.yt-subscribe-btn.on{background:#f2f2f2;color:#0f0f0f}
+.yt-sub-bell{display:none;flex-shrink:0}
+.yt-subscribe-btn.on .yt-sub-bell{display:inline-flex}
+.yt-ch-live{display:flex;align-items:center;gap:5px;font-size:13px;color:#606060;font-weight:400;margin-top:1px}
+.yt-ch-live-dot{width:7px;height:7px;border-radius:50%;background:#f00;flex-shrink:0;animation:spPulse 1.2s infinite}
+@keyframes spPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
+/* AÇÕES */
+.yt-actions-wrap{position:relative;display:flex;align-items:center;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x}
+.yt-actions-wrap::-webkit-scrollbar{display:none}
+.yt-ld-group{display:flex;align-items:center;background:#f2f2f2;border-radius:22px;overflow:hidden;flex-shrink:0}
+.yt-like-btn,.yt-dislike-btn{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 12px;background:transparent;color:#0f0f0f;font-size:15px;font-weight:500}
+.yt-like-btn{padding:0 14px 0 18px}
+.yt-dislike-btn{padding:0 18px 0 14px}
+.yt-like-btn:active,.yt-dislike-btn:active{background:#e5e5e5}
+.yt-like-btn.on svg{fill:#065fd4}.yt-like-btn.on{color:#065fd4}
+.yt-dislike-btn.on svg{fill:#e00}
+.yt-ld-sep{width:1px;height:22px;background:#ccc}
+.yt-act-btn{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:22px;background:#f2f2f2;color:#0f0f0f;font-size:15px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.yt-act-btn:active{background:#e5e5e5}
+.yt-act-icon{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 14px;border-radius:22px;background:#f2f2f2;color:#0f0f0f;flex-shrink:0}
+.yt-act-icon:active{background:#e5e5e5}
+.share-dropdown,.more-dropdown{position:absolute;bottom:calc(100% + 8px);right:0;background:#fff;border:1px solid #e0e0e0;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.15);z-index:500;padding:8px 0;min-width:210px;opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .18s,transform .18s}
+.share-dropdown.show,.more-dropdown.show{opacity:1;pointer-events:all;transform:translateY(0)}
+.share-item,.more-item{display:flex;align-items:center;gap:14px;padding:14px 18px;font-size:16px;cursor:pointer;color:#0f0f0f;min-height:52px}
+.share-item:active,.more-item:active{background:#f2f2f2}
+@media(max-width:640px){.share-dropdown,.more-dropdown{position:fixed;bottom:auto;top:56px;right:8px;left:8px;min-width:0;z-index:1000}}
+
+/* DESCRIÇÃO */
+.yt-desc-box{background:#f2f2f2;border-radius:14px;margin-bottom:18px;overflow:hidden}
+.yt-desc-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;gap:12px;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;min-height:54px}
+.yt-desc-header:active{background:#e8e8e8}
+.yt-desc-preview{font-size:15px;font-weight:600;color:#0f0f0f;line-height:1.4;flex:1;min-width:0}
+.yt-desc-chevron{flex-shrink:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center;transition:transform .25s ease}
+.yt-desc-chevron svg{display:block}
+.yt-desc-box.open .yt-desc-chevron{transform:rotate(180deg)}
+.yt-desc-body{font-size:16.5px;line-height:1.75;color:#1a1a1a;padding:0 16px 16px;display:none}
+.yt-desc-box.open .yt-desc-body{display:block}
+.yt-desc-bullets{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.yt-desc-bullets li{display:flex;align-items:flex-start;gap:10px;font-size:16px;line-height:1.5}
+
+/* CHAT */
+.yt-livechat-wrap{border:1px solid #e0e0e0;border-radius:14px;display:flex;flex-direction:column;overflow:hidden;background:#fff;margin-bottom:20px}
+.yt-livechat-header{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #e0e0e0;background:#fff;flex-shrink:0}
+.yt-live-dot{width:9px;height:9px;border-radius:50%;background:#f00;animation:livePulse 1.4s infinite;flex-shrink:0;margin-right:8px}
+@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(1.35)}}
+.yt-livechat-title{font-size:15px;font-weight:700;letter-spacing:.3px;flex:1}
+.yt-livechat-count{font-size:13px;color:#606060;margin-left:auto}
+.yt-livechat-feed{height:300px;min-height:300px;max-height:300px;overflow-y:auto;overflow-x:hidden;padding:10px 0;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.yt-livechat-feed::-webkit-scrollbar{width:4px}
+.yt-livechat-feed::-webkit-scrollbar-thumb{background:#d0d0d0;border-radius:2px}
+.lc-msg{display:flex;align-items:flex-start;gap:10px;padding:6px 16px;animation:msgIn .25s ease}
+.lc-msg.animating{will-change:transform,opacity}
+@keyframes msgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.lc-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px;overflow:hidden}
+.lc-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.lc-body{flex:1;min-width:0;font-size:15px;line-height:1.5}
+.lc-handle{font-weight:600;color:#065fd4;margin-right:5px;font-size:13px;white-space:nowrap}
+.lc-text{color:#0f0f0f;word-break:break-word}
+.yt-livechat-input-area{border-top:1px solid #e0e0e0;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;background:#fff}
+.lc-user-avatar-self{width:34px;height:34px;border-radius:50%;background:#065fd4;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.lc-input-wrap{flex:1;display:flex;align-items:center;border-bottom:2px solid #ccc;padding-bottom:3px;transition:border-color .2s}
+.lc-input-wrap:focus-within{border-color:#065fd4}
+.lc-input{flex:1;background:transparent;border:none;outline:none;font-size:16px;color:#0f0f0f;min-height:44px}
+.lc-input::placeholder{color:#909090}
+.lc-send-btn{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#065fd4;flex-shrink:0;opacity:.35;transition:opacity .2s}
+.lc-send-btn.active{opacity:1}
+.lc-send-btn.active:active{background:#e8f0fe}
+
+/* TOAST */
+.yt-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:#333;color:#fff;font-size:15px;padding:12px 22px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.5);opacity:0;pointer-events:none;z-index:9999;transition:transform .3s ease,opacity .3s ease;white-space:nowrap;max-width:90vw;text-align:center}
+.yt-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* PALETA */
+:root{--sb-bg:#f4f1eb;--sb-card:#fffdf8;--sb-card-soft:#f8f5ef;--sb-line:#e3d9cb;--sb-text:#17130f;--sb-muted:#6c6256;--sb-green:#244b38;--sb-gold:#a47a3c}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at 50% -10%,rgba(164,122,60,.12),transparent 36%),linear-gradient(180deg,#f8f5ef 0%,#f4f1eb 55%,#efe8dc 100%)}
+.yt-header{background:rgba(255,253,248,.94);border-bottom:1px solid var(--sb-line);box-shadow:0 1px 6px rgba(46,31,18,.06);backdrop-filter:saturate(130%) blur(8px)}
+.yt-page{padding-top:14px;padding-bottom:90px}
+.yt-player-box{border-radius:10px;box-shadow:0 10px 28px rgba(42,29,19,.14);border:1px solid rgba(255,255,255,.55)}
+.yt-title{color:var(--sb-text);letter-spacing:-.01em}
+.yt-ch-subs,.yt-ch-live,.yt-livechat-count{color:var(--sb-muted)}
+.yt-subscribe-btn{background:#17130f;color:#fff}
+.yt-subscribe-btn.on{background:#ebe3d5;color:#17130f}
+.yt-ld-group,.yt-act-btn,.yt-act-icon,.yt-desc-box{background:var(--sb-card-soft);border:1px solid var(--sb-line)}
+.yt-desc-box{box-shadow:0 8px 20px rgba(50,34,20,.06)}
+.yt-desc-header{padding:16px 17px}
+.yt-desc-header:active{background:#efe8dc}
+.yt-desc-preview{font-size:16px;font-weight:600;color:#30261c}
+.yt-desc-body{color:#2e261f}
+.yt-livechat-wrap{background:var(--sb-card);border:1px solid var(--sb-line);box-shadow:0 8px 20px rgba(50,34,20,.05)}
+.yt-livechat-header{background:linear-gradient(180deg,#fffdf8,#f8f5ef);border-bottom:1px solid var(--sb-line)}
+.yt-live-dot,.yt-ch-live-dot{background:#8e2f2f;animation:livePulse 1.9s infinite}
+.notif-badge{background:#8e2f2f}
+.lc-body{font-size:15.5px}.lc-handle{color:#5b3922}.lc-text{color:#201a14}
+.yt-livechat-input-area{background:#fffdf8;border-top:1px solid var(--sb-line)}
+.lc-input-wrap{background:#f4f1eb;border-color:#ded4c5}
+.lc-input::placeholder{color:#7b7164}
+
+/* PREP NOTE */
+.sb-prep-note{display:none;margin:14px 0 18px;padding:14px 16px;border-radius:14px;background:#fffaf1;border:1px solid #e7d9bf;color:#5b4630;font-size:15px;line-height:1.45;box-shadow:0 8px 18px rgba(60,40,20,.06)}
+.sb-prep-note.show{display:flex;gap:10px;align-items:flex-start;animation:sbNoteIn .6s ease both}
+.sb-prep-note span{font-weight:600;color:#3f2a1a}
+@keyframes sbNoteIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* CTA */
+.sb-skip-band{display:none;width:100%;margin:16px 0 20px;position:relative;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.sb-skip-band.show{display:block;animation:sbBandIn .6s cubic-bezier(.22,.68,0,1.2) both}
+@keyframes sbBandIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.sb-skip-band::before{content:'';position:absolute;inset:-6px;border-radius:26px;background:rgba(46,204,113,.22);animation:ctaPulse 2.2s ease-in-out infinite;pointer-events:none;z-index:0;}
+.sb-skip-band::after{content:'';position:absolute;inset:-12px;border-radius:30px;background:rgba(46,204,113,.10);animation:ctaPulse 2.2s ease-in-out infinite .6s;pointer-events:none;z-index:0;}
+@keyframes ctaPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.04);opacity:.5}}
+.sb-skip-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:72px;padding:16px 24px;border-radius:20px;background:linear-gradient(180deg,#2ecc71 0%,#1a9e52 100%);box-shadow:0 8px 28px rgba(28,158,82,.45),0 4px 0 #0e6b37;transition:transform .12s,box-shadow .12s;}
+.sb-skip-band:active .sb-skip-inner{transform:translateY(3px);box-shadow:0 3px 14px rgba(28,158,82,.35),0 1px 0 #0e6b37;}
+.sb-skip-play{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.20);border:2px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sb-skip-play::after{content:'';width:0;height:0;border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent #fff;margin-left:3px;}
+.sb-skip-center{display:flex;flex-direction:column;gap:3px;text-align:left}
+.sb-skip-title{color:#fff;font-size:18px;font-weight:900;line-height:1.15;letter-spacing:.01em;text-shadow:0 1px 4px rgba(0,0,0,.2)}
+.sb-skip-sub{color:rgba(255,255,255,.82);font-size:13px;font-weight:600}
+.sb-skip-right{margin-left:auto;flex-shrink:0;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;}
+.sb-skip-btn{color:#fff;font-size:20px;font-weight:900;line-height:1;margin-top:1px}
+.sb-skip-lbl,.sb-skip-progress,.sb-skip-progress-fill{display:none!important}
+
+@media(max-width:640px){
+  .sb-skip-band{margin:12px 0 16px}
+  .sb-skip-inner{min-height:66px;padding:14px 18px;gap:10px;border-radius:18px}
+  .sb-skip-play{width:36px;height:36px}
+  .sb-skip-play::after{border-width:8px 0 8px 14px}
+  .sb-skip-title{font-size:16px}
+  .sb-skip-sub{font-size:12px}
+  .sb-skip-right{width:32px;height:32px}
+  .sb-skip-btn{font-size:18px}
+}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .yt-header{padding:0 10px;height:52px}
+  .yt-header-left{gap:6px}
+  .yt-header-right{display:none}
+  .yt-mic-btn{display:none}
+  .yt-header-center{flex:1;margin-left:24px;margin-right:4px;min-width:0;display:none}
+  .yt-search-bar input{font-size:16px;padding:0 10px}
+  .yt-search-btn{width:46px;flex-shrink:0}
+  .yt-page{padding:0 0 40px;padding-top:10px;padding-bottom:80px}
+  .yt-player-box{width:calc(100% + 24px);margin-left:-12px;margin-right:-12px;border-radius:8px;border-left:none;border-right:none}
+  .yt-title{padding:10px 10px 0;font-size:18.5px;margin-bottom:12px}
+  .yt-below{padding:0 10px;flex-direction:column;align-items:flex-start;margin-top:10px;gap:10px;margin-bottom:12px}
+  .yt-channel-info{width:100%}
+  .yt-ch-avatar{width:44px;height:44px}
+  .yt-ch-name{font-size:16px}
+  .yt-ch-subs,.yt-ch-live{font-size:13px}
+  .yt-subscribe-btn{height:42px;min-width:116px;padding:0 14px;font-size:14px}
+  .yt-actions-wrap{padding:0 10px 4px;gap:7px}
+  .yt-like-btn,.yt-dislike-btn,.yt-act-btn,.yt-act-icon{height:42px;font-size:14px}
+  .yt-desc-box{margin:0 10px 16px;border-radius:13px}
+  .yt-desc-header{padding:15px}
+  .yt-desc-preview{font-size:15.8px;line-height:1.4}
+  .yt-desc-body{font-size:16.2px;line-height:1.65;padding:0 15px 15px}
+  .yt-livechat-wrap{margin:0 10px 20px}
+  .yt-livechat-feed{height:250px;min-height:250px;max-height:250px}
+  .yt-livechat-input-area{padding:9px 11px}
+  .lc-input{font-size:16px;min-height:42px}
+  .lc-send-btn{width:42px;height:42px}
+  .notif-dropdown{right:-8px;width:calc(100vw - 20px)}
+  .sb-prep-note{margin:10px 10px 14px;font-size:14.8px}
+}
+@media(max-width:420px){.yt-act-btn span{display:none}.yt-act-btn{padding:0 12px}}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PD79VWVK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- ═══════════════════════════════════
+     MODAL BACK REDIRECT / PAUSA
+═══════════════════════════════════ -->
+<div class="pause-redirect-overlay" id="pauseRedirectOverlay" role="dialog" aria-modal="true" aria-label="Live pausada">
+  <div class="pause-redirect-card">
+    <div class="pause-redirect-icon">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#f2cf67" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+    </div>
+    <div class="pause-redirect-title">NÃO PERCA A REVELAÇÃO!</div>
+    <div class="pause-redirect-sub">Você pausou a transmissão. O Padre João Mendes está revelando algo importante neste momento. Volte AGORA antes que encerre.</div>
+    <div class="pause-redirect-timer">A LIVE ENCERRA EM <b id="pauseCountdown">05:00</b></div>
+    <button class="pause-redirect-btn" id="pauseResumeBtn">▶ CONTINUAR ASSISTINDO</button>
+    <button class="pause-redirect-skip" id="pauseSkipBtn">Não quero ver agora</button>
+  </div>
+</div>
+
+<!-- LANDSCAPE LOCK -->
+<div class="yt-landscape-lock" id="ytLandscapeLock" aria-live="assertive" role="alert">
+  <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="2"/><path d="M1 9h22M5 5V3M19 5V3"/></svg>
+  <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="opacity:.45"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  <p>Gire o celular para a posição vertical para assistir à live</p>
+  <small>Não disponível em modo paisagem</small>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDE MENU -->
+<nav class="side-menu" id="sideMenu">
+  <div class="side-menu-header">
+    <div class="side-menu-logo">
+      <svg viewBox="0 0 28.57 20" width="28" height="20"><path d="M27.973 3.123A3.578 3.578 0 0 0 25.447.597C23.22 0 14.285 0 14.285 0S5.35 0 3.123.597A3.578 3.578 0 0 0 .597 3.123C0 5.35 0 10 0 10s0 4.65.597 6.877a3.578 3.578 0 0 0 2.526 2.526C5.35 20 14.285 20 14.285 20s8.935 0 11.162-.597a3.578 3.578 0 0 0 2.526-2.526C28.57 14.65 28.57 10 28.57 10s-.003-4.65-.597-6.877z" fill="#f00"/><path d="M11.425 14.285 18.848 10l-7.423-4.285v8.57z" fill="#fff"/></svg>
+      Paróquia San Benito
+    </div>
+    <button class="side-menu-close" id="sideMenuClose" aria-label="Fechar menu">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg>
+    </button>
+  </div>
+  <div class="side-menu-body">
+    <div class="side-menu-item" onclick="closeSideMenu()"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Início</div>
+    <div class="side-menu-item" onclick="closeSideMenu()"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 12.5v-9l6 4.5-6 4.5z"/></svg>Shorts</div>
+    <div class="side-menu-item" onclick="closeSideMenu()"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/></svg>Inscrições</div>
+    <div class="side-menu-divider"></div>
+    <div class="side-menu-section">Você</div>
+    <div class="side-menu-item" onclick="closeSideMenu()"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>Seu canal</div>
+    <div class="side-menu-item" onclick="closeSideMenu()"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>Histórico</div>
+    <div class="side-menu-divider"></div>
+    <div class="side-menu-item" onclick="closeSideMenu()"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>Configurações</div>
+  </div>
+</nav>
+
+<!-- MODAL LOGIN -->
+<div class="login-modal" id="loginModal" role="dialog" aria-modal="true">
+  <button class="login-close" id="loginClose" aria-label="Fechar">&times;</button>
+  <div class="login-modal-title">Fazer login</div>
+  <div class="login-modal-sub">para continuar no Paróquia San Benito</div>
+  <button class="login-google-btn" id="loginGoogleBtn">
+    <svg viewBox="0 0 48 48" width="22" height="22"><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v8.51h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.14z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/></svg>
+    Continuar com o Google
+  </button>
+  <div class="login-divider">ou</div>
+  <input class="login-email-input" id="loginEmailInput" type="email" placeholder="E-mail ou telefone" autocomplete="email">
+  <button class="login-next-btn" id="loginNextBtn">Avançar</button>
+  <div class="login-terms">Ao continuar, você concorda com os <a href="#" onclick="return false">Termos de Serviço</a> e a <a href="#" onclick="return false">Política de Privacidade</a> do Google.</div>
+</div>
+
+<!-- NOTIF DROPDOWN -->
+<div class="notif-dropdown" id="notifDropdown">
+  <div class="notif-header">Notificações</div>
+  <div class="notif-item">
+    <div class="notif-avatar"><img src="images/padre-avatar.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.textContent='P';this.parentNode.style.background='#065fd4'"></div>
+    <div class="notif-body"><div class="notif-text"><strong>Padre João Mendes</strong> está ao vivo agora: "Oração Sagrada de São Bento"</div><div class="notif-time">Agora mesmo</div></div>
+    <div class="notif-dot"></div>
+  </div>
+  <div class="notif-item">
+    <div class="notif-avatar" style="background:#27ae60;font-size:13px">SB</div>
+    <div class="notif-body"><div class="notif-text"><strong>Paróquia San Benito</strong> — Sua inscrição na live foi confirmada.</div><div class="notif-time">2 min atrás</div></div>
+    <div class="notif-dot"></div>
+  </div>
+  <div class="notif-footer" id="notifSeeAll">Ver todas as notificações</div>
+</div>
+
+<!-- HEADER -->
+<header class="yt-header">
+  <div class="yt-header-left">
+    <button class="yt-icon-btn" id="btnHamburger" aria-label="Menu">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+    </button>
+    <a href="#" onclick="return false" style="display:flex;align-items:center;gap:6px">
+      <svg viewBox="0 0 28.57 20" width="30" height="21"><path d="M27.973 3.123A3.578 3.578 0 0 0 25.447.597C23.22 0 14.285 0 14.285 0S5.35 0 3.123.597A3.578 3.578 0 0 0 .597 3.123C0 5.35 0 10 0 10s0 4.65.597 6.877a3.578 3.578 0 0 0 2.526 2.526C5.35 20 14.285 20 14.285 20s8.935 0 11.162-.597a3.578 3.578 0 0 0 2.526-2.526C28.57 14.65 28.57 10 28.57 10s-.003-4.65-.597-6.877z" fill="#f00"/><path d="M11.425 14.285 18.848 10l-7.423-4.285v8.57z" fill="#fff"/></svg>
+      <span style="font-size:19px;font-weight:700;color:#0f0f0f;letter-spacing:-.5px;white-space:nowrap">YouTube</span>
+    </a>
+  </div>
+  <div class="yt-header-center">
+    <div class="yt-search-wrap">
+      <div class="yt-search-bar">
+        <input type="text" id="searchInput" placeholder="Pesquisar" autocomplete="off" readonly>
+        <button class="yt-keyboard-btn" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 3H4v2h16V3zm0 4H4v2h16V7zm-8 4H4v2h8v-2z"/></svg></button>
+      </div>
+      <button class="yt-search-btn" id="btnSearch" aria-label="Pesquisar"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.87 20.17l-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg></button>
+    </div>
+    <button class="yt-mic-btn" id="btnMic" aria-label="Pesquisar por voz"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg></button>
+    <div class="search-tip" id="searchTip">🔴 Pesquisa desativada durante a live</div>
+  </div>
+  <div class="yt-header-right">
+    <button class="yt-icon-btn" id="btnNotif" aria-label="Notificações">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <span class="notif-badge" id="notifBadge">2</span>
+    </button>
+    <button class="yt-login-btn" id="btnLogin">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#065fd4"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+      <span>Entrar</span>
+    </button>
+  </div>
+</header>
+
+<main class="yt-page">
+
+  <!-- PLAYER -->
+  <div class="yt-player-box">
+    <div class="yt-vsl-frame" id="ytVslFrame">
+      <video id="ytPlayer" playsinline webkit-playsinline x5-playsinline preload="auto" poster="images/imagem.jpg"
+        disablePictureInPicture
+        controlsList="nodownload nofullscreen noremoteplayback"
+      ></video>
+      <button type="button" class="yt-vsl-play" id="ytVslPlay" aria-label="Reproduzir">
+        <svg viewBox="0 0 68 48" width="72" height="51"><path d="M66.5 7.7c-.8-2.9-3-5.1-5.9-5.9C55.3.5 34 .5 34 .5S12.7.5 7.4 1.8C4.5 2.6 2.3 4.8 1.5 7.7.2 13 .2 24 .2 24s0 11 1.3 16.3c.8 2.9 3 5.1 5.9 5.9C12.7 47.5 34 47.5 34 47.5s21.3 0 26.6-1.3c2.9-.8 5.1-3 5.9-5.9C67.8 35 67.8 24 67.8 24s0-11-1.3-16.3z" fill="#f00"/><path d="M27 34l18-10-18-10z" fill="#fff"/></svg>
+        <span>Toque para assistir</span>
+      </button>
+      <div class="yt-tap-zone" id="ytTapZone"></div>
+      <div class="yt-pause-flash" id="ytPauseFlash">
+        <svg id="ytFlashIcon" viewBox="0 0 24 24" width="24" height="24" fill="#fff"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </div>
+      <div class="yt-vsl-sound" id="ytVslSound">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        Toque para ativar o som
+      </div>
+      <div class="yt-ctrl-bar" id="ytCtrlBar">
+        <button class="yt-ctrl-btn" id="ytCtrlPlay" aria-label="Pausar">
+          <svg id="ytPlayIcon" viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <div class="yt-vol-wrap">
+          <button class="yt-ctrl-btn" id="ytCtrlMute" aria-label="Mudo">
+            <svg id="ytVolIcon" viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/></svg>
+          </button>
+          <input class="yt-vol-slider" id="ytVolSlider" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume">
+        </div>
+        <div class="yt-ctrl-live" style="margin-left:auto">
+          <span class="yt-ctrl-live-dot"></span>AO VIVO
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TÍTULO -->
+  <h1 class="yt-title">ISSO FOI OCULTADO DE VOCÊ... MAS HOJE SERÁ REVELADO AO VIVO ÀS <span id="liveTime"></span></h1>
+  <script>(function(){var n=new Date(),hh=String(n.getHours()).padStart(2,'0'),mm=String(n.getMinutes()).padStart(2,'0'),dd=String(n.getDate()).padStart(2,'0'),mo=String(n.getMonth()+1).padStart(2,'0'),yyyy=n.getFullYear();var el=document.getElementById('liveTime');if(el)el.textContent=hh+':'+mm+', '+dd+'/'+mo+'/'+yyyy;})()</script>
+
+  <!-- CANAL -->
+  <div class="yt-below">
+    <div class="yt-channel-info">
+      <div class="yt-ch-avatar"><img src="images/padre-avatar.webp" alt="Padre João Mendes" width="48" height="48" loading="eager" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='images/imagem.jpg'"></div>
+      <div class="yt-ch-meta">
+        <span class="yt-ch-name">Padre João Mendes <svg viewBox="0 0 24 24" width="15" height="15" fill="#606060"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></span>
+        <span class="yt-ch-subs" id="chSubs">93K inscritos</span>
+        <span class="yt-ch-live"><span class="yt-ch-live-dot"></span><span id="viewerCount">8.240</span> assistindo ao vivo</span>
+      </div>
+      <button class="yt-subscribe-btn" id="btnSub">
+        <span id="subLabel">Inscrever-se</span>
+        <svg class="yt-sub-bell" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      </button>
+    </div>
+    <div class="yt-actions-wrap">
+      <div class="yt-ld-group">
+        <button class="yt-like-btn" id="btnLike" aria-label="Gostei">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+          <span id="likeCount">7,2K</span>
+        </button>
+        <div class="yt-ld-sep"></div>
+        <button class="yt-dislike-btn" id="btnDislike" aria-label="Não gostei">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg>
+        </button>
+      </div>
+      <div style="position:relative;flex-shrink:0">
+        <button class="yt-act-btn" id="btnShare"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M15 5.63 20.66 12 15 18.37V15h-1c-3.96 0-7.14 1-9.75 3.09 1.84-4.07 5.11-6.65 10.75-7.06V8l-1-2.37zM14 3v4C7.45 7.5 3.22 11.33 2 18c2.52-2.84 6.12-4.5 10-4.5h2V20l8-8-8-8z"/></svg><span>Compartilhar</span></button>
+        <div class="share-dropdown" id="shareDropdown">
+          <div class="share-item" id="shareCopy"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copiar link</div>
+          <div class="share-item" id="shareWhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</div>
+          <div class="share-item" id="shareNativo"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>Mais opções</div>
+        </div>
+      </div>
+      <div style="position:relative;flex-shrink:0">
+        <button class="yt-act-icon" id="btnMore" aria-label="Mais opções"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+        <div class="more-dropdown" id="moreDropdown">
+          <div class="more-item" id="moreReport"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z"/></svg>Denunciar</div>
+          <div class="more-item" id="moreNotInterested"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>Não tenho interesse</div>
+          <div class="more-item" id="moreAddPlaylist"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M22 13h-4v4h-2v-4h-4v-2h4V7h2v4h4v2zm-8-6H2v1h12V7zM2 12h8v-1H2v1zm0 4h8v-1H2v1z"/></svg>Adicionar à playlist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESCRIÇÃO -->
+  <div class="yt-desc-box" id="descBox">
+    <div class="yt-desc-header" id="descToggle">
+      <span class="yt-desc-preview" id="descPreviewText">Transmissão em andamento — toque para ver a descrição completa</span>
+      <span class="yt-desc-chevron"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></span>
+    </div>
+    <div class="yt-desc-body" id="descBody">
+      <ul class="yt-desc-bullets">
+        <li><span>Uma orientação simples para quem sente que tem rezado, mas ainda percebe um peso silencioso dentro de casa, na mente ou até mesmo no ambiente da família.<br><br>
+Muitas pessoas continuam orando todos os dias… mas sem entender por que ainda carregam ansiedade, inquietação, cansaço espiritual ou sensação de desânimo.<br><br>
+🔑 Nesta transmissão, o Padre João Mendes compartilha uma forma mais atenta e acolhedora de fazer a oração de São Bento no dia a dia — com mais presença, fé e direção espiritual.<br><br>
+✨ Para quem busca: paz dentro de casa, proteção espiritual, clareza nos pensamentos, fortalecimento da família e mais tranquilidade no coração.<br><br>
+Permaneça com calma até o final da live. Nos últimos minutos, o Padre fará uma orientação especial sobre como ativar sua oração de proteção da maneira correta. 🙏</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- NOTA DE PREPARAÇÃO -->
+  <div class="sb-prep-note" id="sbPrepNote" aria-live="polite">
+    <div>🙏</div>
+    <div><span>Orientação final sendo liberada.</span><br>Continue acompanhando com calma; o próximo passo aparecerá automaticamente.</div>
+  </div>
+
+  <!-- CTA -->
+  <a class="sb-skip-band" id="sbRelease" href="/finalizar-pagamento/" rel="noopener" data-cta="checkout" aria-live="polite">
+    <div class="sb-skip-inner">
+      <div class="sb-skip-play"></div>
+      <div class="sb-skip-center">
+        <div class="sb-skip-title">ATIVAR MINHA ORAÇÃO AGORA</div>
+        <div class="sb-skip-sub">Acesso imediato no WhatsApp • ambiente seguro</div>
+      </div>
+      <div class="sb-skip-right">
+        <div class="sb-skip-btn">›</div>
+      </div>
+    </div>
+  </a>
+
+  <!-- CHAT AO VIVO -->
+  <div class="yt-livechat-wrap">
+    <div class="yt-livechat-header">
+      <div class="yt-live-dot"></div>
+      <span class="yt-livechat-title">CHAT AO VIVO</span>
+      <span class="yt-livechat-count" id="chatViewerCount">8.240 assistindo</span>
+    </div>
+    <div class="yt-livechat-feed" id="liveChatFeed">
+      <div class="lc-msg"><div class="lc-avatar" style="background:#96e6a1">J</div><div class="lc-body"><span class="lc-handle">@joao.batista_mg</span><span class="lc-text">aqui cedo… Deus abençoe a todos 🙏</span></div></div>
+      <div class="lc-msg"><div class="lc-avatar"><img src="images/03.jpg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.style.background='#a3d9a0';this.parentNode.textContent='M';this.remove()"></div><div class="lc-body"><span class="lc-handle">@dona_marcia_sp</span><span class="lc-text">mais alguém entrou agora?</span></div></div>
+      <div class="lc-msg"><div class="lc-avatar" style="background:#9aebec">D</div><div class="lc-body"><span class="lc-handle">@david.rezende</span><span class="lc-text">entrei sem querer e acabei ficando…</span></div></div>
+      <div class="lc-msg"><div class="lc-avatar" style="background:#fdba74">C</div><div class="lc-body"><span class="lc-handle">@cicero_nordeste</span><span class="lc-text">assistindo de Pernambuco 🇧🇷</span></div></div>
+      <div class="lc-msg"><div class="lc-avatar"><img src="images/06.jpg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.style.background='#f4a1a8';this.parentNode.textContent='I';this.remove()"></div><div class="lc-body"><span class="lc-handle">@ivone.rj_</span><span class="lc-text">paz a todos, que seja uma noite tranquila</span></div></div>
+      <div class="lc-msg"><div class="lc-avatar" style="background:#b2a2d7">T</div><div class="lc-body"><span class="lc-handle">@terezinha_lima</span><span class="lc-text">não sei bem o que é mas vou ficar</span></div></div>
+      <div class="lc-msg"><div class="lc-avatar" style="background:#d6d6d6">S</div><div class="lc-body"><span class="lc-handle">@sebastiao_mg</span><span class="lc-text">olá de Minas Gerais 🙌</span></div></div>
+    </div>
+    <div class="yt-livechat-input-area">
+      <div class="lc-user-avatar-self">V</div>
+      <div class="lc-input-wrap">
+        <input class="lc-input" id="lcInput" type="text" placeholder="Diga algo..." maxlength="200" autocomplete="off">
+      </div>
+      <button class="lc-send-btn" id="lcSendBtn" title="Enviar">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<div class="yt-toast" id="ytToast"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ── GTM ── */
+function gtmPush(o){try{(window.dataLayer=window.dataLayer||[]).push(o);}catch(e){}}
+
+/* ── TOAST ── */
+function toast(msg,ms){ms=ms||2200;var t=document.getElementById('ytToast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},ms);}
+
+/* ── OVERLAY ── */
+var overlay=document.getElementById('overlay');
+function showOverlay(){overlay.classList.add('show');}
+function hideOverlay(){overlay.classList.remove('show');}
+overlay.addEventListener('click',function(){closeSideMenu();closeLoginModal();closeNotifDropdown();closeShareDropdown();closeMoreDropdown();hideOverlay();});
+
+/* ── SIDE MENU ── */
+var sideMenu=document.getElementById('sideMenu');
+function openSideMenu(){sideMenu.classList.add('open');showOverlay();}
+function closeSideMenu(){sideMenu.classList.remove('open');hideOverlay();}
+window.closeSideMenu=closeSideMenu;
+document.getElementById('btnHamburger').addEventListener('click',function(){if(sideMenu.classList.contains('open'))closeSideMenu();else openSideMenu();});
+document.getElementById('sideMenuClose').addEventListener('click',closeSideMenu);
+
+/* ── LOGIN ── */
+var loginModal=document.getElementById('loginModal');
+function openLoginModal(){loginModal.classList.add('show');showOverlay();}
+function closeLoginModal(){loginModal.classList.remove('show');hideOverlay();}
+document.getElementById('btnLogin').addEventListener('click',openLoginModal);
+document.getElementById('loginClose').addEventListener('click',closeLoginModal);
+document.getElementById('loginGoogleBtn').addEventListener('click',function(){this.textContent='Conectando…';setTimeout(function(){closeLoginModal();toast('✓ Login realizado com Google',3000);},1100);});
+document.getElementById('loginNextBtn').addEventListener('click',function(){var email=document.getElementById('loginEmailInput').value.trim();if(!email){document.getElementById('loginEmailInput').focus();return;}this.textContent='Verificando…';var b=this;setTimeout(function(){b.textContent='Avançar';closeLoginModal();toast('✓ Bem-vindo!',2500);},1100);});
+document.getElementById('loginEmailInput').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('loginNextBtn').click();});
+
+/* ── NOTIF ── */
+var notifDropdown=document.getElementById('notifDropdown');
+var notifBadge=document.getElementById('notifBadge');
+var btnNotif=document.getElementById('btnNotif');
+function openNotifDropdown(){notifDropdown.classList.add('show');btnNotif.classList.add('active');if(notifBadge)notifBadge.style.display='none';}
+function closeNotifDropdown(){notifDropdown.classList.remove('show');btnNotif.classList.remove('active');}
+btnNotif.addEventListener('click',function(e){e.stopPropagation();if(notifDropdown.classList.contains('show'))closeNotifDropdown();else{closeShareDropdown();closeMoreDropdown();openNotifDropdown();}});
+document.getElementById('notifSeeAll').addEventListener('click',function(){closeNotifDropdown();toast('Não há mais notificações');});
+document.addEventListener('click',function(e){if(!notifDropdown.contains(e.target)&&e.target!==btnNotif)closeNotifDropdown();});
+
+/* ── BUSCA ── */
+var searchTip=document.getElementById('searchTip'),searchTimer=null;
+function showSearchTip(){searchTip.classList.add('show');clearTimeout(searchTimer);searchTimer=setTimeout(function(){searchTip.classList.remove('show');},2500);}
+document.getElementById('searchInput').addEventListener('focus',showSearchTip);
+document.getElementById('searchInput').addEventListener('click',showSearchTip);
+document.getElementById('btnSearch').addEventListener('click',showSearchTip);
+document.getElementById('btnMic').addEventListener('click',function(){toast('🎙️ Pesquisa por voz indisponível na live');});
+
+/* ── INSCREVER ── */
+var btnSub=document.getElementById('btnSub'),subLabel=document.getElementById('subLabel'),subsEl=document.getElementById('chSubs'),subCount=93000;
+if(btnSub){btnSub.addEventListener('click',function(){var on=btnSub.classList.toggle('on');subLabel.textContent=on?'Inscrito':'Inscrever-se';if(on){subCount++;toast('✓ Inscrito! Você receberá notificações das próximas lives.');}else{subCount=Math.max(0,subCount-1);toast('Inscrição cancelada');}if(subsEl){var d=subCount>=1000?(Math.round(subCount/100)/10).toFixed(1).replace('.0','')+'K inscritos':subCount+' inscritos';subsEl.textContent=d;}});}
+
+/* ── DESCRIÇÃO ── */
+var descBox=document.getElementById('descBox'),descToggle=document.getElementById('descToggle'),descPreviewEl=document.getElementById('descPreviewText');
+if(descToggle&&descBox){
+  descToggle.setAttribute('aria-expanded','false');
+  descToggle.addEventListener('click',function(){
+    var open=descBox.classList.toggle('open');
+    descToggle.setAttribute('aria-expanded',open?'true':'false');
+    if(descPreviewEl)descPreviewEl.textContent=open?'Toque para fechar a descrição':'Transmissão em andamento — toque para ver a descrição completa';
+  });
+}
+
+/* ── CURTIR ── */
+var btnLike=document.getElementById('btnLike'),likeEl=document.getElementById('likeCount'),liked=false,likeCount=7234;
+function fmtLike(n){if(n>=1000){var k=(n/1000).toFixed(1);return k.endsWith('.0')?Math.round(n/1000)+'K':k+'K';}return String(n);}
+if(likeEl)likeEl.textContent=fmtLike(likeCount);
+if(btnLike){btnLike.addEventListener('click',function(){liked=!liked;btnLike.classList.toggle('on',liked);likeCount+=liked?1:-1;if(likeEl)likeEl.textContent=fmtLike(likeCount);toast(liked?'Você curtiu este vídeo 👍':'Curtida removida');});setInterval(function(){if(likeCount<54000){likeCount+=Math.floor(Math.random()*10)+2;if(likeEl)likeEl.textContent=fmtLike(likeCount);}},Math.floor(Math.random()*40000)+25000);}
+
+/* ── DESCURTIR ── */
+var btnDis=document.getElementById('btnDislike');
+if(btnDis){btnDis.addEventListener('click',function(){toast(btnDis.classList.toggle('on')?'Feedback registrado. Obrigado!':'Feedback removido');});}
+
+/* ── COMPARTILHAR ── */
+var shareDropdown=document.getElementById('shareDropdown'),btnShare=document.getElementById('btnShare');
+var isMobileShare=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
+function closeShareDropdown(){if(shareDropdown)shareDropdown.classList.remove('show');}
+function doShare(){if(navigator.share){navigator.share({title:document.title,url:location.href}).catch(function(){});}else if(navigator.clipboard){navigator.clipboard.writeText(location.href).then(function(){toast('🔗 Link copiado!');});}else{toast('Copie o link da barra de endereços');}}
+if(btnShare){btnShare.addEventListener('click',function(e){e.stopPropagation();if(isMobileShare){doShare();return;}closeMoreDropdown();closeNotifDropdown();if(shareDropdown)shareDropdown.classList.toggle('show');});}
+var elShareCopy=document.getElementById('shareCopy'),elShareWA=document.getElementById('shareWhatsApp'),elShareNativo=document.getElementById('shareNativo');
+if(elShareCopy)elShareCopy.addEventListener('click',function(){closeShareDropdown();if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){toast('🔗 Link copiado!');});else toast('Copie o link da barra de endereços');});
+if(elShareWA)elShareWA.addEventListener('click',function(){closeShareDropdown();window.open('https://wa.me/?text='+encodeURIComponent('Assiste essa live agora: '+document.title+' '+location.href),'_blank','noopener');});
+if(elShareNativo)elShareNativo.addEventListener('click',function(){closeShareDropdown();doShare();});
+document.addEventListener('click',function(e){if(shareDropdown&&btnShare&&!shareDropdown.contains(e.target)&&e.target!==btnShare)closeShareDropdown();});
+
+/* ── MAIS OPÇÕES ── */
+var moreDropdown=document.getElementById('moreDropdown'),btnMore=document.getElementById('btnMore');
+function closeMoreDropdown(){if(moreDropdown)moreDropdown.classList.remove('show');}
+if(btnMore){btnMore.addEventListener('click',function(e){e.stopPropagation();closeShareDropdown();closeNotifDropdown();if(moreDropdown)moreDropdown.classList.toggle('show');});}
+var elReport=document.getElementById('moreReport'),elNotInt=document.getElementById('moreNotInterested'),elPlaylist=document.getElementById('moreAddPlaylist');
+if(elReport)elReport.addEventListener('click',function(){closeMoreDropdown();toast('Sua denúncia foi registrada. Obrigado.');});
+if(elNotInt)elNotInt.addEventListener('click',function(){closeMoreDropdown();toast('Entendido. Mostraremos menos conteúdos assim.');});
+if(elPlaylist)elPlaylist.addEventListener('click',function(){closeMoreDropdown();toast('Salvo em Assistir mais tarde');});
+document.addEventListener('click',function(e){if(moreDropdown&&btnMore&&!moreDropdown.contains(e.target)&&e.target!==btnMore)closeMoreDropdown();});
+
+/* ── ESPECTADORES ── */
+var viewerEl=document.getElementById('viewerCount'),chatViewerEl=document.getElementById('chatViewerCount');
+var liveStartedAt=Date.now(),viewerCount=8240+Math.floor(Math.random()*260);
+function targetViewers(min){
+  if(min<5)return 8200+Math.floor(Math.random()*280);
+  if(min<18)return 8050+Math.floor(Math.random()*260);
+  if(min<34)return 7900+Math.floor(Math.random()*230);
+  if(min<40)return 8100+Math.floor(Math.random()*260);
+  if(min<43)return 8300+Math.floor(Math.random()*340);
+  return 7050+Math.floor(Math.random()*260);
+}
+function updateViewers(){
+  var min=Math.min(47,(Date.now()-liveStartedAt)/60000);
+  var target=targetViewers(min);
+  viewerCount=Math.max(6800,Math.min(8700,viewerCount+Math.round((target-viewerCount)*0.22)+Math.floor(Math.random()*36)-18));
+  var fmt=viewerCount.toLocaleString('pt-BR');
+  if(viewerEl)viewerEl.textContent=fmt;
+  if(chatViewerEl)chatViewerEl.textContent=fmt+' assistindo';
+}
+updateViewers();
+setInterval(updateViewers,7000);
+
+/* ── CHAT ── */
+var lcMessages=[
+  {handle:"@aparecida.santos",chat:"boa noite, estou acompanhando em silêncio 🙏",bg:"#c6b8a6",photo:"03",delay:7000},
+  {handle:"@ronaldo.rezende",chat:"o áudio ficou baixo pra mais alguém?",bg:"#b8c0b0",delay:17000},
+  {handle:"@nilza.pereira",chat:"aqui está normal, dá pra ouvir sim",bg:"#c8d4c1",delay:31000},
+  {handle:"@francisco_ba",chat:"minha irmã me mandou essa live",bg:"#c3b7a8",delay:52000},
+  {handle:"@rosangela.rv",chat:"assistindo do Rio de Janeiro",bg:"#d7c6b2",delay:81000},
+  {handle:"@seu_ze_74",chat:"cheguei agora, começou faz tempo?",bg:"#d8c8bb",delay:118000},
+  {handle:"@ivone.rj_",chat:"começou sim, mas dá pra acompanhar",bg:"#d6d0c7",photo:"06",delay:154000},
+  {handle:"@vera.lucia_sp",chat:"primeira vez que assisto uma live assim",bg:"#cfc1b3",delay:211000},
+  {handle:"@benedita_lima",chat:"não costumo comentar, mas precisava ouvir isso hoje",bg:"#d6d0c7",delay:323000},
+  {handle:"@luiza.mello47",chat:"minha mãe está assistindo comigo",bg:"#d4bd9f",delay:392000},
+  {handle:"@geralda.minas",chat:"eu estava precisando de uma direção assim",bg:"#c0d0c6",delay:471000},
+  {handle:"@raimundo_pa",chat:"minha casa anda tão pesada esses dias",bg:"#d6d6d6",delay:548000},
+  {handle:"@fatima.rezende",chat:"fiz uma oração antes de abrir o celular",bg:"#d8c9b9",delay:642000},
+  {handle:"@dalva.cristina",chat:"São Bento proteja minha casa e meus filhos",bg:"#c3d0c4",delay:735000},
+  {handle:"@dona_marcia_sp",chat:"tem dias que a gente só precisa de um pouco de paz",bg:"#b8c6d0",photo:"03",delay:846000},
+  {handle:"@cleonice_ba",chat:"a voz dele passa calma",bg:"#d6c5a8",delay:918000},
+  {handle:"@antonia.silva_",chat:"essa explicação foi simples de entender",bg:"#b8c6d0",delay:1032000},
+  {handle:"@seu_francisco57",chat:"estou assistindo com o terço na mão",bg:"#d1b7b5",delay:1145000},
+  {handle:"@terezinha_lima",chat:"não estou entendendo tudo, mas sinto paz",bg:"#c8bdd3",delay:1263000},
+  {handle:"@ronaldo.rezende",chat:"quem chegou agora, continua… ele está explicando com calma",bg:"#d6d6d6",delay:1379000},
+  {handle:"@maria.das.gracas",chat:"meu marido sentou aqui do lado para ouvir também",bg:"#c5d8bd",delay:1495000},
+  {handle:"@benedita_lima",chat:"essa parte falou comigo",bg:"#d6d0c7",delay:1598000},
+  {handle:"@cicero_nordeste",chat:"parece que o coração vai ficando mais leve",bg:"#d4bd9f",delay:1698000},
+  {handle:"@rosangela.rv",chat:"alguém sabe se depois aparece onde receber a oração?",bg:"#d7c6b2",delay:1814000},
+  {handle:"@nilza.pereira",chat:"acho que ele vai explicar no final",bg:"#c8d4c1",delay:1939000},
+  {handle:"@joao.batista_mg",chat:"vamos acompanhar com fé",bg:"#c5d8bd",delay:2055000},
+  {handle:"@aparecida.santos",chat:"essa oração é para fazer pela casa toda?",bg:"#c6b8a6",photo:"03",delay:2145000},
+  {handle:"@geralda.minas",chat:"eu quero fazer pelos meus filhos",bg:"#c0d0c6",delay:2220000},
+  {handle:"@cleonice_ba",chat:"acho que está chegando a orientação final",bg:"#d6c5a8",delay:2296000},
+  {handle:"@fatima.rezende",chat:"presta atenção agora, gente",bg:"#d8c9b9",delay:2340000},
+  {handle:"@dalva.cristina",chat:"ele falou que vai liberar o próximo passo",bg:"#c3d0c4",delay:2372000},
+  {handle:"@aparecida.santos",chat:"eu quero fazer pela minha casa também",bg:"#c6b8a6",photo:"03",delay:2393000}
+];
+var liveFeed=document.getElementById('liveChatFeed'),lcInput=document.getElementById('lcInput'),lcSend=document.getElementById('lcSendBtn'),userScrolled=false;
+if(liveFeed){liveFeed.addEventListener('scroll',function(){userScrolled=liveFeed.scrollHeight-liveFeed.scrollTop-liveFeed.clientHeight>=40;},{passive:true});}
+function scrollToBottom(){if(!userScrolled&&liveFeed)liveFeed.scrollTop=liveFeed.scrollHeight;}
+if(lcInput){lcInput.addEventListener('focus',function(){setTimeout(function(){lcInput.scrollIntoView({behavior:'smooth',block:'center'});},300);});}
+function makeMsgEl(handle,chat,opts){
+  opts=opts||{};
+  var div=document.createElement('div');div.className='lc-msg animating';
+  div.addEventListener('animationend',function(){div.classList.remove('animating');},{once:true});
+  var letter=handle.replace('@','').charAt(0).toUpperCase();
+  var imgs=['01','02','03','04','05','06'];
+  var hh=0;for(var k=0;k<handle.length;k++){hh=(hh*31+handle.charCodeAt(k))>>>0;}
+  var photo=opts.photo||((hh%5<3)?imgs[hh%imgs.length]:null);
+  var av=photo
+    ?'<div class="lc-avatar"><img src="images/'+photo+'.jpg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.style.background=\''+(opts.bg||'#888')+'\';this.remove();this.parentNode.textContent=\''+letter+'\'"></div>'
+    :'<div class="lc-avatar" style="background:'+(opts.bg||'#888')+'">'+letter+'</div>';
+  div.innerHTML=av+'<div class="lc-body"><span class="lc-handle">'+handle+'</span><span class="lc-text">'+chat+'</span></div>';
+  return div;
+}
+function addLiveChatMsg(handle,chat,opts){
+  if(!liveFeed)return;
+  liveFeed.appendChild(makeMsgEl(handle,chat,opts));
+  scrollToBottom();
+  var msgs=liveFeed.querySelectorAll('.lc-msg');
+  if(msgs.length>120)msgs[0].remove();
+}
+window.addEventListener('load',function(){if(liveFeed)liveFeed.scrollTop=liveFeed.scrollHeight;});
+lcMessages.forEach(function(m){setTimeout(function(){addLiveChatMsg(m.handle,m.chat,{bg:m.bg,photo:m.photo});},m.delay);});
+
+/* ── SCROLL DEPTH GTM ── */
+var scrollFired={25:false,50:false,75:false};
+window.addEventListener('scroll',function(){
+  var pct=Math.round((window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100);
+  [25,50,75].forEach(function(th){if(!scrollFired[th]&&pct>=th){scrollFired[th]=true;gtmPush({event:'scroll_depth',depth:th});}});
+},{passive:true});
+
+/* ── CTA ── */
+var CTA_AT_SEC=1800,PREP_AT_SEC=1765,END_WARN_AT_SEC=2700;
+var sbPrep=document.getElementById('sbPrepNote'),sbRelease=document.getElementById('sbRelease');
+var sbCtaShown=false,endWarnFired=false;
+function showPrepNote(){if(sbPrep&&!sbPrep.classList.contains('show'))sbPrep.classList.add('show');}
+function showSbCta(){
+  if(sbCtaShown)return;sbCtaShown=true;
+  showPrepNote();
+  if(sbRelease){
+    sbRelease.classList.add('show');
+    setTimeout(function(){try{sbRelease.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}},500);
+  }
+  // ── Comentários sincronizados com o surgimento do botão ──
+  // 0s  — primeiro a notar o botão aparecer
+  setTimeout(function(){addLiveChatMsg('@dona_marcia_sp','apareceu uma mensagem aqui embaixo',{bg:'#b8c6d0',photo:'03'});},800);
+  // 8s  — segundo confirma
+  setTimeout(function(){addLiveChatMsg('@vera.lucia_sp','apareceu pra mim também, bem simples',{bg:'#cfc1b3'});},8000);
+  // 18s — primeira ativação
+  setTimeout(function(){addLiveChatMsg('@nilza.pereira','vou ativar a minha oração agora com fé',{bg:'#c8d4c1'});},18000);
+  // 30s — confirmação positiva
+  setTimeout(function(){addLiveChatMsg('@terezinha_lima','deu certo aqui 🙏',{bg:'#c8bdd3'});},30000);
+  // 42s — tranquilizador
+  setTimeout(function(){addLiveChatMsg('@ronaldo.rezende','continua tranquilo, é só seguir com calma',{bg:'#d6d6d6'});},42000);
+  // 58s — ativação pela família
+  setTimeout(function(){addLiveChatMsg('@maria.das.gracas','fiz pela minha família',{bg:'#c5d8bd'});},58000);
+  // 75s — outro confirmando
+  setTimeout(function(){addLiveChatMsg('@seu_francisco57','vou fazer hoje pela minha família também',{bg:'#c8d4c1'});},75000);
+  // 95s — senso de urgência
+  setTimeout(function(){addLiveChatMsg('@antonia.silva_','acho que essa transmissão já vai acabar',{bg:'#c4c4c4'});},95000);
+  // 110s — FOMO
+  setTimeout(function(){addLiveChatMsg('@ivone.rj_','não vou deixar pra depois dessa vez',{bg:'#d6d0c7',photo:'06'});},110000);
+  // 128s — arrependimento anterior
+  setTimeout(function(){addLiveChatMsg('@aparecida.santos','me arrependi da outra vez de não fazer na hora',{bg:'#c6b8a6',photo:'03'});},128000);
+  // 145s — urgência final
+  setTimeout(function(){addLiveChatMsg('@dona_marcia_sp','vou ativar agora antes que encerre',{bg:'#b8c6d0',photo:'03'});},145000);
+  // 162s — proteção
+  setTimeout(function(){addLiveChatMsg('@geralda.minas','não quero deixar minha casa desprotegida',{bg:'#c0d0c6'});},162000);
+  // 178s — gratidão
+  setTimeout(function(){addLiveChatMsg('@benedita_lima','obrigada padre, senti paz hoje',{bg:'#d6d0c7'});},178000);
+  gtmPush({event:'cta_visible',cta_source:'vsl_skip_band'});
+  try{if(window.utmify&&window.utmify.track)window.utmify.track('InitiateCheckout');}catch(e){}
+}
+function showEndWarning(){
+  if(endWarnFired)return;endWarnFired=true;
+  toast('⏳ A transmissão está encerrando. Ative sua oração antes que feche.',4500);
+  if(sbRelease&&sbCtaShown){try{sbRelease.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}}
+  // Comentários de encerramento — sincronizados com o aviso
+  addLiveChatMsg('@joao.batista_mg','pessoal, acho que vai encerrar em breve',{bg:'#c5d8bd'});
+  setTimeout(function(){addLiveChatMsg('@cicero_nordeste','quem ainda não ativou, corre!',{bg:'#fdba74'});},9000);
+  setTimeout(function(){addLiveChatMsg('@rosangela.rv','fiz agora, foi rápido e simples',{bg:'#d7c6b2'});},20000);
+}
+
+/* ═══════════════════════════════════════════════
+   LANDSCAPE LOCK
+═══════════════════════════════════════════════ */
+(function(){
+  var lock=document.getElementById('ytLandscapeLock');if(!lock)return;
+  function check(){
+    var isLandscape=window.innerWidth>window.innerHeight&&window.innerWidth<900;
+    lock.style.display=isLandscape?'flex':'none';
+    document.body.style.overflow=isLandscape?'hidden':'';
+  }
+  check();
+  window.addEventListener('resize',check,{passive:true});
+  window.addEventListener('orientationchange',function(){setTimeout(check,120);},{passive:true});
+  // Screen Orientation API (mais preciso em mobile)
+  if(window.screen&&window.screen.orientation){
+    window.screen.orientation.addEventListener('change',function(){setTimeout(check,120);});
+  }
+})();
+
+/* ═══════════════════════════════════════════════
+   BACK REDIRECT — modal de pausa + histórico
+═══════════════════════════════════════════════ */
+(function(){
+  var overlay=document.getElementById('pauseRedirectOverlay');
+  var resumeBtn=document.getElementById('pauseResumeBtn');
+  var skipBtn=document.getElementById('pauseSkipBtn');
+  var countdownEl=document.getElementById('pauseCountdown');
+  var countdownSec=300; // 3 minutos
+  var countdownTimer=null;
+  var pauseShown=false;
+
+  // Injeta entrada no histórico para capturar o botão voltar
+  history.pushState({sbLive:true},'',location.href);
+
+  function formatTime(s){
+    var m=Math.floor(s/60),sec=s%60;
+    return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+  }
+
+  function startCountdown(){
+    clearInterval(countdownTimer);
+    countdownSec=300;
+    if(countdownEl)countdownEl.textContent=formatTime(countdownSec);
+    countdownTimer=setInterval(function(){
+      countdownSec--;
+      if(countdownEl)countdownEl.textContent=formatTime(countdownSec);
+      if(countdownSec<=0){
+        clearInterval(countdownTimer);
+        // redireciona para checkout se não retomou
+        window.location.href='/finalizar-pagamento/'+(location.search||'');
+      }
+    },1000);
+  }
+
+  function showPauseModal(){
+    if(pauseShown)return;
+    pauseShown=true;
+    overlay.classList.add('show');
+    startCountdown();
+    gtmPush({event:'pause_redirect_shown'});
+    // Empurra novo estado para que o próximo "voltar" seja capturado novamente
+    history.pushState({sbLive:true},'',location.href);
+  }
+
+  function hidePauseModal(){
+    overlay.classList.remove('show');
+    clearInterval(countdownTimer);
+    pauseShown=false;
+  }
+
+  // Botão "Continuar assistindo"
+  if(resumeBtn){
+    resumeBtn.addEventListener('click',function(){
+      hidePauseModal();
+      var vid=document.getElementById('ytPlayer');
+      if(vid&&vid.paused){
+        vid.play().catch(function(){});
+        // sincroniza ícone de play
+        var pi=document.getElementById('ytPlayIcon');
+        if(pi)pi.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+      }
+      gtmPush({event:'pause_redirect_resume'});
+    });
+  }
+
+  // Botão "Não quero ver agora" → vai para checkout
+  if(skipBtn){
+    skipBtn.addEventListener('click',function(){
+      hidePauseModal();
+      gtmPush({event:'pause_redirect_skip'});
+      window.location.href='/finalizar-pagamento/'+(location.search||'');
+    });
+  }
+
+  // Detecta botão voltar do navegador
+  window.addEventListener('popstate',function(e){
+    if(e.state&&e.state.sbLive){
+      showPauseModal();
+    } else {
+      showPauseModal();
+    }
+  });
+
+  // Expõe para o player usar ao pausar
+  window.__showPauseModal=showPauseModal;
+  window.__hidePauseModal=hidePauseModal;
+})();
+
+/* ═══════════════════════════════════════════════
+   PLAYER HLS + CONTROLES + BLOQUEIO FULLSCREEN
+═══════════════════════════════════════════════ */
+var VSL_HLS_URL='https://video.oracaosaobento.online/vsl/master.m3u8';
+(function(){
+  var video=document.getElementById('ytPlayer');
+  var frame=document.getElementById('ytVslFrame');
+  var overlayBtn=document.getElementById('ytVslPlay');
+  var soundBanner=document.getElementById('ytVslSound');
+  var tapZone=document.getElementById('ytTapZone');
+  var ctrlPlayBtn=document.getElementById('ytCtrlPlay');
+  var ctrlMuteBtn=document.getElementById('ytCtrlMute');
+  var volSlider=document.getElementById('ytVolSlider');
+  var playIcon=document.getElementById('ytPlayIcon');
+  var volIcon=document.getElementById('ytVolIcon');
+  var pauseFlash=document.getElementById('ytPauseFlash');
+  var flashIcon=document.getElementById('ytFlashIcon');
+  if(!video)return;
+
+  /* ── Atributos anti-fullscreen / PiP ── */
+  video.muted=true;
+  video.setAttribute('muted','');
+  video.setAttribute('playsinline','');
+  video.setAttribute('webkit-playsinline','');
+  video.setAttribute('x5-playsinline','');
+  video.setAttribute('x5-video-player-type','h5');
+  video.setAttribute('x5-video-player-fullscreen','false');
+  video.setAttribute('disablePictureInPicture','');
+  video.setAttribute('controlsList','nodownload nofullscreen noremoteplayback');
+  video.preload='auto';
+
+  /* ── Bloqueia fullscreen via API em todos os navegadores ── */
+  function blockFullscreen(e){
+    e.stopPropagation();e.preventDefault();
+    if(document.exitFullscreen)document.exitFullscreen();
+    else if(document.webkitExitFullscreen)document.webkitExitFullscreen();
+    else if(document.mozCancelFullScreen)document.mozCancelFullScreen();
+    else if(document.msExitFullscreen)document.msExitFullscreen();
+    return false;
+  }
+  video.addEventListener('webkitfullscreenchange',blockFullscreen);
+  video.addEventListener('fullscreenchange',blockFullscreen);
+  video.addEventListener('mozfullscreenchange',blockFullscreen);
+  document.addEventListener('fullscreenchange',function(){
+    if(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement){
+      blockFullscreen({stopPropagation:function(){},preventDefault:function(){}});
+    }
+  });
+  // Bloqueia double-tap para fullscreen em iOS
+  video.addEventListener('webkitbeginfullscreen',function(e){
+    e.preventDefault();
+    if(video.webkitExitFullscreen)video.webkitExitFullscreen();
+  });
+  // Bloqueia Picture-in-Picture
+  video.addEventListener('enterpictureinpicture',function(e){
+    e.preventDefault();
+    if(document.exitPictureInPicture)document.exitPictureInPicture();
+  });
+  // Desativa clique duplo (fullscreen nativo iOS/Android)
+  video.addEventListener('dblclick',function(e){e.preventDefault();e.stopPropagation();return false;},{passive:false});
+
+  var SVG_PLAY='<path d="M8 5v14l11-7z"/>',SVG_PAUSE='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>',
+      SVG_VOL_ON='<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/>',
+      SVG_VOL_OFF='<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+
+  function setPlayIcon(p){if(playIcon)playIcon.innerHTML=p?SVG_PAUSE:SVG_PLAY;if(ctrlPlayBtn)ctrlPlayBtn.setAttribute('aria-label',p?'Pausar':'Reproduzir');}
+  function setVolIcon(m){if(volIcon)volIcon.innerHTML=m?SVG_VOL_OFF:SVG_VOL_ON;if(ctrlMuteBtn)ctrlMuteBtn.setAttribute('aria-label',m?'Ativar som':'Mudo');}
+
+  var flashTimer=null;
+  function showFlash(paused){
+    if(!pauseFlash||!flashIcon)return;
+    flashIcon.innerHTML=paused?SVG_PLAY:SVG_PAUSE;
+    pauseFlash.classList.add('show');
+    clearTimeout(flashTimer);
+    flashTimer=setTimeout(function(){pauseFlash.classList.remove('show');},600);
+  }
+
+  function attach(){
+    if(video.canPlayType('application/vnd.apple.mpegurl')){
+      video.src=VSL_HLS_URL;
+    } else if(window.Hls&&window.Hls.isSupported()){
+      var h=new Hls({
+        maxBufferLength:15,
+        maxMaxBufferLength:30,
+        maxBufferSize:30*1000*1000,
+        startLevel:-1,
+        enableWorker:true,
+        lowLatencyMode:false,
+        fragLoadingMaxRetry:6,
+        fragLoadingRetryDelay:500,
+        manifestLoadingMaxRetry:4,
+        manifestLoadingRetryDelay:500,
+        levelLoadingMaxRetry:4,
+        startFragPrefetch:true,
+        testBandwidth:true,
+        progressive:true,
+        backBufferLength:30
+      });
+      h.on(Hls.Events.ERROR,function(ev,data){
+        if(data.fatal){
+          if(data.type===Hls.ErrorTypes.NETWORK_ERROR)h.startLoad();
+          else if(data.type===Hls.ErrorTypes.MEDIA_ERROR)h.recoverMediaError();
+        }
+      });
+      h.loadSource(VSL_HLS_URL);h.attachMedia(video);window.__hls=h;
+    } else {
+      video.src=VSL_HLS_URL;
+    }
+  }
+  if(!video.canPlayType('application/vnd.apple.mpegurl')){
+    var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js';
+    s.onload=attach;s.onerror=function(){video.src=VSL_HLS_URL;};document.head.appendChild(s);
+  }else{attach();}
+
+  var playbackStarted=false;
+  function startPlayback(){
+    if(playbackStarted)return;playbackStarted=true;
+    overlayBtn.style.display='none';overlayBtn.style.pointerEvents='none';
+    frame.classList.add('playing');
+    gtmPush({event:'video_play'});
+    video.muted=false;
+    var p=video.play();
+    if(p&&p.then){
+      p.then(function(){frame.classList.remove('muted');setPlayIcon(true);setVolIcon(false);if(volSlider)volSlider.value=1;})
+      .catch(function(){
+        video.muted=true;
+        var p2=video.play();
+        if(p2&&p2.then){
+          p2.then(function(){frame.classList.add('muted');setPlayIcon(true);setVolIcon(true);if(volSlider)volSlider.value=0;})
+          .catch(function(){playbackStarted=false;overlayBtn.style.display='';overlayBtn.style.pointerEvents='';frame.classList.remove('playing');});
+        }
+      });
+    }
+  }
+  overlayBtn.addEventListener('click',startPlayback);
+
+  if(soundBanner)soundBanner.addEventListener('click',function(){video.muted=false;video.volume=1;frame.classList.remove('muted');setVolIcon(false);if(volSlider)volSlider.value=1;video.play().catch(function(){});});
+
+  /* ── Pause / Play com modal de back redirect ── */
+  var pauseModalDelay=null;
+  function togglePlayPause(){
+    if(video.paused){
+      // retomando — esconde modal se estiver aberto
+      if(window.__hidePauseModal)window.__hidePauseModal();
+      clearTimeout(pauseModalDelay);
+      video.play().catch(function(){});setPlayIcon(true);showFlash(false);
+    }else{
+      video.pause();setPlayIcon(false);showFlash(true);
+      // exibe modal após 1.5s de pausa (evita flash em pausa rápida)
+      clearTimeout(pauseModalDelay);
+      pauseModalDelay=setTimeout(function(){
+        if(video.paused&&window.__showPauseModal)window.__showPauseModal();
+      },1500);
+      gtmPush({event:'video_pause',time:Math.round(video.currentTime)});
+    }
+  }
+  if(tapZone)tapZone.addEventListener('click',togglePlayPause);
+  if(ctrlPlayBtn)ctrlPlayBtn.addEventListener('click',function(e){e.stopPropagation();togglePlayPause();});
+
+  if(ctrlMuteBtn)ctrlMuteBtn.addEventListener('click',function(e){
+    e.stopPropagation();video.muted=!video.muted;
+    if(video.muted){frame.classList.add('muted');setVolIcon(true);if(volSlider)volSlider.value=0;}
+    else{frame.classList.remove('muted');setVolIcon(false);if(volSlider)volSlider.value=video.volume||1;}
+  });
+
+  if(volSlider)volSlider.addEventListener('input',function(e){
+    e.stopPropagation();var v=parseFloat(this.value);
+    video.volume=v;video.muted=(v===0);
+    if(v===0){frame.classList.add('muted');setVolIcon(true);}else{frame.classList.remove('muted');setVolIcon(false);}
+  });
+
+  video.addEventListener('pause',function(){setPlayIcon(false);});
+  video.addEventListener('play',function(){setPlayIcon(true);});
+
+  /* ── Timeupdate → CTA ── */
+  var fired15=false,fired30=false;
+  video.addEventListener('timeupdate',function(){
+    var t=video.currentTime||0;
+    if(!fired15&&t>=900){fired15=true;gtmPush({event:'video_15min'});}
+    if(!fired30&&t>=1800){fired30=true;gtmPush({event:'video_30min'});}
+    if(t>=PREP_AT_SEC)showPrepNote();
+    if(t>=CTA_AT_SEC)showSbCta();
+    if(t>=END_WARN_AT_SEC)showEndWarning();
+  });
+
+  /* ── Prewarm ── */
+  function prewarmPix(){
+    try{fetch('api/create-pix.php',{method:'OPTIONS',cache:'no-store',keepalive:true}).catch(function(){});}catch(e){}
+  }
+  setTimeout(prewarmPix,8000);
+})();
+
+/* ── DEBUG MODE ── */
+if(/[?&](mostrarCta|debugCta)=1/.test(location.search)){
+  setTimeout(showPrepNote,900);
+  setTimeout(showSbCta,1400);
+}
+
+/* ── GTM CLIQUE CTA ── */
+document.querySelectorAll('a[data-cta="checkout"]').forEach(function(el){
+  el.addEventListener('click',function(){gtmPush({event:'begin_checkout',cta_source:'vsl'});toast('Abrindo ambiente protegido…',1800);});
+});
+
+/* ── INTERSECTION OBSERVER CTA ── */
+var sbRelease2=document.getElementById('sbRelease');
+if(sbRelease2&&'IntersectionObserver' in window){
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting&&sbCtaShown){gtmPush({event:'cta_hover_visible',cta_source:'skip_band'});obs.disconnect();}});},{threshold:.5});
+  obs.observe(sbRelease2);
+}
+
+/* ── CHAT INPUT ── */
+function sendLcMsg(){var txt=lcInput?lcInput.value.trim():'';if(!txt)return;addLiveChatMsg('@Você',txt,{bg:'#065fd4'});lcInput.value='';if(lcSend)lcSend.classList.remove('active');userScrolled=false;scrollToBottom();}
+if(lcInput){lcInput.addEventListener('input',function(){if(lcSend)lcSend.classList.toggle('active',lcInput.value.trim().length>0);});lcInput.addEventListener('keydown',function(e){if(e.key==='Enter')sendLcMsg();});}
+if(lcSend)lcSend.addEventListener('click',sendLcMsg);
+
+})();
+</script>
+
+<script>
+/* UTMs → checkout */
+(function(){
+  function dest(){return '/finalizar-pagamento/'+(location.search||'');}
+  document.querySelectorAll('a[data-cta="checkout"]').forEach(function(el){el.setAttribute('href',dest());});
+})();
+</script>
+<script src="js/latest.js" data-utmify-prevent-xcod-sck="" data-utmify-prevent-subids="" async defer></script>
+</body></html>
