@@ -217,6 +217,15 @@
   text-decoration: underline;
 }
 
+.summary span small {
+  display: block;
+  max-width: 280px;
+  margin-top: 4px;
+  color: #52605b;
+  font-size: .8rem;
+  line-height: 1.35;
+}
+
 .summary .total {
   border-bottom: 0;
   font-size: 1.18rem;
@@ -386,6 +395,11 @@
   font-weight: 700;
   line-height: 1.4;
   padding: 12px;
+}
+
+.error:focus {
+  outline: 3px solid #f3b61f;
+  outline-offset: 2px;
 }
 
 .composer {

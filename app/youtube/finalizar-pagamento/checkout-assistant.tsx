@@ -20,9 +20,9 @@ const ORDER_KEY = 'cc_youtube_order_v1';
 const SESSION_KEY = 'cc_youtube_session_v1';
 
 const prompts: Record<Step, string> = {
-  name: 'Para começar, qual é o seu nome completo?',
-  phone: 'Obrigado. Agora digite seu WhatsApp com DDD. É por esse número que a equipe fará contato se você escolher o áudio adicional.',
-  cpf: 'Por segurança do pagamento, o banco exige o CPF do titular. Ele será enviado somente ao processador do PIX e não ficará salvo nesta conversa.',
+  name: 'Vamos fazer isso com calma. Para começar, qual é o seu nome e sobrenome?',
+  phone: 'Obrigado. Agora digite seu WhatsApp com DDD. Se você escolher o áudio adicional, é nesse número que a equipe fará o envio depois da confirmação.',
+  cpf: 'Na próxima etapa, o processador do PIX exige o CPF do titular. Ele será usado somente para gerar o pagamento e não será mostrado nem salvo nesta conversa.',
   bump: 'Você quer incluir também o Áudio Completo da Oração Sagrada de São Bento por R$ 9,90? Ele é opcional e será enviado manualmente pelo WhatsApp após a confirmação.',
   review: 'Confira seu pedido antes de gerar o PIX.',
   pix: 'Seu PIX está pronto. Copie o código abaixo e pague no aplicativo do seu banco.',
@@ -64,7 +64,7 @@ function utms() {
 export function CheckoutAssistant() {
   const [step, setStep] = useState<Step>('name');
   const [messages, setMessages] = useState<Message[]>([
-    { id: 'welcome', from: 'assistant', text: 'Olá. Eu vou ajudar você a finalizar com calma, uma etapa por vez.' },
+    { id: 'welcome', from: 'assistant', text: 'Que a paz esteja com você. Este é o assistente digital da Contemplação Católica. Vou ajudar a finalizar com calma, uma etapa por vez.' },
     { id: 'prompt-name', from: 'assistant', text: prompts.name },
   ]);
   const [input, setInput] = useState('');
@@ -79,6 +79,7 @@ export function CheckoutAssistant() {
   const [audioReady, setAudioReady] = useState(false);
   const [expired, setExpired] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
   const [sessionId, setSessionId] = useState('');
   const total = 2290 + (bump ? 990 : 0);
   const progress = step === 'name' ? 1 : step === 'phone' ? 2 : step === 'cpf' ? 3 : 4;
@@ -95,6 +96,10 @@ export function CheckoutAssistant() {
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [messages, step, error, payment, audioReady]);
+
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
 
   useEffect(() => {
     if (!sessionId) return;
@@ -292,8 +297,8 @@ export function CheckoutAssistant() {
           <a href="/youtube" className={styles.back} aria-label="Voltar para a apresentação">‹</a>
           <Image src="/youtube/apresentador.webp" alt="" width={48} height={48} />
           <div>
-            <h1 id="checkout-title">Assistente de pagamento</h1>
-            <p><span aria-hidden="true" /> atendimento guiado</p>
+            <h1 id="checkout-title">Assistente digital de pagamento</h1>
+            <p><span aria-hidden="true" /> orientação automática</p>
           </div>
         </header>
 
@@ -325,7 +330,13 @@ export function CheckoutAssistant() {
           {step === 'review' ? (
             <section className={styles.summary} aria-label="Resumo do pedido">
               <h2>Resumo do seu pedido</h2>
-              <div><span>Oração Sagrada de São Bento</span><strong>R$ 22,90</strong></div>
+              <div>
+                <span>
+                  Oração Sagrada de São Bento
+                  <small>Aproximadamente R$ 3,27 por dia durante 7 dias</small>
+                </span>
+                <strong>R$ 22,90</strong>
+              </div>
               {bump ? (
                 <div>
                   <span>Áudio completo <button type="button" onClick={removeBump}>Remover</button></span>
@@ -336,7 +347,7 @@ export function CheckoutAssistant() {
               <button type="button" className={styles.primary} onClick={createPix} disabled={busy}>
                 {busy ? 'Gerando PIX com segurança…' : `Gerar PIX de ${money(total)}`}
               </button>
-              <p>Pagamento único. Nenhum frete ou produto físico.</p>
+              <p>Pagamento único. Nenhum frete ou produto físico. Resultados específicos não são garantidos.</p>
             </section>
           ) : null}
 
@@ -390,7 +401,7 @@ export function CheckoutAssistant() {
             </section>
           ) : null}
 
-          {error ? <div className={styles.error} role="alert">{error}</div> : null}
+          {error ? <div ref={errorRef} className={styles.error} role="alert" tabIndex={-1}>{error}</div> : null}
           <div ref={endRef} />
         </div>
 
@@ -401,15 +412,18 @@ export function CheckoutAssistant() {
               <input
                 id="checkout-input"
                 name={step}
+                type={step === 'phone' ? 'tel' : 'text'}
                 value={input}
-                onChange={(event) => setInput(event.target.value)}
+                onChange={(event) => {
+                  setInput(event.target.value);
+                  if (error) setError('');
+                }}
                 inputMode={inputMode}
                 autoComplete={step === 'name' ? 'name' : step === 'phone' ? 'tel' : 'off'}
                 enterKeyHint="send"
                 maxLength={step === 'name' ? 80 : 18}
-                placeholder={step === 'name' ? 'Digite seu nome e sobrenome' : step === 'phone' ? '(11) 99999-9999' : '000.000.000-00'}
+                placeholder={step === 'name' ? 'Digite seu nome e sobrenome…' : step === 'phone' ? '(11) 99999-9999…' : '000.000.000-00…'}
                 aria-describedby="input-help"
-                autoFocus
               />
               <button type="submit" aria-label="Enviar resposta">➤</button>
             </div>

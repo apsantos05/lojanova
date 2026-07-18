@@ -24,27 +24,30 @@ export default function YoutubeVslPage() {
       </header>
 
       <div className={styles.content}>
-        <VslPlayer />
+        <VslPlayer>
+          <h1 className={styles.title}>
+            PARA QUEM REZA, MAS SENTE QUE PRECISA RETOMAR A PAZ E A CONSTÂNCIA
+          </h1>
 
-        <h1 className={styles.title}>ISSO FOI OCULTADO DE VOCÊ... MAS HOJE SERÁ REVELADO</h1>
+          <section className={styles.channel} aria-label="Informações da apresentação">
+            <Image src="/youtube/apresentador.webp" alt="" width={48} height={48} priority />
+            <div>
+              <strong>Contemplação Católica</strong>
+              <span>Oração Sagrada de São Bento</span>
+              <small>Conteúdo gravado para assistir no seu ritmo</small>
+            </div>
+          </section>
 
-        <section className={styles.channel} aria-label="Informações da apresentação">
-          <Image src="/youtube/apresentador.webp" alt="" width={48} height={48} priority />
-          <div>
-            <strong>Contemplação Católica</strong>
-            <span>Oração Sagrada de São Bento</span>
-            <small>Conteúdo gravado para assistir no seu ritmo</small>
-          </div>
-        </section>
-
-        <details className={styles.description}>
-          <summary>Sobre esta apresentação</summary>
-          <p>
-            Uma orientação para quem deseja fazer a Oração de São Bento com mais
-            atenção, presença e direção no dia a dia.
-          </p>
-          <p>Permaneça até o final para conhecer o próximo passo.</p>
-        </details>
+          <details className={styles.description}>
+            <summary>Sobre esta apresentação</summary>
+            <p>
+              Ter dificuldade para manter a constância não significa falta de fé.
+              Esta apresentação traz uma orientação simples para quem deseja fazer
+              a Oração de São Bento com mais atenção, presença e direção no dia a dia.
+            </p>
+            <p>Assista no seu ritmo. Ao final, você poderá decidir com calma se deseja continuar.</p>
+          </details>
+        </VslPlayer>
 
         <footer className={styles.footer}>
           <p>Conteúdo digital. Nenhum resultado específico é garantido.</p>

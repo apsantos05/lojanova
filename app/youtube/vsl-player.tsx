@@ -1,12 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import styles from './youtube.module.css';
 
 const VIDEO_URL = 'https://bms0corilnnjspwi.public.blob.vercel-storage.com/videos/oracao-sagrada-sao-bento-vsl.mp4';
 const CTA_AT_SECONDS = 1800;
 const WATCH_KEY = 'cc_youtube_watch_v2';
+const GUIDANCE = [
+  { at: 0, text: 'Se o áudio estiver baixo, use o controle de volume do próprio vídeo ou do celular.' },
+  { at: 120, text: 'Assista com calma. Você pode pausar e continuar nesta mesma sessão.' },
+  { at: 900, text: 'Ter dificuldade para manter a constância não significa falta de fé. O importante é retomar com serenidade.' },
+  { at: 1765, text: 'A orientação final e o próximo passo serão liberados automaticamente em instantes.' },
+] as const;
 
 function checkoutHref() {
   const params = new URLSearchParams(window.location.search);
@@ -18,8 +24,20 @@ function checkoutHref() {
   return `/youtube/finalizar-pagamento${query ? `?${query}` : ''}`;
 }
 
-export function VslPlayer() {
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
+  const whole = Math.floor(seconds);
+  const hours = Math.floor(whole / 3600);
+  const minutes = Math.floor((whole % 3600) / 60);
+  const remainder = whole % 60;
+  return hours
+    ? `${hours}:${String(minutes).padStart(2, '0')}:${String(remainder).padStart(2, '0')}`
+    : `${minutes}:${String(remainder).padStart(2, '0')}`;
+}
+
+export function VslPlayer({ children }: { children?: ReactNode }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
   const flashTimer = useRef<number | null>(null);
   const [started, setStarted] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -29,6 +47,9 @@ export function VslPlayer() {
   const [mediaError, setMediaError] = useState('');
   const [showCta, setShowCta] = useState(false);
   const [href, setHref] = useState('/youtube/finalizar-pagamento');
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [shareStatus, setShareStatus] = useState('');
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -104,10 +125,48 @@ export function VslPlayer() {
     setMuted(next === 0);
   }
 
+  function seek(next: number) {
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime = next;
+    setCurrentTime(next);
+  }
+
+  async function sharePresentation() {
+    const data = {
+      title: 'Oração Sagrada de São Bento',
+      text: 'Assista a esta apresentação sobre a Oração Sagrada de São Bento.',
+      url: window.location.href,
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(data);
+        setShareStatus('Compartilhamento aberto.');
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        setShareStatus('Link copiado.');
+      }
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') return;
+      setShareStatus('Não foi possível compartilhar. Copie o endereço desta página.');
+    }
+    window.setTimeout(() => setShareStatus(''), 2600);
+  }
+
+  async function enterFullscreen() {
+    try {
+      await frameRef.current?.requestFullscreen();
+    } catch {
+      setMediaError('A tela cheia não está disponível neste navegador. Gire o celular para ampliar o vídeo.');
+    }
+  }
+
+  const visibleGuidance = GUIDANCE.filter((item) => currentTime >= item.at);
+
   return (
     <>
       <section className={styles.playerBox} aria-label="Player da apresentação">
-        <div className={`${styles.playerFrame} ${started ? styles.started : ''}`}>
+        <div ref={frameRef} className={`${styles.playerFrame} ${started ? styles.started : ''}`}>
           <video
             ref={videoRef}
             className={styles.video}
@@ -118,8 +177,10 @@ export function VslPlayer() {
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
             onError={() => setMediaError('O vídeo não pôde ser carregado. Verifique sua internet e tente novamente.')}
+            onLoadedMetadata={(event) => setDuration(event.currentTarget.duration || 0)}
             onTimeUpdate={(event) => {
               const watched = Math.floor(event.currentTarget.currentTime || 0);
+              setCurrentTime(event.currentTarget.currentTime || 0);
               if (watched > 0) sessionStorage.setItem(WATCH_KEY, String(watched));
               if (watched >= CTA_AT_SECONDS) setShowCta(true);
             }}
@@ -156,6 +217,16 @@ export function VslPlayer() {
 
           {started ? (
             <div className={styles.controls}>
+              <input
+                className={styles.progressSlider}
+                type="range"
+                min="0"
+                max={duration || 1}
+                step="0.25"
+                value={Math.min(currentTime, duration || 1)}
+                onChange={(event) => seek(Number(event.target.value))}
+                aria-label="Progresso do vídeo"
+              />
               <button type="button" className={styles.controlButton} onClick={togglePlayback} aria-label={playing ? 'Pausar' : 'Reproduzir'}>
                 <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" aria-hidden="true">
                   {playing ? <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /> : <path d="M8 5v14l11-7z" />}
@@ -178,7 +249,12 @@ export function VslPlayer() {
                   aria-label="Volume"
                 />
               </div>
-              <span className={styles.recordedLabel}>GRAVADO</span>
+              <span className={styles.timeDisplay}>{formatTime(currentTime)} / {formatTime(duration)}</span>
+              <button type="button" className={styles.controlButton} onClick={enterFullscreen} aria-label="Abrir em tela cheia">
+                <svg viewBox="0 0 24 24" width="21" height="21" fill="#fff" aria-hidden="true">
+                  <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
+                </svg>
+              </button>
             </div>
           ) : null}
         </div>
@@ -186,15 +262,51 @@ export function VslPlayer() {
 
       {mediaError ? <div className={styles.error} role="alert">{mediaError}</div> : null}
 
+      <div className={styles.videoActions}>
+        <button type="button" onClick={sharePresentation}>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M15 5.63 20.66 12 15 18.37V15h-1c-3.96 0-7.14 1-9.75 3.09C6.09 14.02 9.36 11.44 15 11.03V8l-1-2.37zM14 3v4C7.45 7.5 3.22 11.33 2 18c2.52-2.84 6.12-4.5 10-4.5h2V20l8-8-8-8z" />
+          </svg>
+          Compartilhar
+        </button>
+        <span role="status" aria-live="polite">{shareStatus}</span>
+      </div>
+
+      {children}
+
       {showCta ? (
         <section className={styles.offer} aria-labelledby="offer-title">
-          <p>Próximo passo</p>
-          <h2 id="offer-title">Receba a Oração Sagrada de São Bento</h2>
-          <span>Acesso digital por <strong>R$ 22,90</strong></span>
-          <Link className={styles.cta} href={href}>ATIVAR MINHA ORAÇÃO AGORA</Link>
-          <small>Pagamento único por PIX. O áudio de R$ 9,90 é opcional.</small>
+          <p>Próximo passo, com calma</p>
+          <h2 id="offer-title">Leve a Oração Sagrada de São Bento para seus 7 dias de prática</h2>
+          <span>
+            Acesso digital por <strong>R$ 22,90</strong>, aproximadamente <strong>R$ 3,27 por dia</strong>.
+          </span>
+          <Link className={styles.cta} href={href}>CONTINUAR COM AJUDA NO PAGAMENTO</Link>
+          <small>Pagamento único por PIX. O áudio completo de R$ 9,90 é opcional e apresentado separadamente.</small>
         </section>
       ) : null}
+
+      <section className={styles.guidance} aria-labelledby="guidance-title">
+        <div className={styles.guidanceHeader}>
+          <div>
+            <h2 id="guidance-title">Orientações da apresentação</h2>
+            <p>Mensagens de apoio da equipe, liberadas durante o vídeo</p>
+          </div>
+          <span>{visibleGuidance.length}</span>
+        </div>
+        <div className={styles.guidanceFeed} aria-live="polite">
+          {visibleGuidance.map((item) => (
+            <article key={item.at}>
+              <span className={styles.teamAvatar}>CC</span>
+              <div>
+                <strong>Equipe Contemplação Católica</strong>
+                <small>{item.at ? `No minuto ${formatTime(item.at)}` : 'Ao iniciar'}</small>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
     </>
   );
 }

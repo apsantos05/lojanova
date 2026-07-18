@@ -29,6 +29,15 @@ describe('funil da VSL', () => {
     expect(vsl).toContain('public.blob.vercel-storage.com/videos/oracao-sagrada-sao-bento-vsl.mp4');
     expect(vsl).not.toContain('video.oracaosaobento.online');
     expect(vsl).toContain('controls');
-    expect(vsl).not.toMatch(/AO VIVO|viewers|pushState|popstate|login/i);
+    expect(vsl).toContain('Equipe Contemplação Católica');
+    expect(vsl).toContain('Orientações da apresentação');
+    expect(vsl).not.toMatch(/AO VIVO|viewers|pushState|popstate|login|depoimento/i);
+  });
+
+  it('mantém o checkout legível e previsível no celular', () => {
+    expect(checkout).toContain('Assistente digital de pagamento');
+    expect(checkout).toContain('Aproximadamente R$ 3,27 por dia durante 7 dias');
+    expect(checkout).toContain("type={step === 'phone' ? 'tel' : 'text'}");
+    expect(checkout).not.toContain('autoFocus');
   });
 });
