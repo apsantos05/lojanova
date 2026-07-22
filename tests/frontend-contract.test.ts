@@ -36,6 +36,13 @@ describe('contrato do frontend migrado', () => {
     expect(funnel).toContain('"label": "Digite seu WhatsApp com DDD"');
   });
 
+  it('exibe um resumo visual com valores calculados pelo catálogo', () => {
+    expect(app).toContain('function appendOrderSummary()');
+    expect(app).toContain("addRow('Total do pagamento', fmtBRL(cartTotalCents())");
+    expect(css).toContain('.order-summary-total');
+    expect(funnel).not.toContain('blk-pedido-preparado-card');
+  });
+
   it('prepara os áudios com ritmo humano antes de exibi-los', () => {
     expect(app).toContain('function showAudioPreparing()');
     expect(app).toContain('preparando áudio…');
@@ -47,6 +54,7 @@ describe('contrato do frontend migrado', () => {
 
   it('não grava CPF no localStorage nem o exibe como mensagem do lead', () => {
     expect(app).toContain("const PRIVATE_VAR_NAMES = ['nome','whatsapp','cpf'");
+    expect(app).toContain("PRIVATE_VAR_NAMES.filter(k => k !== 'cpf')");
     expect(app).toContain('sessionStorage.setItem(PRIVATE_STATE_KEY');
     expect(app).not.toMatch(/localStorage\.setItem\([^)]*cpf/i);
     expect(app).toContain("kind === 'cpf' ? 'CPF informado com segurança ✓' : value");

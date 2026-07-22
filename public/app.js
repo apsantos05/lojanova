@@ -2,7 +2,7 @@
 'use strict';
 
 const CHECKOUT_URL = '/finalizar-pagamento/'; // mantido só como fallback legado (bloco "Redirect")
-const ASSET_VERSION = '29.1';
+const ASSET_VERSION = '30.0';
 const FUNNEL_URL = '/funnel.json?v=' + ASSET_VERSION;
 const TYPING_PER_CHAR = 30;
 const TYPING_MIN = 820;
@@ -142,11 +142,12 @@ function parseUTM() {
    nada se o navegador recarregar a página no meio da conversa (muito comum
    em navegador embutido do TikTok / Android mais antigo). */
 const PRIVATE_VAR_NAMES = ['nome','whatsapp','cpf','intencao','intencaoResumo','resumo'];
+const SESSION_PRIVATE_VAR_NAMES = PRIVATE_VAR_NAMES.filter(k => k !== 'cpf');
 
 function savePrivateState() {
   try {
     const privateVars = {};
-    PRIVATE_VAR_NAMES.forEach(k => { if (state.vars[k]) privateVars[k] = state.vars[k]; });
+    SESSION_PRIVATE_VAR_NAMES.forEach(k => { if (state.vars[k]) privateVars[k] = state.vars[k]; });
     sessionStorage.setItem(PRIVATE_STATE_KEY, JSON.stringify(privateVars));
   } catch (e) {}
 }
@@ -674,6 +675,50 @@ function buildResumo() {
   lines.push('');
   lines.push('TOTAL: ' + fmtBRL(total));
   state.vars.resumo = lines.join('\n');
+}
+
+function appendOrderSummary() {
+  thread.setAttribute('aria-busy', 'false');
+  const wrap = document.createElement('section');
+  wrap.className = 'msg bot order-summary';
+  wrap.setAttribute('aria-label', 'Resumo do pedido');
+
+  const title = document.createElement('div');
+  title.className = 'order-summary-title';
+  title.textContent = 'Confira seu pedido';
+  wrap.appendChild(title);
+
+  const addRow = (label, value, extraClass = '') => {
+    const row = document.createElement('div');
+    row.className = 'order-summary-row' + (extraClass ? ' ' + extraClass : '');
+    const item = document.createElement('span');
+    item.textContent = label;
+    const price = document.createElement('strong');
+    price.textContent = value;
+    row.appendChild(item);
+    row.appendChild(price);
+    wrap.appendChild(row);
+  };
+
+  addRow('Oração Sagrada de São Bento', fmtBRL(SB_PRODUCT.price_cents));
+  selectedBumpIds().forEach(id => {
+    const bump = SB_BUMPS[id];
+    if (bump) addRow('Áudio completo (opcional)', fmtBRL(bump.price_cents));
+  });
+  addRow('Total do pagamento', fmtBRL(cartTotalCents()), 'order-summary-total');
+
+  const note = document.createElement('div');
+  note.className = 'order-summary-note';
+  note.textContent = 'Pagamento único por PIX. Sem mensalidade nem cobrança adicional.';
+  wrap.appendChild(note);
+
+  const meta = document.createElement('div');
+  meta.className = 'msg-meta';
+  meta.textContent = nowHM();
+  wrap.appendChild(meta);
+  thread.appendChild(wrap);
+  scrollBottom();
+  return wrap;
 }
 
 
@@ -1237,7 +1282,7 @@ async function renderBlock(block) {
     'blk-ofe1': 'view_offer',
     'blk-cadastro-intro': 'view_checkout_registration',
     'blk-cpf-intro': 'view_cpf',
-    'blk-pedido-preparado-card': 'view_order_summary',
+    'blk-resumo-txt': 'view_order_summary',
     'blk-payment': 'view_payment',
     'blk-download-oracao': 'view_download',
     'blk-audio-whatsapp': 'view_audio_whatsapp_delivery'
@@ -1270,7 +1315,8 @@ async function renderBlock(block) {
     } else {
       await conversationalPause(480, 920);
     }
-    appendMessage(text, 'bot');
+    if (block.id === 'blk-resumo-txt') appendOrderSummary();
+    else appendMessage(text, 'bot');
     await conversationalPause(560, 1050);
     return;
   }
