@@ -372,7 +372,7 @@
           "id": "aud-05-antes-do-valor",
           "type": "audio",
           "content": {
-            "title": "Mensagem curta antes de decidir — áudio opcional",
+            "title": "Mensagem de voz de Frei Gilson",
             "url": "audio-05-antes-do-valor.mp3",
             "duration": 23,
             "fallback": "Se não puder ouvir agora, siga pelo texto: a proposta é começar um caminho simples de oração, fé e constância."
@@ -382,7 +382,7 @@
           "id": "blk-ofe3",
           "type": "text",
           "content": {
-            "text": "Pense no que custa continuar carregando essa angústia sem um caminho para começar. Aqui você recebe 7 dias de direção por cerca de R$ 3,27 por dia. O acesso completo fica por R$ 22,90, uma única vez. Assim que o PIX for confirmado, o material é liberado nesta conversa."
+            "text": "Por R$ 22,90, você recebe a Oração Sagrada de São Bento e um caminho guiado de 7 dias — cerca de R$ 3,27 por dia. É um pagamento único por PIX. Após a confirmação, o material é liberado nesta conversa."
           }
         },
         {
@@ -561,7 +561,7 @@
           "items": [
             {
               "id": "itm-aut-btn",
-              "content": "✝️ Quero essa proteção sagrada agora",
+              "content": "✝️ Quero continuar com a oração",
               "outgoingEdgeId": "edg-aut-red"
             }
           ]
@@ -652,7 +652,7 @@
           "id": "blk-cadastro-intro",
           "type": "text",
           "content": {
-            "text": "Perfeito, {{apelido}}. Para gerar seu acesso com segurança e conseguir ajudar caso o pagamento trave, preciso agora dos dados de cadastro."
+            "text": "Perfeito, {{apelido}}. Para preparar seu pedido, preciso confirmar seu nome e seu WhatsApp."
           }
         },
         {
@@ -697,7 +697,7 @@
           "id": "blk-cpf-intro",
           "type": "text",
           "content": {
-            "text": "Falta apenas o CPF do pagador. A operadora BlackCat exige esse dado para criar o PIX em nome de quem fará o pagamento. Ele não aparece na conversa e não fica salvo no histórico do navegador."
+            "text": "Para gerar o PIX, a operadora pede o CPF de quem fará o pagamento. Ele é usado somente nesta solicitação e não será exibido nas mensagens."
           }
         },
         {
@@ -706,7 +706,7 @@
           "options": {
             "placeholder": "Digite seu CPF…",
             "label": "Digite o CPF do pagador",
-            "help": "Somente números. Usado pela operadora para gerar este PIX.",
+            "help": "Digite somente os números. O CPF será enviado com segurança à operadora do PIX.",
             "button": "Continuar",
             "variable": "cpf",
             "kind": "cpf"
@@ -757,17 +757,10 @@
           }
         },
         {
-          "id": "blk-pedido-preparado-card",
-          "type": "text",
-          "content": {
-            "text": "Pedido preparado para {{apelido}}. Confira cada item antes de gerar o PIX."
-          }
-        },
-        {
           "id": "blk-resumo-txt",
           "type": "text",
           "content": {
-            "text": "Confira com calma:\n\n{{resumo}}\n\nPagamento único por PIX, sem mensalidade e sem cobrança escondida."
+            "text": "{{resumo}}"
           }
         },
         {
@@ -816,7 +809,7 @@
           "id": "blk-obg1",
           "type": "text",
           "content": {
-            "text": "Confirmou, {{apelido}}. Respira.\n\nSua oração foi liberada e você deu hoje um passo concreto de proteção."
+            "text": "Pagamento confirmado, {{apelido}}. Respire com calma.\n\nSua oração foi liberada, e você já pode começar seu caminho de 7 dias."
           }
         },
         {
