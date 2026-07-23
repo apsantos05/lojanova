@@ -35,6 +35,16 @@
           }
         },
         {
+          "id": "aud-02-aquecimento",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-02-aquecimento.mp3",
+            "duration": 24,
+            "fallback": "Ouça com calma. Quero preparar este momento antes de entender o que mais tem tirado a sua paz."
+          }
+        },
+        {
           "id": "blk-apresentacao",
           "type": "text",
           "content": {
@@ -90,7 +100,7 @@
           "id": "aud-04-acolhimento-dor-inveja",
           "type": "audio",
           "content": {
-            "title": "Frei Gilson acolhe sua resposta",
+            "title": "Mensagem de voz de Frei Gilson",
             "url": "audio-04-acolhimento-dor.mp3",
             "duration": 20,
             "fallback": "Se o áudio não tocar, pode seguir: sua dor foi acolhida e agora vamos conduzir essa intenção com calma."
@@ -120,7 +130,7 @@
           "id": "aud-04-acolhimento-dor-brigas",
           "type": "audio",
           "content": {
-            "title": "Frei Gilson acolhe sua resposta",
+            "title": "Mensagem de voz de Frei Gilson",
             "url": "audio-04-acolhimento-dor.mp3",
             "duration": 20,
             "fallback": "Se o áudio não tocar, pode seguir: sua dor foi acolhida e agora vamos conduzir essa intenção com calma."
@@ -150,7 +160,7 @@
           "id": "aud-04-acolhimento-dor-saude",
           "type": "audio",
           "content": {
-            "title": "Frei Gilson acolhe sua resposta",
+            "title": "Mensagem de voz de Frei Gilson",
             "url": "audio-04-acolhimento-dor.mp3",
             "duration": 20,
             "fallback": "Se o áudio não tocar, pode seguir: sua dor foi acolhida e agora vamos conduzir essa intenção com calma."
@@ -180,7 +190,7 @@
           "id": "aud-04-acolhimento-dor-protecao",
           "type": "audio",
           "content": {
-            "title": "Frei Gilson acolhe sua resposta",
+            "title": "Mensagem de voz de Frei Gilson",
             "url": "audio-04-acolhimento-dor.mp3",
             "duration": 20,
             "fallback": "Se o áudio não tocar, pode seguir: sua dor foi acolhida e agora vamos conduzir essa intenção com calma."
@@ -355,10 +365,13 @@
           }
         },
         {
-          "id": "blk-ofe-transicao",
-          "type": "text",
+          "id": "aud-08-transicao-oracao",
+          "type": "audio",
           "content": {
-            "text": "Você não precisa enfrentar esse momento sem direção. O primeiro passo pode ser simples: reservar alguns minutos por dia para rezar com intenção e constância."
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-08-transicao-oracao.mp3",
+            "duration": 16,
+            "fallback": "Você não precisa resolver tudo de uma vez. Comece com um passo simples: reserve alguns minutos do seu dia para rezar com intenção, calma e constância."
           }
         },
         {
@@ -421,6 +434,16 @@
       "title": "Objeção: Preço",
       "blocks": [
         {
+          "id": "aud-11-acolhimento-preco",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-11-acolhimento-preco.mp3",
+            "duration": 20,
+            "fallback": "Eu entendo. Sua decisão precisa trazer paz, não aperto. Confira com calma se o valor cabe no seu momento. Se não couber agora, está tudo bem."
+          }
+        },
+        {
           "id": "blk-preco1",
           "type": "text",
           "content": {
@@ -464,6 +487,16 @@
       "id": "grp-duvida",
       "title": "Menu de Dúvidas",
       "blocks": [
+        {
+          "id": "aud-07-duvida",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-07-duvida.mp3",
+            "duration": 17,
+            "fallback": "Pode perguntar com tranquilidade. Escolha abaixo a dúvida que você quer esclarecer antes de continuar."
+          }
+        },
         {
           "id": "blk-duvida1",
           "type": "text",
@@ -611,6 +644,16 @@
       "title": "Dúvida: Nunca comprei online",
       "blocks": [
         {
+          "id": "aud-12-ajuda-primeira-compra",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-12-ajuda-primeira-compra.mp3",
+            "duration": 19,
+            "fallback": "Fique tranquilo. Você não precisa ter experiência com compras pela internet. Copie o código PIX, abra o aplicativo do banco, escolha Pix Copia e Cola, confira o valor e confirme."
+          }
+        },
+        {
           "id": "blk-sim1",
           "type": "text",
           "content": {
@@ -649,10 +692,13 @@
       "title": "Checkout - Cadastro e CPF",
       "blocks": [
         {
-          "id": "blk-cadastro-intro",
-          "type": "text",
+          "id": "aud-09-orientacao-cadastro",
+          "type": "audio",
           "content": {
-            "text": "Perfeito, {{apelido}}. Para preparar seu pedido, preciso confirmar seu nome e seu WhatsApp."
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-09-orientacao-cadastro.mp3",
+            "duration": 18,
+            "fallback": "Agora vamos fazer tudo com calma. Primeiro será solicitado seu nome completo, depois o WhatsApp e, para gerar o PIX, o CPF de quem fará o pagamento. Confira cada informação antes de continuar."
           }
         },
         {
@@ -719,10 +765,20 @@
       "title": "Oferta - Áudio da oração",
       "blocks": [
         {
+          "id": "aud-10-explicacao-audio-opcional",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-10-explicacao-audio-opcional.mp3",
+            "duration": 20,
+            "fallback": "Se a leitura no celular for cansativa, você pode incluir o áudio completo da oração. Ele é opcional; se não quiser, você continua normalmente com a oração principal."
+          }
+        },
+        {
           "id": "blk-bump5-txt",
           "type": "text",
           "content": {
-            "text": "Antes de fechar: se a leitura ficar difícil ou cansativa, você pode acompanhar cada palavra pelo celular.\n\nPor R$ 9,90 a mais, inclua o Áudio Completo da Oração Sagrada de São Bento.\n\nÉ opcional, digital, sem mensalidade e não muda o acesso principal. Após a confirmação do PIX, a equipe fará o envio manual para o WhatsApp informado."
+            "text": "Áudio Completo da Oração Sagrada de São Bento — R$ 9,90.\n\nÉ opcional, digital, sem mensalidade e não muda o acesso principal. Após a confirmação do PIX, a equipe fará o envio manual para o WhatsApp informado."
           }
         },
         {
@@ -795,6 +851,16 @@
           }
         },
         {
+          "id": "aud-06-como-pagar-pix",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-06-como-pagar-pix.mp3",
+            "duration": 21,
+            "fallback": "Vou explicar com calma: copie o código PIX, abra o aplicativo do seu banco, escolha Pix Copia e Cola, confira o valor e confirme."
+          }
+        },
+        {
           "id": "blk-payment",
           "type": "payment",
           "outgoingEdgeId": "edg-pagamento-obrigado"
@@ -816,7 +882,7 @@
           "id": "aud-03-pos-pagamento",
           "type": "audio",
           "content": {
-            "title": "Mensagem de confirmação",
+            "title": "Mensagem de voz de Frei Gilson",
             "url": "audio-03-pos-pagamento.mp3",
             "duration": 21,
             "fallback": "Se o áudio não tocar, siga a orientação abaixo: baixe a oração, salve no celular e comece com calma."

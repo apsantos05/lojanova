@@ -2,12 +2,12 @@
 'use strict';
 
 const CHECKOUT_URL = '/finalizar-pagamento/'; // mantido só como fallback legado (bloco "Redirect")
-const ASSET_VERSION = '30.0';
+const ASSET_VERSION = '31.0';
 const FUNNEL_URL = '/funnel.json?v=' + ASSET_VERSION;
-const TYPING_PER_CHAR = 30;
-const TYPING_MIN = 820;
-const TYPING_MAX = 4200;
-const POST_TYPING_DELAY = 680;
+const TYPING_PER_CHAR = 38;
+const TYPING_MIN = 1100;
+const TYPING_MAX = 6000;
+const POST_TYPING_DELAY = 1000;
 const POLL_INTERVAL_MS = 4500;
 const POLL_MAX_TRIES = 80; // ~6 minutos
 const PROGRESS_KEY = 'sb_chat_progress_v27';
@@ -63,14 +63,15 @@ function setAppHeight() {
   document.body.classList.toggle('keyboard-open', keyboardLooksOpen());
 }
 let appHeightRAF = null;
+let bottomSettleTimer = null;
 function scheduleAppHeight(forceBottom = false) {
   if (appHeightRAF) cancelAnimationFrame(appHeightRAF);
+  if (bottomSettleTimer) clearTimeout(bottomSettleTimer);
   appHeightRAF = requestAnimationFrame(() => {
     setAppHeight();
-    if (forceBottom || document.body.classList.contains('keyboard-open')) {
+    if (forceBottom) {
       scrollBottom();
-      setTimeout(scrollBottom, 140);
-      setTimeout(scrollBottom, 360);
+      bottomSettleTimer = setTimeout(scrollBottom, 220);
     }
   });
 }
@@ -79,7 +80,7 @@ window.addEventListener('resize', () => scheduleAppHeight(true), { passive: true
 window.addEventListener('orientationchange', () => setTimeout(() => scheduleAppHeight(true), 250), { passive: true });
 if (window.visualViewport) {
   window.visualViewport.addEventListener('resize', () => scheduleAppHeight(true), { passive: true });
-  window.visualViewport.addEventListener('scroll', () => scheduleAppHeight(true), { passive: true });
+  window.visualViewport.addEventListener('scroll', () => scheduleAppHeight(false), { passive: true });
 }
 document.addEventListener('focusin', (e) => {
   if (isEditableTarget(e.target)) {
@@ -90,8 +91,8 @@ document.addEventListener('focusin', (e) => {
 });
 document.addEventListener('focusout', (e) => {
   if (isEditableTarget(e.target)) {
-    setTimeout(() => scheduleAppHeight(true), 120);
-    setTimeout(() => scheduleAppHeight(true), 420);
+    setTimeout(() => scheduleAppHeight(false), 120);
+    setTimeout(() => scheduleAppHeight(false), 420);
   }
 });
 
@@ -327,8 +328,8 @@ function typingDelay(text) {
   const lineBreaks = (raw.match(/\n/g) || []).length;
 
   // Mensagens curtas não surgem instantaneamente, mas também não parecem um texto longo sendo digitado.
-  if (n <= 28) return 520 + Math.round(Math.random() * 620);
-  if (n <= 60) return 900 + Math.round(Math.random() * 850);
+  if (n <= 28) return 850 + Math.round(Math.random() * 650);
+  if (n <= 60) return 1400 + Math.round(Math.random() * 900);
 
   const pauses = punctuation * 170 + lineBreaks * 230;
   const base = Math.max(TYPING_MIN, Math.min(TYPING_MAX, n * TYPING_PER_CHAR + pauses));
@@ -337,13 +338,23 @@ function typingDelay(text) {
 
 function shouldShowTyping(text) {
   const n = String(text || '').trim().length;
-  if (n <= 28) return Math.random() < 0.38;
-  if (n <= 60) return Math.random() < 0.72;
+  if (n <= 28) return Math.random() < 0.62;
+  if (n <= 60) return Math.random() < 0.88;
   return true;
 }
 
-function conversationalPause(min = 520, max = 980) {
+function conversationalPause(min = 800, max = 1400) {
   return skippableSleep(min + Math.round(Math.random() * Math.max(0, max - min)));
+}
+
+function readingPause(text) {
+  const raw = String(text || '').trim();
+  const words = raw ? raw.split(/\s+/).length : 0;
+  const lineBreaks = (raw.match(/\n/g) || []).length;
+  const punctuation = (raw.match(/[.!?…:;]/g) || []).length;
+  const base = 1000 + words * 115 + lineBreaks * 280 + punctuation * 90;
+  const delay = Math.max(1600, Math.min(6500, base));
+  return skippableSleep(Math.round(delay * (0.92 + Math.random() * 0.18)));
 }
 
 function showTyping() {
@@ -371,7 +382,7 @@ function showAudioPreparing() {
   el.setAttribute('aria-live', 'polite');
   el.innerHTML = [
     '<span class="audio-preparing-icon" aria-hidden="true">🎙️</span>',
-    '<span class="audio-preparing-copy">preparando áudio…</span>',
+    '<span class="audio-preparing-copy">enviando mensagem de voz…</span>',
     '<span class="audio-preparing-wave" aria-hidden="true">',
     '<i></i><i></i><i></i><i></i>',
     '</span>'
@@ -548,12 +559,15 @@ function showTextInput(opts, onSubmit) {
     if (kind === 'cpf') input.value = formatCPF(input.value);
     error.hidden = true;
     input.removeAttribute('aria-invalid');
-    scheduleAppHeight(true);
   });
 
+  let submitted = false;
   const finish = (value, skipped = false) => {
+    if (submitted) return;
+    submitted = true;
     input.disabled = true; btn.disabled = true;
     if (skipBtn) skipBtn.disabled = true;
+    input.blur();
     onSubmit(value, { skipped });
   };
   const submit = () => {
@@ -1280,7 +1294,7 @@ async function renderBlock(block) {
   if (showIfBump && !state.bumps[showIfBump]) return;
   const milestoneStatus = {
     'blk-ofe1': 'view_offer',
-    'blk-cadastro-intro': 'view_checkout_registration',
+    'aud-09-orientacao-cadastro': 'view_checkout_registration',
     'blk-cpf-intro': 'view_cpf',
     'blk-resumo-txt': 'view_order_summary',
     'blk-payment': 'view_payment',
@@ -1290,7 +1304,7 @@ async function renderBlock(block) {
   if (milestoneStatus[block.id]) saveLead({ status: milestoneStatus[block.id] });
   if (block.type === 'audio') {
     await prepareAndAppendAudio(block.content || {});
-    await conversationalPause(760, 1320);
+    await conversationalPause(1200, 1900);
     return;
   }
 
@@ -1313,16 +1327,16 @@ async function renderBlock(block) {
       await skippableSleep(typingDelay(text));
       typing.remove();
     } else {
-      await conversationalPause(480, 920);
+      await conversationalPause(900, 1500);
     }
     if (block.id === 'blk-resumo-txt') appendOrderSummary();
     else appendMessage(text, 'bot');
-    await conversationalPause(560, 1050);
+    await readingPause(text);
     return;
   }
 
   if (block.type === 'choice input') {
-    await conversationalPause(520, 980);
+    await conversationalPause(900, 1500);
     await new Promise(resolve => {
       showChoices(block.items, (item) => {
         appendMessage(item.content, 'user');
@@ -1350,7 +1364,7 @@ async function renderBlock(block) {
   }
 
   if (block.type === 'text input') {
-    await conversationalPause(480, 900);
+    await conversationalPause(850, 1400);
     const kind = (block.options && block.options.kind) || 'text';
     await new Promise(resolve => {
       showTextInput(block.options || {}, async (value, meta = {}) => {
@@ -1376,6 +1390,7 @@ async function renderBlock(block) {
         resolve();
       });
     });
+    await conversationalPause(900, 1500);
     const inputEdge = state.edgeByBlock.get(block.id);
     if (inputEdge) state.nextEdge = inputEdge;
     return;

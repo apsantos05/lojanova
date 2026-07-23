@@ -45,11 +45,29 @@ describe('contrato do frontend migrado', () => {
 
   it('prepara os áudios com ritmo humano antes de exibi-los', () => {
     expect(app).toContain('function showAudioPreparing()');
-    expect(app).toContain('preparando áudio…');
+    expect(app).toContain('enviando mensagem de voz…');
     expect(app).toContain('await skippableSleep(audioPreparationDelay(content))');
     expect(css).toContain('.audio-preparing-wave');
     expect(css).toContain('@keyframes audio-wave');
     expect(app).not.toContain('gravando áudio agora');
+    expect(funnel.match(/Mensagem de voz de Frei Gilson/g)?.length).toBe(15);
+    expect(funnel).toContain('audio-02-aquecimento.mp3');
+    expect(funnel).toContain('audio-06-como-pagar-pix.mp3');
+    expect(funnel).toContain('audio-07-duvida.mp3');
+    expect(funnel).toContain('audio-08-transicao-oracao.mp3');
+    expect(funnel).toContain('audio-09-orientacao-cadastro.mp3');
+    expect(funnel).toContain('audio-10-explicacao-audio-opcional.mp3');
+    expect(funnel).toContain('audio-11-acolhimento-preco.mp3');
+    expect(funnel).toContain('audio-12-ajuda-primeira-compra.mp3');
+  });
+
+  it('evita saltos da tela enquanto o lead digita no celular', () => {
+    const inputHandler = app.match(/input\.addEventListener\('input',[\s\S]*?\n  \}\);/)?.[0] || '';
+    expect(inputHandler).not.toContain('scheduleAppHeight');
+    expect(app).toContain("visualViewport.addEventListener('scroll', () => scheduleAppHeight(false)");
+    expect(app).toContain('if (submitted) return;');
+    expect(app).toContain('input.blur();');
+    expect(app).toContain('function readingPause(text)');
   });
 
   it('não grava CPF no localStorage nem o exibe como mensagem do lead', () => {

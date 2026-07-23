@@ -30,7 +30,7 @@ export default function Home() {
       </div>
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" strategy="beforeInteractive" />
       {pixelId ? <Script id="tiktok-pixel" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: pixelBootstrap(pixelId) }} /> : null}
-      <Script src="/app.js?v=30" strategy="afterInteractive" />
+      <Script src="/app.js?v=31" strategy="afterInteractive" />
     </>
   );
 }
