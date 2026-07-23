@@ -76,10 +76,10 @@ export function CheckoutAssistant() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
-  const [audioReady, setAudioReady] = useState(false);
   const [expired, setExpired] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
+  const checkingPaymentRef = useRef(false);
   const [sessionId, setSessionId] = useState('');
   const total = 2290 + (bump ? 990 : 0);
   const progress = step === 'name' ? 1 : step === 'phone' ? 2 : step === 'cpf' ? 3 : 4;
@@ -94,8 +94,11 @@ export function CheckoutAssistant() {
   }, []);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-  }, [messages, step, error, payment, audioReady]);
+    const frame = window.requestAnimationFrame(() => {
+      endRef.current?.scrollIntoView({ behavior: 'auto', block: 'end' });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [messages, step, error, payment]);
 
   useEffect(() => {
     if (error) errorRef.current?.focus();
@@ -112,7 +115,6 @@ export function CheckoutAssistant() {
         setBump(Boolean(saved.bump));
         setPayment(saved);
         setStep('pix');
-        window.setTimeout(() => setAudioReady(true), 1800);
         setMessages((current) => [
           ...current,
           { id: 'resume', from: 'assistant', text: 'Encontrei um PIX já gerado nesta sessão. Vou retomar de onde você parou.' },
@@ -128,7 +130,8 @@ export function CheckoutAssistant() {
   const transactionId = payment?.transactionId || '';
 
   const checkPayment = useCallback(async () => {
-    if (!transactionId || !sessionId) return;
+    if (!transactionId || !sessionId || checkingPaymentRef.current) return;
+    checkingPaymentRef.current = true;
     try {
       const response = await fetch(`/api/check-payment?id=${encodeURIComponent(transactionId)}&sid=${encodeURIComponent(sessionId)}`, { cache: 'no-store' });
       const data = await response.json();
@@ -141,6 +144,8 @@ export function CheckoutAssistant() {
       }
     } catch {
       // O polling tenta novamente; não interrompe o usuário por instabilidade breve.
+    } finally {
+      checkingPaymentRef.current = false;
     }
   }, [add, sessionId, transactionId]);
 
@@ -231,7 +236,6 @@ export function CheckoutAssistant() {
       setPayment(created);
       setStep('pix');
       setCpf('');
-      setAudioReady(false);
       add('assistant', prompts.pix);
       localStorage.setItem(ORDER_KEY, JSON.stringify({ ...created, sessionId, bump }));
       void fetch('/api/save-lead', {
@@ -248,7 +252,6 @@ export function CheckoutAssistant() {
           ...utms(),
         }),
       });
-      window.setTimeout(() => setAudioReady(true), 1800);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'Não foi possível gerar o PIX. Tente novamente.');
     } finally {
@@ -380,14 +383,6 @@ export function CheckoutAssistant() {
                 </>
               )}
             </section>
-          ) : null}
-
-          {step === 'pix' && !audioReady ? <div className={styles.recording}><span /> preparando áudio de ajuda…</div> : null}
-          {step === 'pix' && audioReady ? (
-            <div className={`${styles.bubble} ${styles.assistant} ${styles.audioBubble}`}>
-              <strong>Áudio: como pagar o PIX</strong>
-              <audio controls preload="metadata" src="/audio-06-como-pagar-pix.mp3">Seu navegador não suporta áudio.</audio>
-            </div>
           ) : null}
 
           {step === 'paid' && payment ? (

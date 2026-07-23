@@ -84,4 +84,15 @@ describe('contrato do frontend migrado', () => {
     expect(track).toContain('track_public:');
     expect(webhook).toContain('webhook_public:');
   });
+  it('não repete áudio nem envia mensagem de voz depois do QR Code', () => {
+    expect(app).toContain('const renderedAudioUrls = new Set()');
+    expect(app).toContain('if (renderedAudioUrls.has(url)) return null');
+    expect(app).not.toContain('appendPixVoiceAfterDelay();');
+  });
+
+  it('mantém o ritmo do chat ágil, com esperas curtas e puláveis', () => {
+    expect(app).toContain('const TYPING_MAX = 2400');
+    expect(app).toContain('const POST_TYPING_DELAY = 360');
+    expect(app).toContain('function skippableSleep(ms)');
+  });
 });

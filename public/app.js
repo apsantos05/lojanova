@@ -2,12 +2,12 @@
 'use strict';
 
 const CHECKOUT_URL = '/finalizar-pagamento/'; // mantido só como fallback legado (bloco "Redirect")
-const ASSET_VERSION = '31.0';
+const ASSET_VERSION = '32.0';
 const FUNNEL_URL = '/funnel.json?v=' + ASSET_VERSION;
-const TYPING_PER_CHAR = 38;
-const TYPING_MIN = 1100;
-const TYPING_MAX = 6000;
-const POST_TYPING_DELAY = 1000;
+const TYPING_PER_CHAR = 18;
+const TYPING_MIN = 420;
+const TYPING_MAX = 2400;
+const POST_TYPING_DELAY = 360;
 const POLL_INTERVAL_MS = 4500;
 const POLL_MAX_TRIES = 80; // ~6 minutos
 const PROGRESS_KEY = 'sb_chat_progress_v27';
@@ -71,7 +71,7 @@ function scheduleAppHeight(forceBottom = false) {
     setAppHeight();
     if (forceBottom) {
       scrollBottom();
-      bottomSettleTimer = setTimeout(scrollBottom, 220);
+      bottomSettleTimer = setTimeout(scrollBottom, 180);
     }
   });
 }
@@ -328,10 +328,10 @@ function typingDelay(text) {
   const lineBreaks = (raw.match(/\n/g) || []).length;
 
   // Mensagens curtas não surgem instantaneamente, mas também não parecem um texto longo sendo digitado.
-  if (n <= 28) return 850 + Math.round(Math.random() * 650);
-  if (n <= 60) return 1400 + Math.round(Math.random() * 900);
+  if (n <= 28) return 300 + Math.round(Math.random() * 330);
+  if (n <= 60) return 520 + Math.round(Math.random() * 480);
 
-  const pauses = punctuation * 170 + lineBreaks * 230;
+  const pauses = punctuation * 100 + lineBreaks * 140;
   const base = Math.max(TYPING_MIN, Math.min(TYPING_MAX, n * TYPING_PER_CHAR + pauses));
   return Math.round(base * (0.90 + Math.random() * 0.24));
 }
@@ -352,8 +352,8 @@ function readingPause(text) {
   const words = raw ? raw.split(/\s+/).length : 0;
   const lineBreaks = (raw.match(/\n/g) || []).length;
   const punctuation = (raw.match(/[.!?…:;]/g) || []).length;
-  const base = 1000 + words * 115 + lineBreaks * 280 + punctuation * 90;
-  const delay = Math.max(1600, Math.min(6500, base));
+  const base = 360 + words * 28 + lineBreaks * 80 + punctuation * 35;
+  const delay = Math.max(420, Math.min(1600, base));
   return skippableSleep(Math.round(delay * (0.92 + Math.random() * 0.18)));
 }
 
@@ -369,7 +369,7 @@ function showTyping() {
 
 function audioPreparationDelay(content) {
   const durationSeconds = Number(content && content.duration) || 18;
-  const base = 1900 + Math.min(2200, durationSeconds * 85);
+  const base = 1050 + Math.min(1200, durationSeconds * 45);
   return Math.round(base * (0.88 + Math.random() * 0.24));
 }
 
@@ -737,6 +737,7 @@ function appendOrderSummary() {
 
 
 let activeConversationAudio = null;
+const renderedAudioUrls = new Set();
 
 function stopOtherConversationAudios(currentAudio) {
   document.querySelectorAll('audio').forEach(other => {
@@ -756,6 +757,8 @@ function bindAudioTracking(audio, src, title) {
 function appendAudioBubble(content) {
   const url = content && content.url;
   if (!url) return null;
+  if (renderedAudioUrls.has(url)) return null;
+  renderedAudioUrls.add(url);
 
   const wrap = document.createElement('div');
   wrap.className = 'msg bot voice-msg';
@@ -1046,7 +1049,6 @@ async function runPaymentBlock() {
 
   const bubble = appendPaymentBubble();
   fillPaymentBubble(bubble, data);
-  appendPixVoiceAfterDelay();
 
   return new Promise(resolve => {
     pollPayment(data.transactionId, bubble, resolve);
@@ -1079,7 +1081,6 @@ async function resumeExistingPayment(paymentInfo) {
     };
     saveProgress('grp-checkout-pagamento', state.payment);
     fillPaymentBubble(bubble, state.payment);
-    appendPixVoiceAfterDelay();
   } catch (e) {
     state.payment = paymentInfo;
     saveProgress('grp-checkout-pagamento', state.payment);
@@ -1090,20 +1091,6 @@ async function resumeExistingPayment(paymentInfo) {
   });
 }
 
-
-
-function appendPixVoiceAfterDelay() {
-  window.setTimeout(() => {
-    if (!document.querySelector('.payment-msg')) return;
-    const content = {
-        title: 'Mensagem de voz de Frei Gilson',
-        url: 'audio-06-como-pagar-pix.mp3',
-        duration: 21,
-        fallback: 'Se o áudio não tocar, fique em paz: copie o código PIX, abra seu banco, cole em Pix Copia e Cola e confirme.'
-    };
-    prepareAndAppendAudio(content, 320, 720);
-  }, 900 + Math.round(Math.random() * 700));
-}
 
 
 async function checkPaymentOnce(transactionId) {
@@ -1304,7 +1291,7 @@ async function renderBlock(block) {
   if (milestoneStatus[block.id]) saveLead({ status: milestoneStatus[block.id] });
   if (block.type === 'audio') {
     await prepareAndAppendAudio(block.content || {});
-    await conversationalPause(1200, 1900);
+    await conversationalPause(360, 680);
     return;
   }
 
@@ -1327,7 +1314,7 @@ async function renderBlock(block) {
       await skippableSleep(typingDelay(text));
       typing.remove();
     } else {
-      await conversationalPause(900, 1500);
+      await conversationalPause(260, 520);
     }
     if (block.id === 'blk-resumo-txt') appendOrderSummary();
     else appendMessage(text, 'bot');
@@ -1336,7 +1323,7 @@ async function renderBlock(block) {
   }
 
   if (block.type === 'choice input') {
-    await conversationalPause(900, 1500);
+    await conversationalPause(280, 560);
     await new Promise(resolve => {
       showChoices(block.items, (item) => {
         appendMessage(item.content, 'user');
@@ -1364,7 +1351,7 @@ async function renderBlock(block) {
   }
 
   if (block.type === 'text input') {
-    await conversationalPause(850, 1400);
+    await conversationalPause(260, 520);
     const kind = (block.options && block.options.kind) || 'text';
     await new Promise(resolve => {
       showTextInput(block.options || {}, async (value, meta = {}) => {
@@ -1390,7 +1377,7 @@ async function renderBlock(block) {
         resolve();
       });
     });
-    await conversationalPause(900, 1500);
+    await conversationalPause(300, 620);
     const inputEdge = state.edgeByBlock.get(block.id);
     if (inputEdge) state.nextEdge = inputEdge;
     return;
