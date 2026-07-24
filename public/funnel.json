@@ -375,10 +375,13 @@
           }
         },
         {
-          "id": "blk-ofe2",
-          "type": "text",
+          "id": "aud-13-recebe-agora",
+          "type": "audio",
           "content": {
-            "text": "Você recebe agora:\n\n✝️ a Oração Sagrada de São Bento completa\n🗓️ um caminho guiado de 7 dias\n📱 acesso imediato para salvar no celular\n🙏 um espaço para registrar sua intenção\n\nSem mensalidade e sem cobrança escondida."
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-13-recebe-agora.mp3",
+            "duration": 18,
+            "fallback": "Você recebe agora a Oração Sagrada de São Bento completa, um caminho guiado de sete dias, acesso imediato para salvar o material no seu celular e um espaço para registrar a sua intenção de oração. Tudo isso sem mensalidade e sem nenhuma cobrança escondida."
           }
         },
         {
@@ -399,10 +402,23 @@
           }
         },
         {
-          "id": "blk-ofe-garantia",
-          "type": "text",
+          "id": "aud-15-contribuicao",
+          "type": "audio",
           "content": {
-            "text": "Antes de decidir, confira com calma: este é um acesso digital, com pagamento único por PIX e sem mensalidade. A oração principal é liberada nesta conversa após a confirmação do pagamento."
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-15-contribuicao.mp3",
+            "duration": 24,
+            "fallback": "Quero também agradecer de coração pela sua contribuição. Além de receber a Oração Sagrada de São Bento e iniciar este caminho de fé, a sua contribuição ajuda instituições que cuidam de pessoas carentes e também beneficia a Igreja Caminho da Paz. Ficamos muito felizes com esse gesto, porque ele nos ajuda a continuar levando oração, acolhimento e esperança a mais pessoas."
+          }
+        },
+        {
+          "id": "aud-14-antes-de-decidir",
+          "type": "audio",
+          "content": {
+            "title": "Mensagem de voz de Frei Gilson",
+            "url": "audio-14-antes-de-decidir.mp3",
+            "duration": 22,
+            "fallback": "Antes de decidir, confira tudo com calma. Este é um acesso digital, com pagamento único por PIX e sem mensalidade. Assim que o pagamento for confirmado, a Oração Sagrada de São Bento será liberada aqui mesmo, nesta conversa, para você baixar e guardar no seu celular."
           }
         },
         {

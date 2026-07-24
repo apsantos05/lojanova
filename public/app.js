@@ -2,11 +2,11 @@
 'use strict';
 
 const CHECKOUT_URL = '/finalizar-pagamento/'; // mantido só como fallback legado (bloco "Redirect")
-const ASSET_VERSION = '32.0';
+const ASSET_VERSION = '33.0';
 const FUNNEL_URL = '/funnel.json?v=' + ASSET_VERSION;
-const TYPING_PER_CHAR = 18;
-const TYPING_MIN = 420;
-const TYPING_MAX = 2400;
+const TYPING_PER_CHAR = 22;
+const TYPING_MIN = 480;
+const TYPING_MAX = 5200;
 const POST_TYPING_DELAY = 360;
 const POLL_INTERVAL_MS = 4500;
 const POLL_MAX_TRIES = 80; // ~6 minutos
@@ -110,6 +110,7 @@ const state = {
   doneRedirect: false,
   currentGroupId: null,
   currentBlockIndex: 0,
+  lastLeadReply: '',
   payment: null,
 };
 
@@ -328,8 +329,8 @@ function typingDelay(text) {
   const lineBreaks = (raw.match(/\n/g) || []).length;
 
   // Mensagens curtas não surgem instantaneamente, mas também não parecem um texto longo sendo digitado.
-  if (n <= 28) return 300 + Math.round(Math.random() * 330);
-  if (n <= 60) return 520 + Math.round(Math.random() * 480);
+  if (n <= 28) return 420 + Math.round(Math.random() * 360);
+  if (n <= 60) return 720 + Math.round(Math.random() * 520);
 
   const pauses = punctuation * 100 + lineBreaks * 140;
   const base = Math.max(TYPING_MIN, Math.min(TYPING_MAX, n * TYPING_PER_CHAR + pauses));
@@ -355,6 +356,22 @@ function readingPause(text) {
   const base = 360 + words * 28 + lineBreaks * 80 + punctuation * 35;
   const delay = Math.max(420, Math.min(1600, base));
   return skippableSleep(Math.round(delay * (0.92 + Math.random() * 0.18)));
+}
+
+function rememberLeadReply(text) {
+  state.lastLeadReply = String(text || '').trim();
+}
+
+function pauseAfterLeadReply() {
+  const raw = state.lastLeadReply;
+  state.lastLeadReply = '';
+  if (!raw) return Promise.resolve();
+
+  const words = raw.split(/\s+/).filter(Boolean).length;
+  const punctuation = (raw.match(/[.!?…:;]/g) || []).length;
+  const base = 420 + Math.min(1050, raw.length * 7) + Math.min(280, words * 12) + punctuation * 45;
+  const delay = Math.max(520, Math.min(1850, base));
+  return skippableSleep(Math.round(delay * (0.90 + Math.random() * 0.22)));
 }
 
 function showTyping() {
@@ -412,6 +429,7 @@ function appendMessage(text, who = 'bot', extraClass = '') {
   const el = document.createElement('div');
   el.className = 'msg ' + who + (extraClass ? ' ' + extraClass : '');
   el.textContent = text;
+  if (who === 'user') rememberLeadReply(text);
 
   const meta = document.createElement('div');
   meta.className = 'msg-meta';
@@ -1290,6 +1308,7 @@ async function renderBlock(block) {
   };
   if (milestoneStatus[block.id]) saveLead({ status: milestoneStatus[block.id] });
   if (block.type === 'audio') {
+    await pauseAfterLeadReply();
     await prepareAndAppendAudio(block.content || {});
     await conversationalPause(360, 680);
     return;
@@ -1309,6 +1328,7 @@ async function renderBlock(block) {
   if (block.type === 'text') {
     const text = interpolate(block.content && block.content.text || '');
     if (!text) return;
+    await pauseAfterLeadReply();
     if (shouldShowTyping(text)) {
       const typing = showTyping();
       await skippableSleep(typingDelay(text));
@@ -1330,7 +1350,6 @@ async function renderBlock(block) {
         clearInputZone();
         track('ClickButton', { content_name: item.content, dor: state.vars.dor || '', para_quem: state.vars.para_quem || '' });
         persistChoiceVars(item);
-        saveProgress(state.currentGroupId || '');
         if (item.meta && typeof item.meta.bump === 'number') {
           const bumpId = item.meta.bump;
           state.bumps[bumpId] = !!item.meta.value;
@@ -1341,6 +1360,8 @@ async function renderBlock(block) {
           }
         }
         const edge = state.edgeByItem.get(item.id);
+        const targetGroupId = edge && edge.to && edge.to.groupId;
+        saveProgress(targetGroupId || state.currentGroupId || '', undefined, targetGroupId ? 0 : state.currentBlockIndex + 1);
         resolve({ edge });
       });
     }).then(({ edge }) => {
@@ -1365,7 +1386,11 @@ async function renderBlock(block) {
         appendMessage(meta.skipped ? ((block.options && block.options.skipButton) || 'Prefiro não responder agora') : displayedValue, 'user');
         clearInputZone();
         saveLead({ status: 'progress' });
-        saveProgress(state.currentGroupId || (state.blockMap.get(block.id) && state.blockMap.get(block.id).groupId) || '');
+        saveProgress(
+          state.currentGroupId || (state.blockMap.get(block.id) && state.blockMap.get(block.id).groupId) || '',
+          undefined,
+          state.currentBlockIndex + 1
+        );
 
         if (kind === 'phone') {
           track('Lead', { content_name: 'Funil Conversa - Oração São Bento' });
@@ -1383,7 +1408,6 @@ async function renderBlock(block) {
         resolve();
       });
     });
-    await conversationalPause(300, 620);
     const inputEdge = state.edgeByBlock.get(block.id);
     if (inputEdge) state.nextEdge = inputEdge;
     return;

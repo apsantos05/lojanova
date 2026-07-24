@@ -50,7 +50,7 @@ describe('contrato do frontend migrado', () => {
     expect(css).toContain('.audio-preparing-wave');
     expect(css).toContain('@keyframes audio-wave');
     expect(app).not.toContain('gravando áudio agora');
-    expect(funnel.match(/Mensagem de voz de Frei Gilson/g)?.length).toBe(15);
+    expect(funnel.match(/Mensagem de voz de Frei Gilson/g)?.length).toBe(18);
     expect(funnel).toContain('audio-02-aquecimento.mp3');
     expect(funnel).toContain('audio-06-como-pagar-pix.mp3');
     expect(funnel).toContain('audio-07-duvida.mp3');
@@ -59,6 +59,11 @@ describe('contrato do frontend migrado', () => {
     expect(funnel).toContain('audio-10-explicacao-audio-opcional.mp3');
     expect(funnel).toContain('audio-11-acolhimento-preco.mp3');
     expect(funnel).toContain('audio-12-ajuda-primeira-compra.mp3');
+    expect(funnel).toContain('audio-13-recebe-agora.mp3');
+    expect(funnel).toContain('audio-14-antes-de-decidir.mp3');
+    expect(funnel).toContain('audio-15-contribuicao.mp3');
+    expect(funnel).not.toContain('"id": "blk-ofe2"');
+    expect(funnel).not.toContain('"id": "blk-ofe-garantia"');
   });
 
   it('mantém no pacote todos os áudios referenciados pelo funil', () => {
@@ -99,10 +104,18 @@ describe('contrato do frontend migrado', () => {
     expect(app).not.toContain('appendPixVoiceAfterDelay();');
   });
 
-  it('mantém o ritmo do chat ágil, com esperas curtas e puláveis', () => {
-    expect(app).toContain('const TYPING_MAX = 2400');
+  it('intercala o ritmo conforme o tamanho das mensagens e das respostas do lead', () => {
+    expect(app).toContain('const TYPING_MAX = 5200');
     expect(app).toContain('const POST_TYPING_DELAY = 360');
     expect(app).toContain('function skippableSleep(ms)');
+    expect(app).toContain('function pauseAfterLeadReply()');
+    expect(app).toContain('raw.length * 7');
+    expect(app).toContain('await pauseAfterLeadReply()');
+  });
+
+  it('salva o próximo passo depois da resposta para não repetir perguntas ao retomar', () => {
+    expect(app).toContain('targetGroupId ? 0 : state.currentBlockIndex + 1');
+    expect(app).toContain('state.currentBlockIndex + 1');
   });
   it('envia identificação completa do produto nos eventos de conversão', () => {
     expect(app).toContain("track('ViewContent', {");
