@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { hashSession, validCpf, validSession, validTransaction } from '../lib/validation';
+import { hashSession, validCpf, validFullName, validSession, validTransaction } from '../lib/validation';
 
 describe('validações do checkout', () => {
   it('valida sessão e transação sem aceitar caracteres de caminho', () => {
@@ -12,6 +12,15 @@ describe('validações do checkout', () => {
   it('valida CPF pelos dígitos verificadores', () => {
     expect(validCpf('529.982.247-25')).toBe(true);
     expect(validCpf('111.111.111-11')).toBe(false);
+  });
+
+  it('exige nome e pelo menos um sobrenome real para gerar o PIX', () => {
+    expect(validFullName('Maria Silva')).toBe(true);
+    expect(validFullName('João da Silva')).toBe(true);
+    expect(validFullName("Ana D'Ávila")).toBe(true);
+    expect(validFullName('Maria')).toBe(false);
+    expect(validFullName('Maria da')).toBe(false);
+    expect(validFullName('Maria 123')).toBe(false);
   });
 
   it('não persiste a sessão em texto puro no banco', () => {

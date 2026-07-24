@@ -8,6 +8,15 @@ export function digits(value: unknown) {
   return String(value ?? '').replace(/\D+/g, '');
 }
 
+export function validFullName(value: unknown) {
+  const parts = text(value, 80).trim().split(/\s+/).filter(Boolean);
+  if (parts.length < 2) return false;
+  const validPart = (part: string) => /^[A-Za-zÀ-ÖØ-öø-ÿ'’-]{2,}$/.test(part);
+  if (!validPart(parts[0])) return false;
+  const particles = new Set(['da', 'de', 'do', 'das', 'dos', 'e']);
+  return parts.slice(1).some((part) => validPart(part) && !particles.has(part.toLocaleLowerCase('pt-BR')));
+}
+
 export function validSession(value: string) {
   return /^[A-Za-z0-9_-]{8,64}$/.test(value);
 }

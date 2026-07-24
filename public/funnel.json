@@ -460,13 +460,6 @@
           }
         },
         {
-          "id": "blk-preco1",
-          "type": "text",
-          "content": {
-            "text": "Eu entendo, {{apelido}}. Sua decisão precisa trazer paz, não aperto."
-          }
-        },
-        {
           "id": "blk-preco2",
           "type": "text",
           "content": {
@@ -494,6 +487,11 @@
               "id": "itm-preco-sair",
               "content": "Agora não",
               "outgoingEdgeId": "edg-preco-sair"
+            },
+            {
+              "id": "itm-preco-duvida",
+              "content": "Quero tirar outra dúvida",
+              "outgoingEdgeId": "edg-preco-duvida"
             }
           ]
         }
@@ -581,6 +579,16 @@
               "id": "itm-ent-btn",
               "content": "✝️ Entendi. Pode gerar meu acesso",
               "outgoingEdgeId": "edg-ent-red"
+            },
+            {
+              "id": "itm-ent-duvida",
+              "content": "Quero tirar outra dúvida",
+              "outgoingEdgeId": "edg-ent-duvida"
+            },
+            {
+              "id": "itm-ent-sair",
+              "content": "Agora não",
+              "outgoingEdgeId": "edg-ent-sair"
             }
           ]
         }
@@ -601,7 +609,7 @@
           "id": "blk-aut2",
           "type": "text",
           "content": {
-            "text": "A oração e a medalha são associadas à fé, à proteção e ao combate espiritual."
+            "text": "Este é um material devocional para orientar seu momento de oração. Ele não promete resultado automático e não substitui acompanhamento religioso, médico ou profissional quando necessário."
           }
         },
         {
@@ -612,6 +620,16 @@
               "id": "itm-aut-btn",
               "content": "✝️ Quero continuar com a oração",
               "outgoingEdgeId": "edg-aut-red"
+            },
+            {
+              "id": "itm-aut-duvida",
+              "content": "Quero tirar outra dúvida",
+              "outgoingEdgeId": "edg-aut-duvida"
+            },
+            {
+              "id": "itm-aut-sair",
+              "content": "Agora não",
+              "outgoingEdgeId": "edg-aut-sair"
             }
           ]
         }
@@ -632,14 +650,14 @@
           "id": "blk-gar2",
           "type": "text",
           "content": {
-            "text": "Você terá 7 dias para acessar o material com calma. Depois da confirmação do PIX, baixe a oração principal e salve o arquivo no seu celular."
+            "text": "A oração é um caminho de fé e constância, não uma promessa de resultado automático. O material foi preparado para orientar seus momentos de oração durante 7 dias."
           }
         },
         {
           "id": "blk-gar3",
           "type": "text",
           "content": {
-            "text": "Antes de pagar, você poderá conferir o conteúdo do pedido e o valor total. Nada será acrescentado sem sua escolha."
+            "text": "Antes de pagar, você confere o conteúdo e o valor total. Após a confirmação do PIX, o arquivo é liberado nesta conversa para você baixar e guardar no celular."
           }
         },
         {
@@ -650,6 +668,16 @@
               "id": "itm-gar-btn",
               "content": "Entendi. Quero continuar",
               "outgoingEdgeId": "edg-gar-red"
+            },
+            {
+              "id": "itm-gar-duvida",
+              "content": "Quero tirar outra dúvida",
+              "outgoingEdgeId": "edg-gar-duvida"
+            },
+            {
+              "id": "itm-gar-sair",
+              "content": "Agora não",
+              "outgoingEdgeId": "edg-gar-sair"
             }
           ]
         }
@@ -670,24 +698,10 @@
           }
         },
         {
-          "id": "blk-sim1",
-          "type": "text",
-          "content": {
-            "text": "Sem problema. O pagamento é feito por PIX, de forma simples."
-          }
-        },
-        {
-          "id": "blk-sim2",
-          "type": "text",
-          "content": {
-            "text": "Você copia o código, abre o aplicativo do banco, escolhe Pix Copia e Cola e confirma."
-          }
-        },
-        {
           "id": "blk-sim3",
           "type": "text",
           "content": {
-            "text": "Depois volta para esta conversa. A confirmação acontece automaticamente."
+            "text": "Na etapa do pagamento, eu mostro o QR Code, o botão para copiar o código e o passo a passo. Depois você volta para esta conversa, e a confirmação acontece automaticamente."
           }
         },
         {
@@ -698,6 +712,16 @@
               "id": "itm-sim-btn",
               "content": "✝️ Vou tentar, Frei. Quero começar",
               "outgoingEdgeId": "edg-sim-red"
+            },
+            {
+              "id": "itm-sim-duvida",
+              "content": "Quero tirar outra dúvida",
+              "outgoingEdgeId": "edg-sim-duvida"
+            },
+            {
+              "id": "itm-sim-sair",
+              "content": "Agora não",
+              "outgoingEdgeId": "edg-sim-sair"
             }
           ]
         }
@@ -730,7 +754,7 @@
           "options": {
             "placeholder": "Digite seu nome completo…",
             "label": "Digite seu nome completo",
-            "help": "Use nome e sobrenome, como no cadastro do pagamento.",
+            "help": "Informe seu nome e pelo menos um sobrenome, como no cadastro do pagamento.",
             "button": "Continuar",
             "variable": "nome",
             "kind": "name"
@@ -1183,6 +1207,11 @@
       }
     },
     {
+      "id": "edg-preco-duvida",
+      "from": { "blockId": "blk-btn-preco", "itemId": "itm-preco-duvida" },
+      "to": { "groupId": "grp-duvida" }
+    },
+    {
       "id": "edg-duvida-ent",
       "from": {
         "blockId": "blk-duvida-choice",
@@ -1233,6 +1262,16 @@
       }
     },
     {
+      "id": "edg-ent-duvida",
+      "from": { "blockId": "blk-btn-ent", "itemId": "itm-ent-duvida" },
+      "to": { "groupId": "grp-duvida" }
+    },
+    {
+      "id": "edg-ent-sair",
+      "from": { "blockId": "blk-btn-ent", "itemId": "itm-ent-sair" },
+      "to": { "groupId": "grp-encerramento" }
+    },
+    {
       "id": "edg-aut-red",
       "from": {
         "blockId": "blk-btn-aut",
@@ -1241,6 +1280,16 @@
       "to": {
         "groupId": "grp-checkout-cpf"
       }
+    },
+    {
+      "id": "edg-aut-duvida",
+      "from": { "blockId": "blk-btn-aut", "itemId": "itm-aut-duvida" },
+      "to": { "groupId": "grp-duvida" }
+    },
+    {
+      "id": "edg-aut-sair",
+      "from": { "blockId": "blk-btn-aut", "itemId": "itm-aut-sair" },
+      "to": { "groupId": "grp-encerramento" }
     },
     {
       "id": "edg-gar-red",
@@ -1253,6 +1302,16 @@
       }
     },
     {
+      "id": "edg-gar-duvida",
+      "from": { "blockId": "blk-btn-gar", "itemId": "itm-gar-duvida" },
+      "to": { "groupId": "grp-duvida" }
+    },
+    {
+      "id": "edg-gar-sair",
+      "from": { "blockId": "blk-btn-gar", "itemId": "itm-gar-sair" },
+      "to": { "groupId": "grp-encerramento" }
+    },
+    {
       "id": "edg-sim-red",
       "from": {
         "blockId": "blk-btn-sim",
@@ -1261,6 +1320,16 @@
       "to": {
         "groupId": "grp-checkout-cpf"
       }
+    },
+    {
+      "id": "edg-sim-duvida",
+      "from": { "blockId": "blk-btn-sim", "itemId": "itm-sim-duvida" },
+      "to": { "groupId": "grp-duvida" }
+    },
+    {
+      "id": "edg-sim-sair",
+      "from": { "blockId": "blk-btn-sim", "itemId": "itm-sim-sair" },
+      "to": { "groupId": "grp-encerramento" }
     },
     {
       "id": "edg-cpf-audio",

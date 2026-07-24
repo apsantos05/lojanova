@@ -2,7 +2,7 @@
 'use strict';
 
 const CHECKOUT_URL = '/finalizar-pagamento/'; // mantido só como fallback legado (bloco "Redirect")
-const ASSET_VERSION = '33.0';
+const ASSET_VERSION = '34.0';
 const FUNNEL_URL = '/funnel.json?v=' + ASSET_VERSION;
 const TYPING_PER_CHAR = 22;
 const TYPING_MIN = 480;
@@ -653,12 +653,19 @@ function isValidCPF(cpfRaw) {
   return rest === parseInt(cpf[10]);
 }
 
+function isValidFullName(nameRaw) {
+  const parts = String(nameRaw || '').trim().split(/\s+/).filter(Boolean);
+  if (parts.length < 2) return false;
+  const validPart = (part) => /^[A-Za-zÀ-ÖØ-öø-ÿ'’-]{2,}$/.test(part);
+  if (!validPart(parts[0])) return false;
+  const particles = new Set(['da', 'de', 'do', 'das', 'dos', 'e']);
+  return parts.slice(1).some(part => validPart(part) && !particles.has(part.toLocaleLowerCase('pt-BR')));
+}
+
 function validate(value, kind) {
   if (!value) return 'Por favor, preencha o campo.';
   if (kind === 'name') {
-    const parts = value.trim().split(/\s+/).filter(Boolean);
-    if (parts.length < 2 || parts.some(p => p.length < 2)) return 'Digite seu nome completo (nome e sobrenome).';
-    if (!/[A-Za-zÀ-ÿ]/.test(value)) return 'Digite um nome válido.';
+    if (!isValidFullName(value)) return 'Digite seu nome completo, com pelo menos um sobrenome.';
   }
   if (kind === 'first_name') {
     if (value.trim().length < 2 || !/^[A-Za-zÀ-ÿ' -]+$/.test(value.trim())) return 'Digite um primeiro nome válido.';
