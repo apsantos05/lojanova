@@ -39,4 +39,16 @@ describe('funil da VSL', () => {
     expect(checkout).toContain("type={step === 'phone' ? 'tel' : 'text'}");
     expect(checkout).not.toContain('autoFocus');
   });
+  it('não envia áudio depois do QR Code nem sobrepõe consultas de pagamento', () => {
+    expect(checkout).not.toContain('audio-06-como-pagar-pix.mp3');
+    expect(checkout).not.toContain('audioReady');
+    expect(checkout).toContain('checkingPaymentRef.current');
+    expect(checkout).toContain("scrollIntoView({ behavior: 'auto'");
+  });
+
+  it('leva todos os CTAs da apresentação ao checkout atual', () => {
+    expect(vsl).toContain("'/youtube/finalizar-pagamento'");
+    expect(vsl).not.toContain("'/finalizar-pagamento/'");
+    expect(vsl).not.toContain('api/create-pix.php');
+  });
 });

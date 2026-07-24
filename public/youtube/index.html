@@ -657,7 +657,7 @@ Permaneça com calma até o final da live. Nos últimos minutos, o Padre fará u
   </div>
 
   <!-- CTA -->
-  <a class="sb-skip-band" id="sbRelease" href="/finalizar-pagamento/" rel="noopener" data-cta="checkout" aria-live="polite">
+  <a class="sb-skip-band" id="sbRelease" href="/youtube/finalizar-pagamento" rel="noopener" data-cta="checkout" aria-live="polite">
     <div class="sb-skip-inner">
       <div class="sb-skip-play"></div>
       <div class="sb-skip-center">
@@ -993,7 +993,7 @@ function showEndWarning(){
       if(countdownSec<=0){
         clearInterval(countdownTimer);
         // redireciona para checkout se não retomou
-        window.location.href='/finalizar-pagamento/'+(location.search||'');
+        window.location.href='/youtube/finalizar-pagamento'+(location.search||'');
       }
     },1000);
   }
@@ -1034,7 +1034,7 @@ function showEndWarning(){
     skipBtn.addEventListener('click',function(){
       hidePauseModal();
       gtmPush({event:'pause_redirect_skip'});
-      window.location.href='/finalizar-pagamento/'+(location.search||'');
+      window.location.href='/youtube/finalizar-pagamento'+(location.search||'');
     });
   }
 
@@ -1242,10 +1242,6 @@ var VSL_HLS_URL='https://bms0corilnnjspwi.public.blob.vercel-storage.com/videos/
   });
 
   /* ── Prewarm ── */
-  function prewarmPix(){
-    try{fetch('api/create-pix.php',{method:'OPTIONS',cache:'no-store',keepalive:true}).catch(function(){});}catch(e){}
-  }
-  setTimeout(prewarmPix,8000);
 })();
 
 /* ── DEBUG MODE ── */
@@ -1277,7 +1273,7 @@ if(lcSend)lcSend.addEventListener('click',sendLcMsg);
 <script>
 /* UTMs → checkout */
 (function(){
-  function dest(){return '/finalizar-pagamento/'+(location.search||'');}
+  function dest(){return '/youtube/finalizar-pagamento'+(location.search||'');}
   document.querySelectorAll('a[data-cta="checkout"]').forEach(function(el){el.setAttribute('href',dest());});
 })();
 </script>

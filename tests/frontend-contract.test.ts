@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 const app = readFileSync(new URL('../public/app.js', import.meta.url), 'utf8');
@@ -61,6 +61,15 @@ describe('contrato do frontend migrado', () => {
     expect(funnel).toContain('audio-12-ajuda-primeira-compra.mp3');
   });
 
+  it('mantém no pacote todos os áudios referenciados pelo funil', () => {
+    const audioUrls = [...funnel.matchAll(/"url": "(audio-[^"]+\.mp3)"/g)]
+      .map((match) => match[1]);
+    expect(audioUrls.length).toBeGreaterThan(0);
+    for (const audioUrl of new Set(audioUrls)) {
+      expect(existsSync(new URL(`../public/${audioUrl}`, import.meta.url))).toBe(true);
+    }
+  });
+
   it('evita saltos da tela enquanto o lead digita no celular', () => {
     const inputHandler = app.match(/input\.addEventListener\('input',[\s\S]*?\n  \}\);/)?.[0] || '';
     expect(inputHandler).not.toContain('scheduleAppHeight');
@@ -83,5 +92,22 @@ describe('contrato do frontend migrado', () => {
     expect(saveLead).toContain('save_lead_public:');
     expect(track).toContain('track_public:');
     expect(webhook).toContain('webhook_public:');
+  });
+  it('não repete áudio nem envia mensagem de voz depois do QR Code', () => {
+    expect(app).toContain('const renderedAudioUrls = new Set()');
+    expect(app).toContain('if (renderedAudioUrls.has(url)) return null');
+    expect(app).not.toContain('appendPixVoiceAfterDelay();');
+  });
+
+  it('mantém o ritmo do chat ágil, com esperas curtas e puláveis', () => {
+    expect(app).toContain('const TYPING_MAX = 2400');
+    expect(app).toContain('const POST_TYPING_DELAY = 360');
+    expect(app).toContain('function skippableSleep(ms)');
+  });
+  it('envia identificação completa do produto nos eventos de conversão', () => {
+    expect(app).toContain("track('ViewContent', {");
+    expect(app).toContain("track('AddPaymentInfo', {");
+    expect(app.match(/content_id: 'oracaosaobento'/g)?.length).toBeGreaterThanOrEqual(3);
+    expect(app.match(/content_type: 'product'/g)?.length).toBeGreaterThanOrEqual(4);
   });
 });
