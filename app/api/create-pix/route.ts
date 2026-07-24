@@ -4,7 +4,7 @@ import { buildCart } from '@/lib/catalog';
 import { serverEnv } from '@/lib/env';
 import { json, readJson } from '@/lib/http';
 import { db, consumeRateLimit } from '@/lib/supabase';
-import { clientIp, digits, hashIdentity, hashSession, text, validCpf, validSession } from '@/lib/validation';
+import { clientIp, digits, hashIdentity, hashSession, text, validCpf, validFullName, validSession } from '@/lib/validation';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     const { bumpIds, items, amountCents } = buildCart(body.bumps);
 
     if (!validSession(sessionId)) return json({ ok: false, message: 'Sessão inválida. Recarregue a conversa e tente novamente.' }, 422);
-    if (name.split(/\s+/).filter(Boolean).length < 2) return json({ ok: false, message: 'Informe seu nome completo.' }, 422);
+    if (!validFullName(name)) return json({ ok: false, message: 'Informe seu nome completo, com pelo menos um sobrenome.' }, 422);
     if (phone.length < 10 || phone.length > 11) return json({ ok: false, message: 'WhatsApp inválido. Informe com DDD.' }, 422);
     if (!validCpf(document)) return json({ ok: false, message: 'CPF inválido.' }, 422);
     const ipHash = hashIdentity(clientIp(request) || 'unknown');

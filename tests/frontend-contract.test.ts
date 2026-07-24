@@ -34,6 +34,17 @@ describe('contrato do frontend migrado', () => {
     expect(css).toContain('-webkit-text-fill-color:var(--text)');
     expect(css).toContain('caret-color:#075e54');
     expect(funnel).toContain('"label": "Digite seu WhatsApp com DDD"');
+    expect(app).toContain('function isValidFullName(nameRaw)');
+    expect(app).toContain('com pelo menos um sobrenome');
+  });
+
+  it('permite continuar, tirar outra dúvida ou encerrar nas quebras de objeção', () => {
+    expect(funnel.match(/Quero tirar outra dúvida/g)?.length).toBe(5);
+    expect(funnel.match(/"groupId": "grp-duvida"/g)?.length).toBeGreaterThanOrEqual(6);
+    expect(funnel.match(/"groupId": "grp-encerramento"/g)?.length).toBeGreaterThanOrEqual(5);
+    expect(funnel).not.toContain('"id": "blk-preco1"');
+    expect(funnel).not.toContain('"id": "blk-sim1"');
+    expect(funnel).not.toContain('"id": "blk-sim2"');
   });
 
   it('exibe um resumo visual com valores calculados pelo catálogo', () => {
