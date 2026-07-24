@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     if (!(await consumeRateLimit(`create_pix_public:${ipHash}`, 60, 300))) return json({ ok: false, message: 'Muitas tentativas nesta conexão. Aguarde um minuto e tente novamente.' }, 429);
     const rateKey = `create_pix:${hashIdentity(`${clientIp(request)}|${sessionId}`)}`;
     if (!(await consumeRateLimit(rateKey, 10, 300))) return json({ ok: false, message: 'Muitas tentativas. Aguarde um minuto e tente novamente.' }, 429);
-    if (!/^\S+@\S+\.\S+$/.test(email)) email = `lead+${sessionId.replace(/[^a-z0-9]/gi, '').slice(0, 20)}@oracaosaobento.online`;
+    if (!/^\S+@\S+\.\S+$/.test(email)) email = `lead+${sessionId.replace(/[^a-z0-9]/gi, '').slice(0, 20)}@contemplacaocatolica.site`;
 
     const externalRef = `SB-${Date.now()}-${randomBytes(6).toString('hex')}`;
     const env = serverEnv();

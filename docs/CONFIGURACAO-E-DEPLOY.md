@@ -17,7 +17,7 @@ Cadastre em Production e Preview conforme o ambiente:
 ```text
 BLACKCAT_BASE_URL=https://api.blackcatoficial.com/api
 BLACKCAT_SECRET_KEY=<segredo>
-NEXT_PUBLIC_APP_URL=https://oracaosaobento.online
+NEXT_PUBLIC_APP_URL=https://contemplacaocatolica.site
 SUPABASE_URL=<url do projeto>
 SUPABASE_SERVICE_ROLE_KEY=<chave secreta apenas do servidor>
 SUPABASE_PDF_BUCKET=protected-content
@@ -60,14 +60,14 @@ pnpm dlx vercel promote <URL_DO_PREVIEW_VALIDADO>
 - Criar PIX: `POST /sales/create-sale`
 - Consultar: `GET /sales/{transactionId}/status`
 - Header: `X-API-Key`
-- Webhook final: `https://oracaosaobento.online/api/webhook-blackcat`
+- Webhook final: `https://contemplacaocatolica.site/api/webhook-blackcat`
 
 Cadastre a URL de webhook no painel da BlackCat se o painel exigir configuração adicional. A implementação não pressupõe assinatura não documentada; toda notificação é reconfirmada pela consulta de status.
 
 ## 5. DNS na Hostinger
 
-1. Adicione `oracaosaobento.online` ao projeto da Vercel.
-2. Adicione também `www.oracaosaobento.online` e escolha no painel qual versão redirecionará para a principal.
+1. Mantenha `contemplacaocatolica.site` como domínio principal do projeto na Vercel.
+2. Adicione também `www.contemplacaocatolica.site` e escolha no painel qual versão redirecionará para a principal.
 3. No painel da Vercel, abra Domains e copie exatamente os registros mostrados para `@` e `www`.
 4. Na zona DNS da Hostinger, remova ou substitua apenas os registros A/AAAA/CNAME conflitantes de `@` e `www`.
 5. Crie os registros usando exatamente tipo, nome e valor apresentados pela Vercel. Não use valores genéricos de tutoriais.
