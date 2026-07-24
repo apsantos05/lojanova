@@ -51,4 +51,9 @@ describe('funil da VSL', () => {
     expect(vsl).not.toContain("'/finalizar-pagamento/'");
     expect(vsl).not.toContain('api/create-pix.php');
   });
+
+  it('usa o domínio operacional atual nos metadados públicos', () => {
+    expect(vsl).toContain('https://contemplacaocatolica.site/youtube');
+    expect(vsl).not.toContain('https://oracaosaobento.online');
+  });
 });
