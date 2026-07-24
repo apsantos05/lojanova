@@ -45,4 +45,10 @@ describe('funil da VSL', () => {
     expect(checkout).toContain('checkingPaymentRef.current');
     expect(checkout).toContain("scrollIntoView({ behavior: 'auto'");
   });
+
+  it('leva todos os CTAs da apresentação ao checkout atual', () => {
+    expect(vsl).toContain("'/youtube/finalizar-pagamento'");
+    expect(vsl).not.toContain("'/finalizar-pagamento/'");
+    expect(vsl).not.toContain('api/create-pix.php');
+  });
 });

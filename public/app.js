@@ -1371,7 +1371,13 @@ async function renderBlock(block) {
           track('Lead', { content_name: 'Funil Conversa - Oração São Bento' });
         }
         if (kind === 'cpf') {
-          track('AddPaymentInfo', { content_name: 'Oração Sagrada de São Bento', currency: 'BRL', value: cartTotalCents() / 100 });
+          track('AddPaymentInfo', {
+            content_name: 'Oração Sagrada de São Bento',
+            content_id: 'oracaosaobento',
+            content_type: 'product',
+            currency: 'BRL',
+            value: cartTotalCents() / 100
+          });
         }
 
         resolve();
@@ -1508,7 +1514,13 @@ async function start() {
     return;
   }
   indexFunnel(fn);
-  track('ViewContent', { content_name: 'Funil Conversa - Oração São Bento' });
+  track('ViewContent', {
+    content_name: 'Oração Sagrada de São Bento',
+    content_id: 'oracaosaobento',
+    content_type: 'product',
+    currency: 'BRL',
+    value: SB_PRODUCT.price_cents / 100
+  });
 
   // Retomando uma conversa salva (ex.: página recarregou no meio do caminho)?
   const saved = loadProgress();
